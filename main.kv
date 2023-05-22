@@ -1,0 +1,53 @@
+MDScreen:
+    appName: "OpenMindset App"
+    MDTopAppBar:
+        title: root.appName
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {"top": 1}
+        left_action_items:
+            [['menu', lambda x: nav_drawer.set_state("open")]]
+
+    MDNavigationLayout:
+        MDScreenManager:
+            id: screen_manager
+            MDScreen:
+                name: "home"
+                BoxLayout:
+                    MDLabel:
+                        text: "Home screen"
+                        halign: "center"
+            MDScreen:
+                name: "about"
+                BoxLayout:
+                    MDLabel:
+                        text: "About this app..."
+                        halign: "center"
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+            MDNavigationDrawerMenu:
+                MDNavigationDrawerHeader:
+                    title: root.appName
+                    text: "Transform your mindset"
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"
+                MDNavigationDrawerItem:
+                    icon: "home"
+                    text: "Home screen"
+                    on_release:
+                        screen_manager.current = "home"
+                        nav_drawer.set_state("close")
+                MDNavigationDrawerItem:
+                    icon: "information"
+                    text: "About this app..."
+                    on_release:
+                        screen_manager.current = "about"
+                        nav_drawer.set_state("close")
+                MDNavigationDrawerDivider:
+                MDNavigationDrawerItem:
+                    icon: "exit-to-app"
+                    text: "Quit"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        app.stop()
+
