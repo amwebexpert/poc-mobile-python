@@ -6,6 +6,8 @@ MDScreen:
         pos_hint: {"top": 1}
         left_action_items:
             [['menu', lambda x: nav_drawer.set_state("open")]]
+        right_action_items:
+            [['information-outline', lambda x: app.show_info()]]
 
     MDNavigationLayout:
         MDScreenManager:
@@ -25,6 +27,7 @@ MDScreen:
         MDNavigationDrawer:
             id: nav_drawer
             radius: (0, 16, 16, 0)
+            theme_text_color: "Primary"
             MDNavigationDrawerMenu:
                 MDNavigationDrawerHeader:
                     title: root.appName
@@ -34,20 +37,22 @@ MDScreen:
                 MDNavigationDrawerItem:
                     icon: "home"
                     text: "Home screen"
+                    theme_text_color: "Primary"
                     on_release:
                         screen_manager.current = "home"
                         nav_drawer.set_state("close")
                 MDNavigationDrawerItem:
                     icon: "information"
                     text: "About this app..."
+                    theme_text_color: "Primary"
                     on_release:
                         screen_manager.current = "about"
                         nav_drawer.set_state("close")
                 MDNavigationDrawerDivider:
                 MDNavigationDrawerItem:
                     icon: "exit-to-app"
-                    text: "Quit"
+                    text: "Exit"
+                    theme_text_color: "Primary"
                     on_release:
                         nav_drawer.set_state("close")
-                        app.stop()
-
+                        app.exit()
