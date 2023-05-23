@@ -4,6 +4,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
 from kivymd.app import MDApp
+from kivy.clock import Clock
 
 class ContentNavigationDrawer(MDBoxLayout):
     pass
@@ -20,7 +21,13 @@ class MainApp(MDApp):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Orange"
 
-    def show_info(self):
+    def on_start(self):
+            Clock.schedule_once(self.on_app_started, 0)
+    
+    def on_app_started(self, *args):
+        print("App started")
+
+    def show_info(self, *args):
         self.root.ids['screen_manager'].current = "about"
         text = self.testMultipleNamedParams(firstName="John", lastName="Smith")
         Snackbar(text=text).open()

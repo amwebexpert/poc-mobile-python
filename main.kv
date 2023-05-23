@@ -48,6 +48,11 @@ MDScreen:
                         icon: "theme-light-dark"
                         text: "Set dark theme" if app.theme_cls.theme_style == "Light" else "Set light theme"
                         on_release: app.toggle_theme()
+                    MDCheckbox:
+                        size_hint: None, None
+                        size: "48dp", "48dp"
+                        active: True if app.theme_cls.theme_style == "Dark" else False
+                        on_release: app.toggle_theme()
         MDNavigationDrawer:
             id: nav_drawer
             radius: (0, 16, 16, 0)
