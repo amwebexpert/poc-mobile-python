@@ -1,6 +1,6 @@
 <AppBoxLayout@BoxLayout>:
     orientation: "vertical"
-    padding: "32dp", "32dp", "8dp", "8dp"
+    padding: "32dp", "80dp", "8dp", "8dp"
 
 MDScreen:
     id: main_screen
@@ -20,6 +20,9 @@ MDScreen:
             MDScreen:
                 name: "home"
                 AppBoxLayout:
+                    MDList:
+                        id: chat_list
+                        padding: 0, 0, 0, 0
                     BoxLayout:
                         MDTextField:
                             id: chat_input_text
@@ -33,7 +36,7 @@ MDScreen:
                             on_release: app.send_message(chat_input_text.text)
             MDScreen:
                 name: "settings"
-                BoxLayout:
+                AppBoxLayout:
                     MDLabel:
                         text: "Settings"
                         halign: "center"
@@ -48,11 +51,10 @@ MDScreen:
                         icon: "theme-light-dark"
                         text: "Set dark theme" if app.theme_cls.theme_style == "Light" else "Set light theme"
                         on_release: app.toggle_theme()
-                    MDCheckbox:
+                    MDSwitch:
                         size_hint: None, None
                         size: "48dp", "48dp"
                         active: True if app.theme_cls.theme_style == "Dark" else False
-                        on_release: app.toggle_theme()
         MDNavigationDrawer:
             id: nav_drawer
             radius: (0, 16, 16, 0)

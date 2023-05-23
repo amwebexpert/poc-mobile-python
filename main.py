@@ -3,11 +3,10 @@ from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
+from kivymd.uix.chip import MDChip
+from kivy.uix.anchorlayout import AnchorLayout
 from kivymd.app import MDApp
 from kivy.clock import Clock
-
-class ContentNavigationDrawer(MDBoxLayout):
-    pass
 
 class MainApp(MDApp):
     dialog = None
@@ -26,6 +25,15 @@ class MainApp(MDApp):
     
     def on_app_started(self, *args):
         print("App started")
+        container = self.root.ids['chat_list']
+
+        itemLayout = AnchorLayout(anchor_x='left')
+        itemLayout.add_widget(MDChip(text="Hello, here is the main chat window to interact with the AI server bot.\nType in your query below and AI bot will try to answer your questions."))
+        container.add_widget(itemLayout)
+
+        itemLayout2 = AnchorLayout(anchor_x='right')
+        itemLayout2.add_widget(MDChip(text="Hello"))
+        container.add_widget(itemLayout2)
 
     def show_info(self, *args):
         self.root.ids['screen_manager'].current = "about"
