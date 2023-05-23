@@ -1,3 +1,7 @@
+<AppBoxLayout@BoxLayout>:
+    orientation: "vertical"
+    padding: "32dp", "32dp", "8dp", "8dp"
+
 MDScreen:
     id: main_screen
     appName: "Open Mindset"
@@ -15,9 +19,7 @@ MDScreen:
             id: screen_manager
             MDScreen:
                 name: "home"
-                BoxLayout:
-                    orientation: "vertical"
-                    padding: "32dp", "32dp", "8dp", "8dp"
+                AppBoxLayout:
                     BoxLayout:
                         MDTextField:
                             id: chat_input_text
@@ -37,8 +39,7 @@ MDScreen:
                         halign: "center"
             MDScreen:
                 name: "about"
-                BoxLayout:
-                    padding: "32dp", "32dp", "8dp", "8dp"
+                AppBoxLayout:
                     MDRectangleFlatIconButton:
                         icon: "information"
                         text: "About this app..."
