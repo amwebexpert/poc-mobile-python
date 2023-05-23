@@ -1,4 +1,5 @@
 MDScreen:
+    id: main_screen
     appName: "Open Mindset"
     MDTopAppBar:
         title: root.appName
@@ -41,6 +42,7 @@ MDScreen:
                     MDRectangleFlatIconButton:
                         icon: "information"
                         text: "About this app..."
+                        on_release: app.more_info()
         MDNavigationDrawer:
             id: nav_drawer
             radius: (0, 16, 16, 0)
