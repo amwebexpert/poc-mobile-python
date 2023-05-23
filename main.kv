@@ -44,6 +44,10 @@ MDScreen:
                         icon: "information"
                         text: "About this app..."
                         on_release: app.more_info()
+                    MDRectangleFlatIconButton:
+                        icon: "theme-light-dark"
+                        text: "Set dark theme" if app.theme_cls.theme_style == "Light" else "Set light theme"
+                        on_release: app.toggle_theme()
         MDNavigationDrawer:
             id: nav_drawer
             radius: (0, 16, 16, 0)

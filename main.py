@@ -15,6 +15,8 @@ class MainApp(MDApp):
         return "The formatted\nusername: '{} {}'".format(firstName, lastName)
     
     def build(self):
+        self.theme_cls.theme_style_switch_animation = True
+        self.theme_cls.theme_style_switch_animation_duration = 0.8
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Orange"
 
@@ -35,6 +37,12 @@ class MainApp(MDApp):
                 ],
         )
         self.dialog.open()
+    
+    def toggle_theme(self):
+        if self.theme_cls.theme_style == "Dark":
+            self.theme_cls.theme_style = "Light"
+        else:
+            self.theme_cls.theme_style = "Dark"
     
     def on_dialog_close(self, action):
         self.dialog.dismiss()
