@@ -5,9 +5,9 @@ MDScreen:
         md_bg_color: app.theme_cls.primary_color
         pos_hint: {"top": 1}
         left_action_items:
-            [['menu', lambda x: nav_drawer.set_state("open")]]
+            [['menu', lambda _: nav_drawer.set_state("open")]]
         right_action_items:
-            [['information-outline', lambda x: app.show_info()]]
+            [['information-outline', lambda _: app.show_info()]]
 
     MDNavigationLayout:
         MDScreenManager:
@@ -15,15 +15,32 @@ MDScreen:
             MDScreen:
                 name: "home"
                 BoxLayout:
+                    orientation: "vertical"
+                    padding: "32dp", "32dp", "8dp", "8dp"
+                    BoxLayout:
+                        MDTextField:
+                            id: chat_input_text
+                            hint_text: "Query message"
+                            helper_text: "Type your query message here"
+                            helper_text_mode: "on_focus"
+                            max_text_length: 1024
+                            multiline: True
+                        MDIconButton:
+                            icon: "send"
+                            on_release: app.send_message(chat_input_text.text)
+            MDScreen:
+                name: "settings"
+                BoxLayout:
                     MDLabel:
-                        text: "Home screen"
+                        text: "Settings"
                         halign: "center"
             MDScreen:
                 name: "about"
                 BoxLayout:
-                    MDLabel:
+                    padding: "32dp", "32dp", "8dp", "8dp"
+                    MDRectangleFlatIconButton:
+                        icon: "information"
                         text: "About this app..."
-                        halign: "center"
         MDNavigationDrawer:
             id: nav_drawer
             radius: (0, 16, 16, 0)
@@ -32,7 +49,8 @@ MDScreen:
                 MDNavigationDrawerHeader:
                     source: "logo.png"
                     title: root.appName
-                    text: "app powered by Python"
+                    text: " Native app powered by Python"
+                    text_font_style: "Body2"
                     spacing: "4dp"
                     padding: 0, 0, 0, "32dp"
                 MDNavigationDrawerItem:
@@ -41,6 +59,13 @@ MDScreen:
                     theme_text_color: "Primary"
                     on_release:
                         screen_manager.current = "home"
+                        nav_drawer.set_state("close")
+                MDNavigationDrawerItem:
+                    icon: "cog"
+                    text: "Settings"
+                    theme_text_color: "Primary"
+                    on_release:
+                        screen_manager.current = "settings"
                         nav_drawer.set_state("close")
                 MDNavigationDrawerItem:
                     icon: "information"
