@@ -1,5 +1,6 @@
 #  import the python files defining the Screens
 #: import AboutScreen libs.features.about.about_screen.AboutScreen
+#: import SettingsScreen libs.features.settings.settings_screen.SettingsScreen
 
 <AppBoxLayout@BoxLayout>:
     orientation: "vertical"
@@ -39,15 +40,7 @@ MDScreen:
                             on_release: app.send_message(chat_input_text.text)
             MDScreen:
                 name: "settings"
-                AppBoxLayout:
-                    MDRectangleFlatIconButton:
-                        icon: "theme-light-dark"
-                        text: "Set dark theme" if app.theme_cls.theme_style == "Light" else "Set light theme"
-                        on_release: app.toggle_theme()
-                    MDSwitch:
-                        size_hint: None, None
-                        size: "48dp", "48dp"
-                        active: True if app.theme_cls.theme_style == "Dark" else False
+                SettingsScreen:
             MDScreen:
                 name: "about"
                 AboutScreen:
