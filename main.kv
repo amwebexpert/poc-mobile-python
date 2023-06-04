@@ -1,10 +1,7 @@
-#  import the python files defining the Screens
 #: import AboutScreen libs.features.about.about_screen.AboutScreen
 #: import SettingsScreen libs.features.settings.settings_screen.SettingsScreen
 
-<AppBoxLayout@BoxLayout>:
-    orientation: "vertical"
-    padding: "32dp", "80dp", "8dp", "8dp"
+#: include libs/theme/theme.kv
 
 MDScreen:
     id: main_screen
@@ -23,7 +20,7 @@ MDScreen:
             id: screen_manager
             MDScreen:
                 name: "home"
-                AppBoxLayout:
+                AppScreenLayout:
                     MDList:
                         id: chat_list
                         padding: 0, 0, 0, 0
