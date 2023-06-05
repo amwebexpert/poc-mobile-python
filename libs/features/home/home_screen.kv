@@ -1,0 +1,16 @@
+<HomeScreen>
+    AppScreenLayout:
+        MDList:
+            id: chat_list
+            padding: 0, 0, 0, 0
+        BoxLayout:
+            MDTextField:
+                id: chat_input_text
+                hint_text: "Query message"
+                helper_text: "Type your query message here"
+                helper_text_mode: "on_focus"
+                max_text_length: 1024
+                multiline: True
+            MDIconButton:
+                icon: "send"
+                on_release: root.send_message(chat_input_text.text)
