@@ -25,6 +25,8 @@ class MainApp(MDApp):
     
     def on_app_started(self, *args):
         print("App started")
+        print(MDApp.get_running_app().root.ids.screen_manager.get_screen("settings").ids)
+        print(MDApp.get_running_app().root.ids.screen_manager.get_screen("about").ids)
         container = self.root.ids['chat_list']
 
         itemLayout = AnchorLayout(anchor_x='left')

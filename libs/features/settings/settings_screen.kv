@@ -1,6 +1,7 @@
 <SettingsScreen>
     AppScreenLayout:
         MDRectangleFlatIconButton:
+            id: toggle_theme_button
             icon: "theme-light-dark"
             text: "Set dark theme" if app.theme_cls.theme_style == "Light" else "Set light theme"
             on_release: root.toggle_theme()

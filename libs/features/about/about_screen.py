@@ -1,4 +1,5 @@
 from kivymd.uix.widget import Widget
+from kivymd.uix.screen import MDScreen
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.snackbar import Snackbar
@@ -7,7 +8,7 @@ from kivy.lang import Builder
   
 Builder.load_file('libs/features/about/about_screen.kv')
 
-class AboutScreen(Widget):
+class AboutScreen(MDScreen):
     dialog = None
 
     def more_info(self):

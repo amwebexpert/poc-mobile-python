@@ -35,12 +35,10 @@ MDScreen:
                         MDIconButton:
                             icon: "send"
                             on_release: app.send_message(chat_input_text.text)
-            MDScreen:
+            SettingsScreen:
                 name: "settings"
-                SettingsScreen:
-            MDScreen:
+            AboutScreen:
                 name: "about"
-                AboutScreen:
         MDNavigationDrawer:
             id: nav_drawer
             radius: (0, 16, 16, 0)
