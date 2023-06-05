@@ -9,6 +9,7 @@ from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
 from kivymd.uix.chip import MDChip
 from kivy.clock import Clock
+from libs.utils.app_utils import get_app_screen
 
 from kivy.lang import Builder
   
@@ -20,7 +21,7 @@ class HomeScreen(MDScreen):
         Clock.schedule_once(self.init_chat_history, 1)
 
     def init_chat_history(self, *args):
-        screen = MDApp.get_running_app().root.ids.screen_manager.get_screen("home")
+        screen = get_app_screen("home")
         container = screen.ids['chat_list']
 
         itemLayout = AnchorLayout(anchor_x='left')

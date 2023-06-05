@@ -7,6 +7,7 @@ from kivymd.uix.chip import MDChip
 from kivymd.app import MDApp
 from kivy.clock import Clock
 from kivy.lang import Builder
+from libs.utils.app_utils import get_app_screen
 
 class MainApp(MDApp):
     dialog = None
@@ -23,15 +24,18 @@ class MainApp(MDApp):
         self.theme_cls.theme_style_switch_animation_duration = 0.8
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Orange"
-        self.root = Builder.load_file("app.kv")
+        self.root = Builder.load_file("main_layout.kv")
 
     def on_start(self):
             Clock.schedule_once(self.on_app_started, 0)
     
     def on_app_started(self, *args):
-        print("App started")
-        print(MDApp.get_running_app().root.ids.screen_manager.get_screen("settings").ids)
-        print(MDApp.get_running_app().root.ids.screen_manager.get_screen("about").ids)
+        app = MDApp.get_running_app()
+        print(f"App <{app.title}> started.")
+
+    def on_stop(self):
+        app = MDApp.get_running_app()
+        print(f"App <{app.title}> stopped.")
 
     def show_info(self, *args):
         self.root.ids['screen_manager'].current = "about"
