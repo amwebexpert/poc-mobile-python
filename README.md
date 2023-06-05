@@ -5,7 +5,13 @@ Proof of concept of an application developed in Python using KivyMD
 More to come on this stay tuned!
 
 
-### Managing dependencies
+### Managing environment
+
+#### Python >= 3.9 on MacOS
+
+    brew update
+    brew install python3
+    brew upgrade python3
 
 #### Current requirements (freeze them or install from)
 
