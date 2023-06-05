@@ -4,7 +4,6 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
 from kivymd.uix.chip import MDChip
-from kivy.uix.anchorlayout import AnchorLayout
 from kivymd.app import MDApp
 from kivy.clock import Clock
 from kivy.lang import Builder
