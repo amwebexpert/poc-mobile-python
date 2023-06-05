@@ -20,8 +20,8 @@ class HomeScreen(MDScreen):
         Clock.schedule_once(self.init_chat_history, 1)
 
     def init_chat_history(self, *args):
-        homeScreen = MDApp.get_running_app().root.ids.screen_manager.get_screen("home")
-        container = homeScreen.ids['chat_list']
+        screen = MDApp.get_running_app().root.ids.screen_manager.get_screen("home")
+        container = screen.ids['chat_list']
 
         itemLayout = AnchorLayout(anchor_x='left')
         itemLayout.add_widget(MDChip(text="Hello, here is the main chat window to interact with the AI server bot.\nType in your query below and AI bot will try to answer your questions."))
@@ -32,6 +32,4 @@ class HomeScreen(MDScreen):
         container.add_widget(itemLayout2)
 
     def send_message(self, text):
-        print(MDApp.get_running_app().root.ids.screen_manager.get_screen("settings").ids)
-        print(MDApp.get_running_app().root.ids.screen_manager.get_screen("about").ids)
         Snackbar(text=text).open()
