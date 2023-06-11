@@ -1,5 +1,12 @@
 .DS_Store
 *.pyc
+
+## Android build ##
 .buildozer
 .buildozer/
 *-debug.apk
+
+## iOS build ##
+.cache/
+dist/
+build/

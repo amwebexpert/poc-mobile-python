@@ -4,31 +4,19 @@ Mobile python application
 
 Application developed in Python using KivyMD
 
-### Managing environment
+## Managing environment
 
-#### Python >= 3.9 on MacOS
+### Python >= 3.9 on MacOS
 
     brew update
     brew install python3
     brew upgrade python3
 
-#### Current requirements (freeze them or install from)
-
-    pip freeze > requirements.txt
-    pip install -r requirements.txt
-
-#### Upgrade then freeze requirements
-
-    pip install pip-review
-    pip-review --local --interactive
-    pip freeze > requirements.txt
-
-### Building Android app
-
     brew install cython
     echo 'export PATH="/opt/homebrew/opt/cython/bin:$PATH"' >> ~/.zshrc
 
-#### Changing default python executable using simlink
+### Changing default python executable using simlink
+
     brew install python@3.11
     brew install python@3.8
     brew unlink python@3.11
@@ -39,8 +27,23 @@ Application developed in Python using KivyMD
     sudo ln -s /opt/homebrew/Cellar/python@3.8/3.8.17/bin/python3.8 /usr/local/bin/python
     sudo ln -s /opt/homebrew/Cellar/python@3.11/3.11.3/bin/python3 /usr/local/bin/python
 
+### Current requirements (freeze them or install from)
 
-* https://kivy.org/doc/stable/guide/packaging-android.html
+    pip freeze > requirements.txt
+    pip install -r requirements.txt
+
+### Upgrade then freeze requirements
+
+    pip install pip-review
+    pip-review --local --interactive
+    pip freeze > requirements.txt
+
+#### References
+
+* https://stackoverflow.com/a/16269635/704681
+
+
+### Building Android App
 
     python ~/Library/Python/3.8/lib/python/site-packages/buildozer init
     python ~/Library/Python/3.8/lib/python/site-packages/buildozer android debug deploy run
@@ -53,10 +56,6 @@ sdkmanager path  does not exist, sdkmanager is notinstalled
 
 #### Reference
 
-* see https://stackoverflow.com/a/16269635/704681
+* https://kivy.org/doc/stable/guide/packaging-android.html
 
-
-#### Others
-
-    adb logcat -e org.amwebexpert.openmindset
     
