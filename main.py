@@ -8,6 +8,12 @@ from kivymd.app import MDApp
 from kivy.clock import Clock
 from kivy.lang import Builder
 from libs.utils.app_utils import get_app_screen
+from kivy.core.window import Window
+
+# https://youtube.com/watch?v=sa4AVMjjzNo
+# making app crashing on Android
+#window.keyboard_anim_args = {'d': 0.2, 't': 'in_out_expo'}
+#window.softinput_mode = "below_target"
 
 class MainApp(MDApp):
     dialog = None
