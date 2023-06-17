@@ -6,25 +6,7 @@
             orientation: "vertical"
             spacing: dp(10)
 
-            MDBoxLayout:
-                adaptive_height: True
-                orientation: "vertical"
-                padding: dp(8)
-                canvas.before:
-                    Color:
-                        rgba: hex('#696969')
-                    BoxShadow:
-                        pos: self.pos
-                        size: self.size
-                        offset: 0, -10
-                        spread_radius: -20, -20
-                        border_radius: dp(10), dp(10), dp(10), dp(10)
-                        blur_radius: 40
-                    RoundedRectangle:
-                        size: self.size
-                        pos: self.pos
-                        radius: [dp(10),]
-
+            AdaptativeVerticalCardLayout:
                 MDBoxLayout:
                     adaptive_height: True
                     orientation: "horizontal"
