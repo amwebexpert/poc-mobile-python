@@ -22,7 +22,8 @@ class MainApp(MDApp):
         super().__init__(**kwargs)
 
     def testMultipleNamedParams(self, firstName, lastName):
-        return "The formatted\nusername: '{} {}'".format(firstName, lastName)
+        # equivalent to: "The formatted username: '{} {}'".format(firstName, lastName)
+        return f"The formatted username: '{firstName} {lastName}'..."
     
     def build(self):
         self.title = "Open Mindset"

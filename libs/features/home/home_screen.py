@@ -11,6 +11,7 @@ from kivymd.uix.chip import MDChip
 from kivy.clock import Clock
 from libs.utils.app_utils import get_app_screen
 
+from kivy.factory import Factory
 from kivy.lang import Builder
   
 Builder.load_file('libs/features/home/home_screen.kv')
@@ -22,15 +23,20 @@ class HomeScreen(MDScreen):
 
     def init_chat_history(self, *args):
         screen = get_app_screen("home")
-        container = screen.ids['chat_list']
+        chat_list = screen.ids['chat_list']
 
-        itemLayout = AnchorLayout(anchor_x='left')
-        itemLayout.add_widget(MDChip(text="Hello, here is the main chat window to interact with the AI server bot.\nType in your query below and AI bot will try to answer your questions."))
-        container.add_widget(itemLayout)
+        chatItem = Factory.AdaptativeLabelBox()
+        chatItem.ids.label.text = "Hello, here is the main chat window to interact with the AI server bot. Type in your query below and AI bot will try to answer your questions."
+        card = Factory.AdaptativeVerticalCardLayout()
+        card.size_hint_x: 0.5
+        card.add_widget(chatItem)
+        chat_list.add_widget(card)
 
-        itemLayout2 = AnchorLayout(anchor_x='right')
-        itemLayout2.add_widget(MDChip(text="Hello"))
-        container.add_widget(itemLayout2)
+        chatItem = Factory.AdaptativeLabelBox()
+        chatItem.ids.label.text = "Hello!"
+        card = Factory.AdaptativeVerticalCardLayout()
+        card.add_widget(chatItem)
+        chat_list.add_widget(card)
 
     def send_message(self, text):
         Snackbar(text=text).open()
