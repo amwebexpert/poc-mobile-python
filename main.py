@@ -31,7 +31,11 @@ class MainApp(MDApp):
         self.theme_cls.theme_style_switch_animation_duration = 0.8
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Orange"
+
+        # this is equivalent to just returning Builder.load_file(...)
+        # but being explicit here for clarity about whats going on with root widget
         self.root = Builder.load_file("main_layout.kv")
+        return self.root
 
     def on_start(self):
             Clock.schedule_once(self.on_app_started, 0)
