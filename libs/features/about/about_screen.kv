@@ -2,7 +2,7 @@
 
 <AboutScreen>
     AppScreenLayout:
-        BoxLayout:
+        MDBoxLayout:
             orientation: "vertical"
             spacing: dp(10)
 
@@ -22,7 +22,6 @@
                         orientation: "vertical"
                         adaptive_height: True
                         MDLabel:
-                            id: app_description
                             adaptive_height: True
                             text: "Free application originally created to learn the Python language in our spare time.\n\nThe goals for developers is to learn a technology at the same time as providing a fun and scalable utility app. The source code of this application is available and can be used as a learning base for training sessions in Python programming with KivyMD!"
                             font_style: "Body2"
@@ -34,5 +33,5 @@
                 on_release: root.more_info()
                 size_hint: None, None
                 pos_hint: {"center_x": 0.5}
-            BoxLayout:
+            MDBoxLayout:
                 size_hint: 1, 1

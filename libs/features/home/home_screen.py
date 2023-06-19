@@ -38,5 +38,34 @@ class HomeScreen(MDScreen):
         card.add_widget(chatItem)
         chat_list.add_widget(card)
 
+        chatItem = Factory.AdaptativeLabelBox()
+        chatItem.ids.label.text = "2 Hello, here is the main chat window to interact with the AI server bot. Type in your query below and AI bot will try to answer your questions."
+        card = Factory.AdaptativeVerticalCardLayout()
+        card.size_hint_x: 0.5
+        card.add_widget(chatItem)
+        chat_list.add_widget(card)
+
+        chatItem = Factory.AdaptativeLabelBox()
+        chatItem.ids.label.text = "Hello!"
+        card = Factory.AdaptativeVerticalCardLayout()
+        card.add_widget(chatItem)
+        chat_list.add_widget(card)
+
+
+
+        chatItem = Factory.AdaptativeLabelBox()
+        chatItem.ids.label.text = "2 Hello, here is the main chat window to interact with the AI server bot. Type in your query below and AI bot will try to answer your questions."
+        card = Factory.AdaptativeVerticalCardLayout()
+        card.size_hint_x: 0.5
+        card.add_widget(chatItem)
+        chat_list.add_widget(card)
+
+        chatItem = Factory.AdaptativeLabelBox()
+        chatItem.ids.label.text = "Hello!"
+        card = Factory.AdaptativeVerticalCardLayout()
+        card.add_widget(chatItem)
+        chat_list.add_widget(card)
+
+
     def send_message(self, text):
         Snackbar(text=text).open()

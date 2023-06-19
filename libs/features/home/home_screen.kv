@@ -1,9 +1,14 @@
 <HomeScreen>
     AppScreenLayout:
-        MDList:
-            id: chat_list
-            padding: 0, 0, 0, 0
-        BoxLayout:
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            MDBoxLayout:
+                orientation: "vertical"
+                id: chat_list
+                adaptive_height: True
+        MDBoxLayout:
+            adaptive_height: True
             MDTextField:
                 id: chat_input_text
                 hint_text: "Query message"
