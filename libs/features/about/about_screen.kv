@@ -29,9 +29,8 @@
             AppDataTable:
                 id: infos_panel
                 size_hint: 1, 1
-                elevation: 2
                 use_pagination: True
-                column_data: [("System key", dp(40)), ("Detail", dp(140))]
+                column_data: [("System key", dp(40)), ("Detail", dp(root.width))]
                 row_data: []
             MDRectangleFlatIconButton:
                 id: more_info_button

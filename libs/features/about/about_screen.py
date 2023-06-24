@@ -10,6 +10,7 @@ from libs.utils.app_utils import get_app_screen
 from kivy.clock import Clock
 from kivy.lang import Builder
 import platform
+import os
 
 Builder.load_file('libs/features/about/about_screen.kv')
 
@@ -43,4 +44,8 @@ class AboutScreen(MDScreen):
         infos_panel.add_row(("Platform machine", platform.machine()))
         infos_panel.add_row(("Platform node", platform.node()))
         infos_panel.add_row(("Platform python version", platform.python_version()))
-
+        infos_panel.add_row(("HOME", os.environ.get('HOME', '~/')))
+        infos_panel.add_row(("USER", os.environ.get('USER', 'N/A')))
+        infos_panel.add_row(("TMPDIR", os.environ.get('TMPDIR', 'N/A')))
+        infos_panel.add_row(("PWD", os.environ.get('PWD', 'N/A')))
+        infos_panel.add_row(("LANG", os.environ.get('LANG', 'N/A')))
