@@ -1,6 +1,5 @@
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
@@ -50,6 +49,7 @@ class MainApp(MDApp):
     def on_app_started(self, *args):
         app = MDApp.get_running_app()
         print(f"App <{app.title}> started.")
+        print(self.testMultipleNamedParams(firstName="John", lastName="Smith"))
 
     def on_stop(self):
         app = MDApp.get_running_app()
@@ -57,8 +57,6 @@ class MainApp(MDApp):
 
     def show_info(self, *args):
         self.root.ids['screen_manager'].current = "about"
-        text = self.testMultipleNamedParams(firstName="John", lastName="Smith")
-        Snackbar(text=text).open()
 
     def exit(self):
         self.stop()

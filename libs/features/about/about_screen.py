@@ -9,7 +9,8 @@ from libs.utils.app_utils import get_app_screen
 
 from kivy.clock import Clock
 from kivy.lang import Builder
-  
+import platform
+
 Builder.load_file('libs/features/about/about_screen.kv')
 
 class AboutScreen(MDScreen):
@@ -36,5 +37,6 @@ class AboutScreen(MDScreen):
     def add_platform_infos(self, *args):
         screen = get_app_screen("about")
         infos_panel = screen.ids['infos_panel']
-        infos_panel.add_row(("Platform", "Android"))
+        infos_panel.add_row(("Platform", platform.system()))
+        infos_panel.add_row(("Platform release", platform.release()))
 
