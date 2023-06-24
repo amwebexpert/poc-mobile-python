@@ -32,7 +32,7 @@ class AboutScreen(MDScreen):
 
     def on_dialog_close(self, action):
         self.dialog.dismiss()
-        Snackbar(text=action).open()
+        print(f"Dialog closed with action: {action}")
 
     def add_platform_infos(self, *args):
         screen = get_app_screen("about")
