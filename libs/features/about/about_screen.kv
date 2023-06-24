@@ -28,13 +28,16 @@
                             font_style: "Body2"
             AppDataTable:
                 id: infos_panel
-                column_data: [("System key", dp(30)), ("Detail", dp(180))]
+                size_hint: 1, 1
+                elevation: 2
+                use_pagination: True
+                column_data: [("System key", dp(40)), ("Detail", dp(140))]
+                row_data: []
             MDRectangleFlatIconButton:
                 id: more_info_button
+                adaptive_height: True
                 icon: "information"
                 text: "About this app..."
                 on_release: root.more_info()
                 size_hint: None, None
                 pos_hint: {"center_x": 0.5}
-            MDBoxLayout:
-                size_hint: 1, 1

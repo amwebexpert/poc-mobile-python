@@ -39,4 +39,8 @@ class AboutScreen(MDScreen):
         infos_panel = screen.ids['infos_panel']
         infos_panel.add_row(("Platform", platform.system()))
         infos_panel.add_row(("Platform release", platform.release()))
+        infos_panel.add_row(("Platform version", platform.version()))
+        infos_panel.add_row(("Platform machine", platform.machine()))
+        infos_panel.add_row(("Platform node", platform.node()))
+        infos_panel.add_row(("Platform python version", platform.python_version()))
 
