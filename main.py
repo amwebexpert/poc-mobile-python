@@ -8,7 +8,7 @@ from kivymd.theming import ThemeManager
 from kivymd.app import MDApp
 from kivy.clock import Clock
 from kivy.lang import Builder
-from libs.utils.app_utils import get_app_screen
+from libs.utils.app_utils import get_app_screen, get_app_version_info, get_app_version_info_string
 from kivy.core.window import Window
 
 # https://youtube.com/watch?v=sa4AVMjjzNo
@@ -25,12 +25,11 @@ class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def testMultipleNamedParams(self, firstName, lastName):
-        # equivalent to: "The formatted username: '{} {}'".format(firstName, lastName)
-        return f"The formatted username: '{firstName} {lastName}'..."
-    
+    def get_metadata(self):
+        return get_app_version_info()
+
     def build(self):
-        self.title = "Open Mindset"
+        self.title = self.get_metadata()["name"]
         self.theme_cls.theme_style_switch_animation = True
         self.theme_cls.theme_style_switch_animation_duration = 0.8
         self.theme_cls.theme_style = "Dark"
@@ -43,12 +42,11 @@ class MainApp(MDApp):
         return appScreen
 
     def on_start(self):
-            Clock.schedule_once(self.on_app_started, 0)
+        Clock.schedule_once(self.on_app_started, 0)
     
     def on_app_started(self, *args):
-        app = MDApp.get_running_app()
-        print(f"App <{app.title}> started.")
-        print(self.testMultipleNamedParams(firstName="John", lastName="Smith"))
+        info = get_app_version_info_string()
+        print(f"App <{info}> started.")
 
     def on_stop(self):
         print("App stopped.")

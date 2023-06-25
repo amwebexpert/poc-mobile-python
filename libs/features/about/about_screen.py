@@ -5,7 +5,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.snackbar import Snackbar
 
-from libs.utils.app_utils import get_app_screen
+from libs.utils.app_utils import get_app_screen, get_app_version_info_short_string, get_app_name
 
 from kivy.clock import Clock
 from kivy.lang import Builder
@@ -20,6 +20,12 @@ class AboutScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_once(self.add_platform_infos, 0)
+    
+    def get_app_version_info_short_string(self):
+        return get_app_version_info_short_string()
+    
+    def get_app_name(self):
+        return get_app_name()
 
     def more_info(self):
         title = "Open Mindset"

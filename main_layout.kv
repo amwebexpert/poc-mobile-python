@@ -5,9 +5,8 @@
 #: import SettingsScreen libs.features.settings.settings_screen.SettingsScreen
 
 <AppScreen>:
-    appName: "Open Mindset"
     MDTopAppBar:
-        title: root.appName
+        title: app.get_metadata()["name"]
         md_bg_color: app.theme_cls.primary_color
         pos_hint: {"top": 1}
         left_action_items:
@@ -31,8 +30,8 @@
             MDNavigationDrawerMenu:
                 MDNavigationDrawerHeader:
                     source: "libs/assets/logo.png"
-                    title: root.appName
-                    text: " Native app powered by Python"
+                    title: app.get_metadata()["name"]
+                    text: app.get_metadata()["description"]
                     text_font_style: "Body2"
                     spacing: "4dp"
                     padding: 0, 0, 0, "32dp"
