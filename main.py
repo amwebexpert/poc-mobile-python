@@ -9,6 +9,7 @@ from kivymd.app import MDApp
 from kivy.clock import Clock
 from kivy.lang import Builder
 from libs.utils.app_utils import get_app_screen, get_app_version_info, get_app_version_info_string
+from libs.utils.preferences_service import PreferencesService, Preferences
 from kivy.core.window import Window
 
 # https://youtube.com/watch?v=sa4AVMjjzNo
@@ -29,11 +30,12 @@ class MainApp(MDApp):
         return get_app_version_info()
 
     def build(self):
+        self.service = PreferencesService()
         self.title = self.get_metadata()["name"]
         self.theme_cls.theme_style_switch_animation = True
         self.theme_cls.theme_style_switch_animation_duration = 0.8
         self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Red"
+        self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, "Orange")
 
         # this is equivalent to just returning Builder.load_file(...)
         # but being explicit here for clarity about whats going on with root widget

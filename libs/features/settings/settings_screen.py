@@ -43,6 +43,8 @@ class SettingsScreen(MDScreen):
     def on_color_selected(self, color):
         theme = MDApp.get_running_app().theme_cls
         theme.primary_palette = color
+        self.service.delete(Preferences.THEME_PRIMARY_COLOR.name)
+        self.service.set(Preferences.THEME_PRIMARY_COLOR.name, color)
         self.menu.dismiss()
 
     def toggle_theme(self):

@@ -11,12 +11,12 @@ class PreferencesService:
         self.storage_service.create_table("preferences", "key TEXT, value TEXT")
         self.storage_service.close()
 
-    def get(self, key):
+    def get(self, key, default_value = None):
         self.storage_service.connect()
         result = self.storage_service.select("preferences", "value", f'key = "{key}"')
         self.storage_service.close()
         if len(result) == 0:
-            return None
+            return default_value
         else:
             return result[0][0]
 
