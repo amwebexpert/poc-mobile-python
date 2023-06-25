@@ -30,17 +30,13 @@ class HomeScreen(MDScreen):
         screen = get_app_screen("home")
         chat_list = screen.ids['chat_list']
 
-        chatItem = Factory.AdaptativeLabelBox()
+        chatItem = Factory.AdaptativeLabelBoxRight()
         chatItem.ids.label.text = "Hello, here is the main chat window to interact with the AI server bot. Type in your query below and AI bot will try to answer your questions."
-        card = Factory.AdaptativeVerticalCardLayout()
-        card.add_widget(chatItem)
-        chat_list.add_widget(card)
+        chat_list.add_widget(chatItem)
 
-        chatItem = Factory.AdaptativeLabelBox()
+        chatItem = Factory.AdaptativeLabelBoxLeft()
         chatItem.ids.label.text = "Hello!"
-        card = Factory.AdaptativeVerticalCardLayout()
-        card.add_widget(chatItem)
-        chat_list.add_widget(card)
+        chat_list.add_widget(chatItem)
 
     def init_chat_session(self, *args):
         api_key = self.service.get(Preferences.OPEN_AI_KEY.name)

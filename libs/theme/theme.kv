@@ -21,12 +21,32 @@
             pos: self.pos
             radius: [dp(10),]
 
-<AdaptativeLabelBox@MDBoxLayout>:
-    orientation: "vertical"
+<AdaptativeLabelBoxRight@MDBoxLayout>:
     adaptive_height: True
-    MDLabel:
-        id: label
-        adaptive_height: True
-        text: ""
-        color: app.theme_cls.text_color
-        font_style: "Body2"
+    orientation: "horizontal"
+    MDBoxLayout:
+        size_hint: None, None
+        size: 160, 0
+    AdaptativeVerticalCardLayout:
+        MDLabel:
+            id: label
+            adaptive_height: True
+            halign: "right"
+            text: ""
+            color: app.theme_cls.text_color
+            font_style: "Body2"
+
+<AdaptativeLabelBoxLeft@MDBoxLayout>:
+    adaptive_height: True
+    orientation: "horizontal"
+    AdaptativeVerticalCardLayout:
+        MDLabel:
+            id: label
+            adaptive_height: True
+            text: ""
+            halign: "left"
+            color: app.theme_cls.text_color
+            font_style: "Body2"
+    MDBoxLayout:
+        size_hint: None, None
+        size: 160, 0
