@@ -40,7 +40,6 @@ class MainApp(MDApp):
         # but being explicit here for clarity about whats going on with root widget
         Builder.load_file("main_layout.kv")
         appScreen = AppScreen()
-        appScreen.theme_cls = ThemeManager()
         return appScreen
 
     def on_start(self):
