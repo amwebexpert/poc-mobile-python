@@ -38,6 +38,7 @@ class AboutScreen(MDScreen):
     def add_platform_infos(self, *args):
         screen = get_app_screen("about")
         infos_panel = screen.ids['infos_panel']
+
         infos_panel.add_row(("Platform", platform.system()))
         infos_panel.add_row(("Platform release", platform.release()))
         infos_panel.add_row(("Platform version", platform.version()))

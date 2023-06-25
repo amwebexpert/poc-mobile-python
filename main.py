@@ -52,14 +52,13 @@ class MainApp(MDApp):
         print(self.testMultipleNamedParams(firstName="John", lastName="Smith"))
 
     def on_stop(self):
-        app = MDApp.get_running_app()
-        print(f"App <{app.title}> stopped.")
+        print("App stopped.")
 
     def show_info(self, *args):
         self.root.ids['screen_manager'].current = "about"
 
     def exit(self):
-        self.stop()
+        Clock.schedule_once(self.stop, 0)
 
 if __name__ == '__main__':
     MainApp().run()
