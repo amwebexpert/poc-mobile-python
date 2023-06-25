@@ -8,7 +8,7 @@
     padding: dp(8)
     canvas.before:
         Color:
-            rgba: hex('#696969')
+            rgba: app.theme_cls.primary_color
         BoxShadow:
             pos: self.pos
             size: self.size
@@ -28,4 +28,5 @@
         id: label
         adaptive_height: True
         text: ""
+        color: app.theme_cls.text_color
         font_style: "Body2"
