@@ -49,10 +49,9 @@ class SettingsScreen(MDScreen):
 
     def toggle_theme(self):
         theme = MDApp.get_running_app().theme_cls
-        if theme.theme_style == "Dark":
-            theme.theme_style = "Light"
-        else:
-            theme.theme_style = "Dark"
+        theme.theme_style = "Dark" if theme.theme_style == "Light" else "Light"
+        self.service.delete(Preferences.THEME_STYLE.name)
+        self.service.set(Preferences.THEME_STYLE.name, theme.theme_style)
 
     def load_api_key(self, *args):
         value = self.service.get(Preferences.OPEN_AI_KEY.name)

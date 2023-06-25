@@ -34,7 +34,7 @@ class MainApp(MDApp):
         self.title = self.get_metadata()["name"]
         self.theme_cls.theme_style_switch_animation = True
         self.theme_cls.theme_style_switch_animation_duration = 0.8
-        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.theme_style = self.service.get(Preferences.THEME_STYLE.name, "Dark")
         self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, "Orange")
 
         # this is equivalent to just returning Builder.load_file(...)
