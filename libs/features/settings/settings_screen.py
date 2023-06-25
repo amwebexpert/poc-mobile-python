@@ -8,6 +8,7 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.lang import Builder
 from kivy.clock import Clock
 from libs.utils.app_utils import get_app_screen
+from libs.utils.preferences_service import PreferencesService, Preferences
   
 Builder.load_file('libs/features/settings/settings_screen.kv')
 
@@ -17,7 +18,9 @@ class SettingsScreen(MDScreen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.service = PreferencesService()
         Clock.schedule_once(self.init_primary_colors_drop_down_list, 0)
+        Clock.schedule_once(self.load_api_key, 0)
     
     def init_primary_colors_drop_down_list(self, *args):
         screen = get_app_screen("settings")
@@ -49,3 +52,14 @@ class SettingsScreen(MDScreen):
             theme.theme_style = "Light"
         else:
             theme.theme_style = "Dark"
+
+    def load_api_key(self, *args):
+        value = self.service.get(Preferences.OPEN_AI_KEY.name)
+        if value is not None:
+            open_ai_key = get_app_screen("settings").ids['open_ai_key']
+            open_ai_key.text = value
+
+    def set_open_ai_key(self, text):
+        print(f"set_open_ai_key: {text}")
+        self.service.delete(Preferences.OPEN_AI_KEY.name)
+        self.service.set(Preferences.OPEN_AI_KEY.name, text)

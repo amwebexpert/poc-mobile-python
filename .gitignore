@@ -10,3 +10,5 @@
 .cache/
 dist/
 build/
+preferences.db
+chat.db
