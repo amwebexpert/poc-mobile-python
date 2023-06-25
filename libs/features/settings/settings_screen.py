@@ -24,7 +24,6 @@ class SettingsScreen(MDScreen):
     
     def init_primary_colors_drop_down_list(self, *args):
         screen = get_app_screen("settings")
-        primary_color_menu_button = screen.ids['primary_color_menu_button']
         menu_items = [
             {
                 "text": color,
@@ -33,7 +32,7 @@ class SettingsScreen(MDScreen):
             } for color in PRIMARY_COLORS
         ]
         self.menu = MDDropdownMenu(
-            caller = primary_color_menu_button,
+            caller = screen.ids['primary_color_menu_button'],
             items = menu_items,
             width_mult = 4,
         )
@@ -56,10 +55,8 @@ class SettingsScreen(MDScreen):
     def load_api_key(self, *args):
         value = self.service.get(Preferences.OPEN_AI_KEY.name)
         if value is not None:
-            open_ai_key = get_app_screen("settings").ids['open_ai_key']
-            open_ai_key.text = value
+            get_app_screen("settings").ids['open_ai_key'].text = value
 
     def set_open_ai_key(self, text):
-        print(f"set_open_ai_key: {text}")
         self.service.delete(Preferences.OPEN_AI_KEY.name)
         self.service.set(Preferences.OPEN_AI_KEY.name, text)
