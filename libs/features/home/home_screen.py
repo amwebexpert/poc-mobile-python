@@ -69,7 +69,6 @@ class HomeScreen(MDScreen):
 
     def init_chat_session(self, *args):
         OPEN_AI_API_KEY = os.environ.get('OPEN_AI_API_KEY', 'no-key-found')
-        print(OPEN_AI_API_KEY)
         URL = "https://api.openai.com/v1/chat/completions"
         messages = [
             {"role": "system", "content": f"You are an assistant who helps people learn."},
