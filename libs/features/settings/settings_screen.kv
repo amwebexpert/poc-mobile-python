@@ -1,12 +1,18 @@
 <SettingsScreen>
     AppScreenLayout:
+        spacing: dp(10)
         MDRectangleFlatIconButton:
             id: toggle_theme_button
+            pos_hint: {"center_x": .5, "center_y": .5}
             icon: "theme-light-dark"
             text: "Set dark theme" if app.theme_cls.theme_style == "Light" else "Set light theme"
             on_release: root.toggle_theme()
-
-        MDSwitch:
-            size_hint: None, None
-            size: "48dp", "48dp"
-            active: True if app.theme_cls.theme_style == "Dark" else False
+        MDRectangleFlatIconButton:
+            id: primary_color_menu_button
+            pos_hint: {"center_x": .5, "center_y": .5}
+            icon: "select-color"
+            text: "Change primary color"
+            on_release: root.open_color_menu()
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint: 1, 1
