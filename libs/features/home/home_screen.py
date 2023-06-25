@@ -10,6 +10,7 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.chip import MDChip
 from kivy.clock import Clock
 from libs.utils.app_utils import get_app_screen
+from libs.utils.preferences_service import PreferencesService, Preferences
 
 from kivy.factory import Factory
 from kivy.lang import Builder
@@ -21,8 +22,9 @@ Builder.load_file('libs/features/home/home_screen.kv')
 class HomeScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.service = PreferencesService()
         Clock.schedule_once(self.init_chat_history, 0)
-        #Clock.schedule_once(self.init_chat_session, 1)
+        Clock.schedule_once(self.init_chat_session, 1)
 
     def init_chat_history(self, *args):
         screen = get_app_screen("home")
@@ -68,7 +70,10 @@ class HomeScreen(MDScreen):
         chat_list.add_widget(card)
 
     def init_chat_session(self, *args):
-        OPEN_AI_API_KEY = os.environ.get('OPEN_AI_API_KEY', 'no-key-found')
+        api_key = self.service.get(Preferences.OPEN_AI_KEY.name)
+        if (api_key == None):
+            return
+
         URL = "https://api.openai.com/v1/chat/completions"
         messages = [
             {"role": "system", "content": f"You are an assistant who helps people learn."},
@@ -85,7 +90,7 @@ class HomeScreen(MDScreen):
             "messages" : messages
         }
 
-        headers = { "Content-Type": "application/json", "Authorization": f"Bearer {OPEN_AI_API_KEY}" }
+        headers = { "Content-Type": "application/json", "Authorization": f"Bearer {api_key}" }
 
         response = requests.post(URL, headers=headers, json=payload)
         response = response.json()
