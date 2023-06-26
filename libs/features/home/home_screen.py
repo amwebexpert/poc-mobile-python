@@ -40,17 +40,18 @@ class HomeScreen(MDScreen):
 
     def init_chat_session(self, *args):
         api_key = self.service.get(Preferences.OPEN_AI_KEY.name)
+        ai_system_initial_context = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, "You are a helpful assistant.")
         if (api_key == None):
             return
 
         URL = "https://api.openai.com/v1/chat/completions"
         messages = [
-            {"role": "system", "content": f"You are an kind helpful assistant."},
-            {"role": "user", "content": f"Write fun fact about Albert Einstein."}
+            {"role": "system", "content": ai_system_initial_context},
+            {"role": "user", "content": "Write fun fact about Albert Einstein."}
         ]
         payload = {
             "model": "gpt-3.5-turbo",
-            "temperature" : 1.0,
+            "temperature" : 1.2,
             "top_p" : 1.0,
             "n" : 1,
             "stream" : False,

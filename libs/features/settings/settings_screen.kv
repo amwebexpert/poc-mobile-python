@@ -31,7 +31,6 @@
                 adaptive_width: True
                 padding_x: dp(10)
                 halign: "right"
-                align: "right"
                 height: self.texture_size[1]
             MDTextField:
                 id: open_ai_key
@@ -40,6 +39,19 @@
                 helper_text: "[https://platform.openai.com/account/api-keys]"
                 text: ""
                 on_text: root.set_open_ai_key(self.text)
+            MDLabel:
+                text: "AI System context"
+                pos_hint: {"center_y": .5}
+                adaptive_width: True
+                padding_x: dp(10)
+                halign: "right"
+                height: self.texture_size[1]
+            MDTextField:
+                id: ai_system_initial_context
+                pos_hint: {"center_y": .5}
+                hint_text: "AI system initial context"
+                text: "You are AI bot helpful assistant."
+                on_text: root.set_ai_initial_context(self.text)
         MDBoxLayout:
             orientation: "vertical"
             size_hint: 1, 1

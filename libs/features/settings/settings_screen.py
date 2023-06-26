@@ -19,13 +19,26 @@ class SettingsScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.service = PreferencesService()
-        Clock.schedule_once(self.init_primary_colors_drop_down_list, 0)
-        Clock.schedule_once(self.load_api_key, 0)
+        Clock.schedule_once(self.init_ui, 0)
     
     def getUIElement(self, name):
         return get_app_screen("settings").ids[name]
+    
+    def init_ui(self, *args):
+        self.init_primary_colors_drop_down_list()
+        self.init_ai_system_context()
+        self.init_api_key()
 
-    def init_primary_colors_drop_down_list(self, *args):
+    def init_ai_system_context(self):
+        value = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, "You are a helpful assistant.")
+        self.getUIElement("ai_system_initial_context").text = value
+
+    def init_api_key(self):
+        value = self.service.get(Preferences.OPEN_AI_KEY.name)
+        if value is not None:
+            self.getUIElement('open_ai_key').text = value
+
+    def init_primary_colors_drop_down_list(self):
         menu_items = [
             {
                 "text": color,
@@ -58,11 +71,10 @@ class SettingsScreen(MDScreen):
         self.service.delete(Preferences.THEME_STYLE.name)
         self.service.set(Preferences.THEME_STYLE.name, theme.theme_style)
 
-    def load_api_key(self, *args):
-        value = self.service.get(Preferences.OPEN_AI_KEY.name)
-        if value is not None:
-            self.getUIElement('open_ai_key').text = value
-
     def set_open_ai_key(self, text):
         self.service.delete(Preferences.OPEN_AI_KEY.name)
         self.service.set(Preferences.OPEN_AI_KEY.name, text)
+
+    def set_ai_initial_context(self, text):
+        self.service.delete(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name)
+        self.service.set(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, text)
