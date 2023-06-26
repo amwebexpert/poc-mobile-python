@@ -23,7 +23,6 @@ class SettingsScreen(MDScreen):
         Clock.schedule_once(self.load_api_key, 0)
     
     def init_primary_colors_drop_down_list(self, *args):
-        screen = get_app_screen("settings")
         menu_items = [
             {
                 "text": color,
@@ -32,15 +31,18 @@ class SettingsScreen(MDScreen):
             } for color in PRIMARY_COLORS
         ]
         self.menu = MDDropdownMenu(
-            caller = screen.ids['primary_color_menu_button'],
+            caller = get_app_screen("settings").ids['primary_color_menu_button'],
             items = menu_items,
             width_mult = 4,
         )
+        color = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, "Orange")
+        get_app_screen("settings").ids['primary_color_menu_button'].set_item(color)
 
     def open_color_menu(self):
         self.menu.open()
     
     def on_color_selected(self, color):
+        get_app_screen("settings").ids['primary_color_menu_button'].set_item(color)
         theme = MDApp.get_running_app().theme_cls
         theme.primary_palette = color
         self.service.delete(Preferences.THEME_PRIMARY_COLOR.name)

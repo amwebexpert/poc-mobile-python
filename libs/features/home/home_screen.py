@@ -24,7 +24,7 @@ class HomeScreen(MDScreen):
         super().__init__(**kwargs)
         self.service = PreferencesService()
         Clock.schedule_once(self.init_chat_history, 0)
-        #Clock.schedule_once(self.init_chat_session, 1)
+        #Clock.schedule_once(self.init_chat_session, 2)
 
     def init_chat_history(self, *args):
         screen = get_app_screen("home")
@@ -45,7 +45,7 @@ class HomeScreen(MDScreen):
 
         URL = "https://api.openai.com/v1/chat/completions"
         messages = [
-            {"role": "system", "content": f"You are an assistant who helps people learn."},
+            {"role": "system", "content": f"You are an kind helpful assistant."},
             {"role": "user", "content": f"Write fun fact about Albert Einstein."}
         ]
         payload = {
