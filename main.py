@@ -9,7 +9,7 @@ from kivymd.app import MDApp
 from kivy.clock import Clock
 from kivy.lang import Builder
 from libs.utils.app_utils import get_app_screen, get_app_version_info, get_app_version_info_string
-from libs.utils.screen_utils import init_screen
+from libs.utils.screen_utils import init_screen, is_mobile
 from libs.utils.preferences_service import PreferencesService, Preferences
 
 # https://youtube.com/watch?v=sa4AVMjjzNo
@@ -26,6 +26,9 @@ class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         init_screen()
+
+    def is_mobile_device(self):
+        return is_mobile()
 
     def get_metadata(self):
         return get_app_version_info()

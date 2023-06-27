@@ -12,3 +12,5 @@ dist/
 build/
 preferences.db
 chat.db
+
+.idea/
