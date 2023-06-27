@@ -17,11 +17,11 @@ Application developed in Python using KivyMD
 
 ### Changing default python executable using simlink
 
-    brew install python@3.11
     brew install python@3.8
-    brew unlink python@3.11
-    brew unlink python@3.8
     brew link --force python@3.8
+
+    brew install python@3.11
+    brew link --force python@3.11
 
     sudo rm /usr/local/bin/python
     sudo ln -s /opt/homebrew/Cellar/python@3.8/3.8.17/bin/python3.8 /usr/local/bin/python
@@ -48,14 +48,12 @@ Application developed in Python using KivyMD
     python ~/Library/Python/3.8/lib/python/site-packages/buildozer init
     python ~/Library/Python/3.8/lib/python/site-packages/buildozer android debug deploy run
 
-Ugly workaround for [ssl issue](https://github.com/kivy/kivy/issues/5784):
-    code /Library/Frameworks/Python.framework/Versions/Current/lib/python3.10/ssl.py
+- Ugly workaround for [ssl issue](https://github.com/kivy/kivy/issues/5784):
+  code /Library/Frameworks/Python.framework/Versions/Current/lib/python3.10/ssl.py
 
-sdkmanager path  does not exist, sdkmanager is notinstalled
-    https://github.com/kivy/buildozer/issues/927#issuecomment-533020886
+- sdkmanager path does not exist, [sdkmanager is not installed](https://github.com/kivy/buildozer/issues/927#issuecomment-533020886)
 
 #### Reference
 
 * https://kivy.org/doc/stable/guide/packaging-android.html
 
-    

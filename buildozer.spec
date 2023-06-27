@@ -13,7 +13,7 @@ package.domain = org.amwebexpert
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+source.include_exts = py,png,jpg,kv,atlas,json
 
 # (list) List of inclusions using pattern matching
 source.include_patterns = libs/assets/*,libs/images/*.png
@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy==2.2.0,kivymd==1.1.1
+requirements = python3,kivy==2.2.0,kivymd==https://github.com/kivymd/KivyMD/archive/master.zip#sha256=5e8a5b8b2d835644e769b594fbe635f15416b4c9d52f48abd3aa8a5e560c1fe7
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

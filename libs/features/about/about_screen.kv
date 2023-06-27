@@ -29,8 +29,10 @@
             AppDataTable:
                 id: infos_panel
                 size_hint: 1, 1
+                pos_hint: {"center_x": 0.5}
+                padding: 0
                 use_pagination: True
-                column_data: [(root.get_app_name(), dp(40)), (root.get_app_version_info_short_string(), dp(root.width))]
+                column_data: [(root.get_app_name(), dp(32)), (root.get_app_version_info_short_string(), dp(root.width))]
                 row_data: []
             MDRectangleFlatIconButton:
                 id: more_info_button

@@ -11,13 +11,12 @@
             cols: 2
             adaptive_height: True
             padding_x: dp(10)
+            spacing: dp(10), 0
             MDLabel:
                 text: "Primary Color"
                 pos_hint: {"center_y": .5}
                 adaptive_width: True
-                padding_x: dp(10)
                 halign: "right"
-                align: "right"
                 height: self.texture_size[1]
             MDDropDownItem:
                 id: primary_color_menu_button
@@ -29,7 +28,6 @@
                 text: "Open AI key"
                 pos_hint: {"center_y": .5}
                 adaptive_width: True
-                padding_x: dp(10)
                 halign: "right"
                 height: self.texture_size[1]
             MDTextField:
@@ -43,7 +41,6 @@
                 text: "AI System context"
                 pos_hint: {"center_y": .5}
                 adaptive_width: True
-                padding_x: dp(10)
                 halign: "right"
                 height: self.texture_size[1]
             MDTextField:
