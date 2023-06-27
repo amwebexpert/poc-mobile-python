@@ -23,6 +23,7 @@
                 icon: "select-color"
                 text: "Change primary color"
                 on_release: root.open_color_menu()
+            # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
             MDWidget:
                 size_hint: 0, 0
             MDWidget:
@@ -39,6 +40,7 @@
                 helper_text: "[https://platform.openai.com/account/api-keys]"
                 text: ""
                 on_text: root.set_open_ai_key(self.text)
+            # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
             MDWidget:
                 size_hint: 0, 0
             MDWidget:
