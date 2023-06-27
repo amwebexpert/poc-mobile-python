@@ -9,6 +9,7 @@ from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
 from kivymd.uix.chip import MDChip
 from kivy.clock import Clock
+from kivy.network.urlrequest import UrlRequest
 from libs.utils.app_utils import get_app_screen
 from libs.utils.preferences_service import PreferencesService, Preferences
 
@@ -16,39 +17,44 @@ from kivy.factory import Factory
 from kivy.lang import Builder
 import requests
 import os
+import json
+from functools import partial
   
 Builder.load_file('libs/features/home/home_screen.kv')
 
 class HomeScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
         self.service = PreferencesService()
+        ai_system_initial_context = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, "You are a helpful assistant.")
+        self.messages = [{"role": "system", "content": ai_system_initial_context},]
+
         Clock.schedule_once(self.init_chat_history, 0)
-        #Clock.schedule_once(self.init_chat_session, 2)
+
+    def getUIElement(self, name):
+        return get_app_screen("home").ids[name]
 
     def init_chat_history(self, *args):
-        screen = get_app_screen("home")
-        chat_list = screen.ids['chat_list']
+        item = self.buildChatItemLeft("I'm an artificial intelligence helpful assistant. How can I help you?")
+        self.getUIElement("chat_list").add_widget(item)
 
+    def buildChatItemRight(self, text):
         chatItem = Factory.AdaptativeLabelBoxRight()
-        chatItem.ids.label.text = "Hello, here is the main chat window to interact with the AI server bot. Type in your query below and AI bot will try to answer your questions."
-        chat_list.add_widget(chatItem)
-
+        chatItem.ids.label.text = text
+        return chatItem
+    
+    def buildChatItemLeft(self, text):
         chatItem = Factory.AdaptativeLabelBoxLeft()
-        chatItem.ids.label.text = "Hello!"
-        chat_list.add_widget(chatItem)
+        chatItem.ids.label.text = text
+        return chatItem
 
-    def init_chat_session(self, *args):
+    def send_message(self, text):
+        URL = "https://api.openai.com/v1/chat/completions"
         api_key = self.service.get(Preferences.OPEN_AI_KEY.name)
-        ai_system_initial_context = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, "You are a helpful assistant.")
         if (api_key == None):
             return
-
-        URL = "https://api.openai.com/v1/chat/completions"
-        messages = [
-            {"role": "system", "content": ai_system_initial_context},
-            {"role": "user", "content": "Write fun fact about Albert Einstein."}
-        ]
+        self.messages.append({"role": "user", "content": text})
         payload = {
             "model": "gpt-3.5-turbo",
             "temperature" : 1.2,
@@ -57,16 +63,18 @@ class HomeScreen(MDScreen):
             "stream" : False,
             "presence_penalty" : 0,
             "frequency_penalty" : 0,
-            "messages" : messages
+            "messages" : self.messages
         }
 
         headers = { "Content-Type": "application/json", "Authorization": f"Bearer {api_key}" }
+        request = UrlRequest(URL, req_body=json.dumps(payload), req_headers=headers, on_success=self.on_success, on_failure=self.on_error, on_error=self.on_error)
+        self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
 
-        response = requests.post(URL, headers=headers, json=payload)
-        response = response.json()
+    def on_success(self, request, response):
+        responseMessage = response["choices"][0]["message"]["content"]
+        self.messages.append({"role": "system", "content": responseMessage})
+        self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
 
-        print(response['choices'][0]['message']['content']) 
-
-
-    def send_message(self, text):
-        Snackbar(text=text).open()
+    def on_error(self, request, response):
+        print(response)
+        self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Sorry, I didn't understand that."))
