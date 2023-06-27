@@ -53,6 +53,7 @@ class HomeScreen(MDScreen):
         URL = "https://api.openai.com/v1/chat/completions"
         api_key = self.service.get(Preferences.OPEN_AI_KEY.name)
         if (api_key == None):
+            self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Missing OpenAI API key. Please set it in the settings screen."))
             return
         self.messages.append({"role": "user", "content": text})
         payload = {
