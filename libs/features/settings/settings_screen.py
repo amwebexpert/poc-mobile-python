@@ -8,11 +8,10 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.lang import Builder
 from kivy.clock import Clock
 from libs.utils.app_utils import get_app_screen
+from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
 from libs.utils.preferences_service import PreferencesService, Preferences
   
 Builder.load_file('libs/features/settings/settings_screen.kv')
-
-PRIMARY_COLORS = ['Red' , 'Pink' , 'Purple' , 'DeepPurple' , 'Indigo' , 'Blue' , 'LightBlue' , 'Cyan' , 'Teal' , 'Green' , 'LightGreen' , 'Lime' , 'Yellow' , 'Amber' , 'Orange' , 'DeepOrange' , 'Brown' , 'Gray' , 'BlueGray']
 
 class SettingsScreen(MDScreen):
 
@@ -66,7 +65,7 @@ class SettingsScreen(MDScreen):
 
     def toggle_theme(self):
         theme = MDApp.get_running_app().theme_cls
-        theme.theme_style = "Dark" if theme.theme_style == "Light" else "Light"
+        theme.theme_style = ThemeMode.Dark.name if theme.theme_style == ThemeMode.Light.name else ThemeMode.Light.name
         self.service.set(Preferences.THEME_STYLE.name, theme.theme_style)
 
     def set_open_ai_key(self, text):

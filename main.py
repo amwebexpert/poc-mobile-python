@@ -10,6 +10,7 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from libs.utils.app_utils import get_app_screen, get_app_version_info, get_app_version_info_string
 from libs.utils.screen_utils import init_screen, is_mobile
+from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
 from libs.utils.preferences_service import PreferencesService, Preferences
 
 # https://youtube.com/watch?v=sa4AVMjjzNo
@@ -38,8 +39,8 @@ class MainApp(MDApp):
         self.title = self.get_metadata()["name"]
         self.theme_cls.theme_style_switch_animation = True
         self.theme_cls.theme_style_switch_animation_duration = 0.8
-        self.theme_cls.theme_style = self.service.get(Preferences.THEME_STYLE.name, default_value="Dark")
-        self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value="Red")
+        self.theme_cls.theme_style = self.service.get(Preferences.THEME_STYLE.name, default_value=ThemeMode.Dark.name)
+        self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
 
         # this is equivalent to just returning Builder.load_file(...)
         # but being explicit here for clarity about whats going on with root widget
