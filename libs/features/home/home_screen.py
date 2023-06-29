@@ -27,7 +27,7 @@ class HomeScreen(MDScreen):
         super().__init__(**kwargs)
 
         self.service = PreferencesService()
-        ai_system_initial_context = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, "You are a helpful assistant.")
+        ai_system_initial_context = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, default_value="You are a helpful assistant.")
         self.messages = [{"role": "system", "content": ai_system_initial_context},]
 
         Clock.schedule_once(self.init_chat_history, 0)

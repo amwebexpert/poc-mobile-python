@@ -20,9 +20,11 @@ class PreferencesService:
         else:
             return result[0][0]
 
-    def set(self, key, value):
+    def set(self, key, value = None):
         self.storage_service.connect()
-        self.storage_service.insert("preferences", "key, value", f'"{key}", "{value}"')
+        self.storage_service.delete("preferences", f'key = "{key}"')
+        if value is not None:
+            self.storage_service.insert("preferences", "key, value", f'"{key}", "{value}"')
         self.storage_service.close()
 
     def delete(self, key):

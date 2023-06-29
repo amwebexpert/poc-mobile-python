@@ -30,7 +30,7 @@ class SettingsScreen(MDScreen):
         self.init_api_key()
 
     def init_ai_system_context(self):
-        value = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, "You are a helpful assistant.")
+        value = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, default_value="You are a helpful assistant.")
         self.getUIElement("ai_system_initial_context").text = value
 
     def init_api_key(self):
@@ -51,7 +51,7 @@ class SettingsScreen(MDScreen):
             items = menu_items,
             width_mult = 4,
         )
-        color = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, "Orange")
+        color = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
         self.getUIElement('primary_color_menu_button').set_item(color)
 
     def open_color_menu(self):
@@ -61,20 +61,16 @@ class SettingsScreen(MDScreen):
         self.getUIElement('primary_color_menu_button').set_item(color)
         theme = MDApp.get_running_app().theme_cls
         theme.primary_palette = color
-        self.service.delete(Preferences.THEME_PRIMARY_COLOR.name)
         self.service.set(Preferences.THEME_PRIMARY_COLOR.name, color)
         self.menu.dismiss()
 
     def toggle_theme(self):
         theme = MDApp.get_running_app().theme_cls
         theme.theme_style = "Dark" if theme.theme_style == "Light" else "Light"
-        self.service.delete(Preferences.THEME_STYLE.name)
         self.service.set(Preferences.THEME_STYLE.name, theme.theme_style)
 
     def set_open_ai_key(self, text):
-        self.service.delete(Preferences.OPEN_AI_KEY.name)
         self.service.set(Preferences.OPEN_AI_KEY.name, text)
 
     def set_ai_initial_context(self, text):
-        self.service.delete(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name)
         self.service.set(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, text)
