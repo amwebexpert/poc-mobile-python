@@ -1,0 +1,3 @@
+title=Open Mindset
+author=amwebexpert@gmail.com
+orientation=portrait
