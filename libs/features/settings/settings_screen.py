@@ -11,7 +11,7 @@ from libs.utils.app_utils import get_app_screen
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
 from libs.utils.preferences_service import PreferencesService, Preferences
   
-Builder.load_file('libs/features/settings/settings_screen.kv')
+Builder.load_file("libs/features/settings/settings_screen.kv")
 
 class SettingsScreen(MDScreen):
 
@@ -35,7 +35,7 @@ class SettingsScreen(MDScreen):
     def init_api_key(self):
         value = self.service.get(Preferences.OPEN_AI_KEY.name)
         if value is not None:
-            self.getUIElement('open_ai_key').text = value
+            self.getUIElement("open_ai_key").text = value
 
     def init_primary_colors_drop_down_list(self):
         menu_items = [
@@ -46,18 +46,18 @@ class SettingsScreen(MDScreen):
             } for color in PRIMARY_COLORS
         ]
         self.menu = MDDropdownMenu(
-            caller = self.getUIElement('primary_color_menu_button'),
+            caller = self.getUIElement("primary_color_menu_button"),
             items = menu_items,
             width_mult = 4,
         )
         color = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
-        self.getUIElement('primary_color_menu_button').set_item(color)
+        self.getUIElement("primary_color_menu_button").set_item(color)
 
     def open_color_menu(self):
         self.menu.open()
     
     def on_color_selected(self, color):
-        self.getUIElement('primary_color_menu_button').set_item(color)
+        self.getUIElement("primary_color_menu_button").set_item(color)
         theme = MDApp.get_running_app().theme_cls
         theme.primary_palette = color
         self.service.set(Preferences.THEME_PRIMARY_COLOR.name, color)

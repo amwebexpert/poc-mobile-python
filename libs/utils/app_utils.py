@@ -19,4 +19,4 @@ def get_app_version_info_short_string():
 
 def get_app_name():
     infos = get_app_version_info()
-    return infos['name']
+    return infos["name"]

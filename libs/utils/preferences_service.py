@@ -2,7 +2,7 @@ from enum import Enum
 import sqlite3
 from libs.utils.storage_service import StorageService
 
-Preferences = Enum('Preferences', ['OPEN_AI_KEY', 'AI_SYSTEM_INITIAL_CONTEXT', 'THEME_PRIMARY_COLOR', 'THEME_STYLE'])
+Preferences = Enum("Preferences", ["OPEN_AI_KEY", "AI_SYSTEM_INITIAL_CONTEXT", "THEME_PRIMARY_COLOR", "THEME_STYLE"])
 
 class PreferencesService:
     def __init__(self):

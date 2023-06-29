@@ -20,7 +20,7 @@ import os
 import json
 from functools import partial
   
-Builder.load_file('libs/features/home/home_screen.kv')
+Builder.load_file("libs/features/home/home_screen.kv")
 
 class HomeScreen(MDScreen):
     def __init__(self, **kwargs):

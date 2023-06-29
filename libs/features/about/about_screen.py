@@ -12,7 +12,7 @@ from kivy.lang import Builder
 import platform
 import os
 
-Builder.load_file('libs/features/about/about_screen.kv')
+Builder.load_file("libs/features/about/about_screen.kv")
 
 class AboutScreen(MDScreen):
     dialog = None
@@ -43,7 +43,7 @@ class AboutScreen(MDScreen):
 
     def add_platform_infos(self, *args):
         screen = get_app_screen("about")
-        infos_panel = screen.ids['infos_panel']
+        infos_panel = screen.ids["infos_panel"]
 
         infos_panel.add_row(("Platform", platform.system()))
         infos_panel.add_row(("Platform release", platform.release()))
@@ -51,4 +51,4 @@ class AboutScreen(MDScreen):
         infos_panel.add_row(("Platform machine", platform.machine()))
         infos_panel.add_row(("Platform node", platform.node()))
         infos_panel.add_row(("Python version", platform.python_version()))
-        infos_panel.add_row(("TMPDIR", os.environ.get('TMPDIR', '-')))
+        infos_panel.add_row(("TMPDIR", os.environ.get("TMPDIR", "-")))
