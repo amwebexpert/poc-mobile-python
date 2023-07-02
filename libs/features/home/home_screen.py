@@ -12,6 +12,7 @@ from kivy.clock import Clock
 from kivy.network.urlrequest import UrlRequest
 from libs.utils.app_utils import get_app_screen
 from libs.utils.preferences_service import PreferencesService, Preferences
+from libs.utils.chat_gpt_service import ChatGptService
 
 from kivy.factory import Factory
 from kivy.lang import Builder
@@ -24,10 +25,11 @@ class HomeScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.service = PreferencesService()
-        ai_system_initial_context = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, default_value="You are a helpful assistant.")
-        self.messages = [{"role": "system", "content": ai_system_initial_context},]
-
+        self.preferences_service = PreferencesService()
+        self.chat_gpt_service = ChatGptService(
+            api_key = self.preferences_service.get(Preferences.OPEN_AI_KEY.name),
+            ai_system_initial_context = self.preferences_service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, default_value="You are a helpful assistant."),
+        )
         Clock.schedule_once(self.init_chat_history, 0)
 
     def getUIElement(self, name):
@@ -50,31 +52,15 @@ class HomeScreen(MDScreen):
         return chatItem
 
     def send_message(self, text):
-        URL = "https://api.openai.com/v1/chat/completions"
-        api_key = self.service.get(Preferences.OPEN_AI_KEY.name)
+        api_key = self.preferences_service.get(Preferences.OPEN_AI_KEY.name)
         if (api_key == None):
             self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Missing OpenAI API key. Please set it in the settings screen."))
             return
-        self.messages.append({"role": "user", "content": text})
-        payload = {
-            "model": "gpt-3.5-turbo",
-            "temperature" : 0.7,
-            "n" : 1,
-            "stream" : False,
-            "presence_penalty" : 0,
-            "frequency_penalty" : 0,
-            "messages" : self.messages
-        }
-
-        headers = { "Content-Type": "application/json", "Authorization": f"Bearer {api_key}" }
-        request = UrlRequest(URL, req_body=json.dumps(payload), req_headers=headers, on_success=self.on_success, on_failure=self.on_error, on_error=self.on_error)
+        self.chat_gpt_service.send_message(text, on_success=self.on_success, on_error=self.on_error)
         self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
 
-    def on_success(self, request, response):
-        responseMessage = response["choices"][0]["message"]["content"]
-        self.messages.append({"role": "assistant", "content": responseMessage})
+    def on_success(self, responseMessage):
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
 
-    def on_error(self, request, response):
-        print(response)
+    def on_error(self, errorMessage):
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Sorry, I didn't understand that."))
