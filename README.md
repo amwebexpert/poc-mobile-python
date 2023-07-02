@@ -4,6 +4,12 @@ Mobile python application
 
 Application developed in Python using KivyMD
 
+## Utilities
+
+### Preview list of MD icons
+
+    python utils/icons/main.py
+
 ## Managing environment
 
 ### Python >= 3.9 on MacOS
