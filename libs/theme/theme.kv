@@ -27,26 +27,52 @@
     MDBoxLayout:
         size_hint: None, None
         size: 160, 0
-    AdaptativeVerticalCardLayout:
-        MDLabel:
-            id: label
+    MDBoxLayout:
+        orientation: "vertical"
+        adaptive_height: True
+        MDBoxLayout:
+            orientation: "horizontal"
             adaptive_height: True
-            halign: "right"
-            text: ""
-            color: app.theme_cls.text_color
-            font_style: "Body2"
+            size_hint_x: 1
+            Widget:
+                size_hint_x: 1
+            MDRectangleFlatIconButton:
+                id: created_at
+                icon: "human-greeting-variant"
+                text: "2023-07-02 14:36"
+                line_color: 0, 0, 0, 0
+                font_style: "Body2"
+                padding: 0, 0, 0, 0
+        AdaptativeVerticalCardLayout:
+            MDLabel:
+                id: label
+                adaptive_height: True
+                halign: "right"
+                text: ""
+                color: app.theme_cls.text_color
+                font_style: "Body2"
 
 <AdaptativeLabelBoxLeft@MDBoxLayout>:
     adaptive_height: True
     orientation: "horizontal"
-    AdaptativeVerticalCardLayout:
-        MDLabel:
-            id: label
-            adaptive_height: True
-            text: ""
-            halign: "left"
-            color: app.theme_cls.text_color
+    MDBoxLayout:
+        orientation: "vertical"
+        adaptive_height: True
+        MDRectangleFlatIconButton:
+            id: created_at
+            icon: "robot-outline"
+            text: "2023-07-02 14:36"
+            line_color: 0, 0, 0, 0
             font_style: "Body2"
+            padding: 0, 0, 0, 0
+        AdaptativeVerticalCardLayout:
+            MDLabel:
+                id: label
+                adaptive_height: True
+                text: ""
+                halign: "left"
+                color: app.theme_cls.text_color
+                font_style: "Body2"
     MDBoxLayout:
         size_hint: None, None
         size: 160, 0

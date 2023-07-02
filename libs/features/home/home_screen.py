@@ -15,6 +15,7 @@ from libs.utils.preferences_service import PreferencesService, Preferences
 
 from kivy.factory import Factory
 from kivy.lang import Builder
+from datetime import datetime
 import requests
 import os
 import json
@@ -41,12 +42,16 @@ class HomeScreen(MDScreen):
 
     def buildChatItemRight(self, text):
         chatItem = Factory.AdaptativeLabelBoxRight()
+        chatItem.ids.created_at.icon = "human-greeting-variant"
         chatItem.ids.label.text = text
+        chatItem.ids.created_at.text = datetime.now().strftime("%m-%d-%Y %H:%M")
         return chatItem
     
     def buildChatItemLeft(self, text):
         chatItem = Factory.AdaptativeLabelBoxLeft()
+        chatItem.ids.created_at.icon = "robot-outline"
         chatItem.ids.label.text = text
+        chatItem.ids.created_at.text = datetime.now().strftime("%m-%d-%Y %H:%M")
         return chatItem
 
     def send_message(self, text):
@@ -58,8 +63,7 @@ class HomeScreen(MDScreen):
         self.messages.append({"role": "user", "content": text})
         payload = {
             "model": "gpt-3.5-turbo",
-            "temperature" : 1.2,
-            "top_p" : 1.0,
+            "temperature" : 0.7,
             "n" : 1,
             "stream" : False,
             "presence_penalty" : 0,
