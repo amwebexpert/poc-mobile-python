@@ -16,10 +16,7 @@ from libs.utils.preferences_service import PreferencesService, Preferences
 from kivy.factory import Factory
 from kivy.lang import Builder
 from datetime import datetime
-import requests
-import os
 import json
-from functools import partial
   
 Builder.load_file("libs/features/home/home_screen.kv")
 
