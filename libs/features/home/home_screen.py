@@ -41,16 +41,14 @@ class HomeScreen(MDScreen):
         self.getUIElement("chat_list").add_widget(item)
 
     def buildChatItemRight(self, text):
-        chatItem = Factory.AdaptativeLabelBoxRight()
-        chatItem.ids.created_at.icon = "human-greeting-variant"
-        chatItem.ids.label.text = text
-        chatItem.ids.created_at.text = datetime.now().strftime("%m-%d-%Y %H:%M")
-        return chatItem
+        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user")
     
     def buildChatItemLeft(self, text):
-        chatItem = Factory.AdaptativeLabelBoxLeft()
-        chatItem.ids.created_at.icon = "robot-outline"
+        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant")
+
+    def buildChatItem(self, chatItem, text, role):
         chatItem.ids.label.text = text
+        chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"
         chatItem.ids.created_at.text = datetime.now().strftime("%m-%d-%Y %H:%M")
         return chatItem
 
@@ -77,7 +75,7 @@ class HomeScreen(MDScreen):
 
     def on_success(self, request, response):
         responseMessage = response["choices"][0]["message"]["content"]
-        self.messages.append({"role": "system", "content": responseMessage})
+        self.messages.append({"role": "assistant", "content": responseMessage})
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
 
     def on_error(self, request, response):
