@@ -8,8 +8,11 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
 from kivymd.uix.chip import MDChip
+
 from kivy.clock import Clock
 from kivy.network.urlrequest import UrlRequest
+from kivy.animation import Animation
+
 from libs.utils.app_utils import get_app_screen
 from libs.utils.preferences_service import PreferencesService, Preferences
 from libs.utils.chat_gpt_service import ChatGptService
@@ -31,7 +34,21 @@ class HomeScreen(MDScreen):
             ai_system_initial_context = self.preferences_service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name),
             temperature = float(self.preferences_service.get(Preferences.AI_TEMPERATURE.name))
         )
+        self.init_chat_animation()
         Clock.schedule_once(self.init_chat_history, 0)
+
+    def init_chat_animation(self, *args):
+        self.animated_layout = Factory.AnimatedIconButton()
+        self.animation = Animation(opacity=0, d=0.7) + Animation(opacity=1, d=0.7)
+        self.animation.repeat = True
+
+    def add_animation(self, *args):
+        self.getUIElement("chat_list").add_widget(self.animated_layout)
+        self.animation.start(self.animated_layout.ids.animated_icon)
+
+    def remove_animation(self, *args):
+        self.animation.stop(self.animated_layout.ids.animated_icon)
+        self.getUIElement("chat_list").remove_widget(self.animated_layout)
 
     def getUIElement(self, name):
         return get_app_screen("home").ids[name]
@@ -59,8 +76,10 @@ class HomeScreen(MDScreen):
             return
         self.chat_gpt_service.send_message(text, on_success=self.on_success, on_error=self.on_error)
         self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
-
+        self.add_animation()
+    
     def on_success(self, responseMessage):
+        self.remove_animation()
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
 
     def on_error(self, errorMessage):
