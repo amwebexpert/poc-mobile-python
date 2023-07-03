@@ -44,10 +44,16 @@ class HomeScreen(MDScreen):
 
     def add_animation(self, *args):
         self.getUIElement("chat_list").add_widget(self.animated_layout)
-        self.animation.start(self.animated_layout.ids.animated_icon)
+        icons = self.animated_layout.ids
+        self.animation.start(icons.animated_icon)
+        Clock.schedule_once(lambda *args: self.animation.start(icons.animated_icon_2), 0.7)
+        Clock.schedule_once(lambda *args: self.animation.start(icons.animated_icon_3), 0.3)
 
     def remove_animation(self, *args):
-        self.animation.stop(self.animated_layout.ids.animated_icon)
+        icons = self.animated_layout.ids
+        self.animation.stop(icons.animated_icon)
+        self.animation.stop(icons.animated_icon_2)
+        self.animation.stop(icons.animated_icon_3)
         self.getUIElement("chat_list").remove_widget(self.animated_layout)
 
     def getUIElement(self, name):
