@@ -48,6 +48,7 @@ class HomeScreen(MDScreen):
         self.animation.start(icons.animated_icon)
         Clock.schedule_once(lambda *args: self.animation.start(icons.animated_icon_2), 0.7)
         Clock.schedule_once(lambda *args: self.animation.start(icons.animated_icon_3), 0.3)
+        self.getUIElement("chat_scroll").scroll_to(self.animated_layout)
 
     def remove_animation(self, *args):
         icons = self.animated_layout.ids
@@ -89,4 +90,5 @@ class HomeScreen(MDScreen):
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
 
     def on_error(self, errorMessage):
+        self.remove_animation()
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Sorry, I didn't understand that."))
