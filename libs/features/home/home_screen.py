@@ -28,7 +28,8 @@ class HomeScreen(MDScreen):
         self.preferences_service = PreferencesService()
         self.chat_gpt_service = ChatGptService(
             api_key = self.preferences_service.get(Preferences.OPEN_AI_KEY.name),
-            ai_system_initial_context = self.preferences_service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, default_value="You are a helpful assistant."),
+            ai_system_initial_context = self.preferences_service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name),
+            temperature = float(self.preferences_service.get(Preferences.AI_TEMPERATURE.name))
         )
         Clock.schedule_once(self.init_chat_history, 0)
 

@@ -56,6 +56,28 @@
                 hint_text: "AI system initial context"
                 text: "You are AI bot helpful assistant."
                 on_text: root.set_ai_initial_context(self.text)
+            # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
+            MDWidget:
+                size_hint: 0, 0
+            MDWidget:
+                size_hint: 0, 0
+            MDLabel:
+                text: "Temperature"
+                pos_hint: {"center_y": .5}
+                adaptive_width: False if app.is_mobile_device() else True
+                height: self.texture_size[1]
+            MDBoxLayout:
+                adaptive_height: True
+                padding_y: dp(8)
+                MDSlider:
+                    id: ai_temperature
+                    padding: 0
+                    min: 0
+                    max: 2
+                    step: 0.01
+                    hint: True
+                    active: True
+                    on_value: root.set_ai_temperature(self.value)
         MDBoxLayout:
             orientation: "vertical"
             size_hint: 1, 1

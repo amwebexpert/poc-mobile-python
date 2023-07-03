@@ -27,6 +27,7 @@ class SettingsScreen(MDScreen):
         self.init_primary_colors_drop_down_list()
         self.init_ai_system_context()
         self.init_api_key()
+        self.init_ai_temperature()
 
     def init_ai_system_context(self):
         value = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, default_value="You are a helpful assistant.")
@@ -36,6 +37,10 @@ class SettingsScreen(MDScreen):
         value = self.service.get(Preferences.OPEN_AI_KEY.name)
         if value is not None:
             self.getUIElement("open_ai_key").text = value
+
+    def init_ai_temperature(self):
+        value = self.service.get(Preferences.AI_TEMPERATURE.name, 0)
+        self.getUIElement("ai_temperature").value = value
 
     def init_primary_colors_drop_down_list(self):
         menu_items = [
@@ -73,3 +78,6 @@ class SettingsScreen(MDScreen):
 
     def set_ai_initial_context(self, text):
         self.service.set(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, text)
+    
+    def set_ai_temperature(self, value):
+        self.service.set(Preferences.AI_TEMPERATURE.name, round(value, 2))
