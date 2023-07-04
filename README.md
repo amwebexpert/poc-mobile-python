@@ -10,6 +10,19 @@ Application developed in Python using KivyMD
 
     python utils/icons/main.py
 
+### Snippet to see the layout border of any widget
+
+Inside the `.kivy` file just add this:
+
+```
+    canvas.before:
+        Color:
+            rgba: 0, 1, 0, 1
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+```
+
 ## Managing environment
 
 ### Python >= 3.9 on MacOS
