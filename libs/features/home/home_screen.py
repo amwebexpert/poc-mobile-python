@@ -3,7 +3,6 @@ from kivymd.uix.widget import Widget
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
-from kivy.uix.anchorlayout import AnchorLayout
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
 from kivymd.uix.chip import MDChip
