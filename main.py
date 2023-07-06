@@ -64,6 +64,7 @@ class MainApp(MDApp, App):
         Clock.schedule_once(self.on_app_started, 0)
     
     def on_app_started(self, *args):
+        self.screen.ids['screen_manager'].current = "home"
         info = get_app_version_info_string()
         print(f"App <{info}> started.")
 

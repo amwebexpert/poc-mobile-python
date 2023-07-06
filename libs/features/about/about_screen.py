@@ -11,6 +11,7 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 import platform
 import os
+import webbrowser
 
 class AboutScreen(MDScreen):
     dialog = None
@@ -26,19 +27,21 @@ class AboutScreen(MDScreen):
         return get_app_name()
 
     def more_info(self):
-        title = "Open Mindset"
-        self.dialog = MDDialog(title=title, text="This is a test dialog", auto_dismiss=True,
+        title = "Copyrights and licences"
+        text = """"This app uses open sources libraries under common licences (MIT, Apache 2.0, etc.) and other assets registered
+            under Creative Commons (Attribution 3.0 Unported).
+            The full list of licences and assets is available on the app's github page
+            The app's logo is original creation of Eucalyp Studio"""
+
+        self.dialog = MDDialog(title=title, text=text, auto_dismiss=True,
                 buttons=[
-                    MDFlatButton(text="OK", theme_text_color="Primary", on_release=lambda _: self.on_dialog_close("OK")),
-                    MDFlatButton(text="Cancel", on_release=lambda _: self.on_dialog_close("Cancel")),
+                    MDFlatButton(text="GitHub page", theme_text_color="Primary",
+                        on_release=lambda _: webbrowser.open("https://github.com/amwebexpert/poc-mobile-python")),
+                    MDFlatButton(text="Cancel",
+                        on_release=lambda _: self.dialog.dismiss()),
                 ],
         )
         self.dialog.open()
-
-    def on_dialog_close(self, action):
-        self.dialog.dismiss()
-        text = f"Dialog closed with action: {action}"
-        print(text)
 
     def add_platform_infos(self, *args):
         screen = self.manager.get_screen("about")
