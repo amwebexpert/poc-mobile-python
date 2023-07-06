@@ -2,7 +2,7 @@ from kivy.metrics import dp
 from kivymd.uix.widget import Widget
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFlatButton, MDRectangleFlatIconButton
 from kivymd.uix.snackbar import Snackbar
 
 from libs.utils.app_utils import get_app_version_info_short_string, get_app_name
@@ -28,16 +28,15 @@ class AboutScreen(MDScreen):
 
     def more_info(self):
         title = "Copyrights and licences"
-        text = """"This app uses open sources libraries under common licences (MIT, Apache 2.0, etc.) and other assets registered
-            under Creative Commons (Attribution 3.0 Unported).
-            The full list of licences and assets is available on the app's github page
-            The app's logo is original creation of Eucalyp Studio"""
+        text = """This app uses open sources libraries under common licences (MIT, Apache 2.0, etc.) and other assets registered under Creative Commons (Attribution 3.0 Unported). \n\nThe full list of licences and assets is available on the app's github page. The app's logo is original creation of Eucalyp Studio"""
 
         self.dialog = MDDialog(title=title, text=text, auto_dismiss=True,
                 buttons=[
-                    MDFlatButton(text="GitHub page", theme_text_color="Primary",
+                    MDRectangleFlatIconButton(text="GitHub Project", icon="github",
                         on_release=lambda _: webbrowser.open("https://github.com/amwebexpert/poc-mobile-python")),
-                    MDFlatButton(text="Cancel",
+                    MDRectangleFlatIconButton(text="Eucalyp Studio", icon="link-variant",
+                        on_release=lambda _: webbrowser.open("https://www.flaticon.com/authors/eucalyp")),
+                    MDFlatButton(text="Close",
                         on_release=lambda _: self.dialog.dismiss()),
                 ],
         )
