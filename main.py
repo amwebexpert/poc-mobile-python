@@ -30,21 +30,16 @@ class AppScreen(MDScreen):
 class MainApp(MDApp, App):
     AUTORELOADER_PATHS = [(".", {"recursive": True}) ]
     KV_FILES = { # *.kv files to watch
+        os.path.join(os.getcwd(), "main.kv"),
         os.path.join(os.getcwd(), "libs/features/home/home_screen.kv"),
         os.path.join(os.getcwd(), "libs/features/about/about_screen.kv"),
         os.path.join(os.getcwd(), "libs/features/settings/settings_screen.kv"),
-    }
-    CLASSES = { # class to watch from *.py files
-        #"AppScreen": "main",
-        #"HomeScreen": "libs.features.home.home_screen",
-        #"AboutScreen": "libs.features.about.about_screen",
-        #"SettingsScreen": "libs.features.settings.settings_screen",
     }
     AUTORELOADER_IGNORE_PATTERNS = [ "*.pyc", "*__pycache__*", "*.db", "*.db-journal"]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.icon = 'libs/assets/logo.ico'
+        self.icon = "libs/assets/logo.ico"
         init_screen()
 
     def is_mobile_device(self):
