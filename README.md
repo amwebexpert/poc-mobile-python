@@ -10,6 +10,16 @@ Application developed in Python using KivyMD
 
     python utils/icons/main.py
 
+### Startup & hot reload
+
+Normal startup
+
+    python main.py
+
+With hot-reload enabled
+
+    DEBUG=1 python main.py
+
 ### Snippet to see the layout border of any widget
 
 Inside the `.kivy` file just add this:

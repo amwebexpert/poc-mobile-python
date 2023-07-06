@@ -80,6 +80,12 @@ class HomeScreen(MDScreen):
         self.chat_gpt_service.send_message(text, on_success=self.on_success, on_error=self.on_error)
         self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
         self.add_animation()
+        self.reset_input_and_set_focus()
+    
+    def reset_input_and_set_focus(self):
+        chat_input = self.getUIElement("chat_input_text")
+        chat_input.text = ""
+        chat_input.focus = True
     
     def on_success(self, responseMessage):
         self.remove_animation()

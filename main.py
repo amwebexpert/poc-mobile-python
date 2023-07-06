@@ -29,13 +29,14 @@ class AppScreen(MDScreen):
 
 class MainApp(MDApp, App):
     AUTORELOADER_PATHS = [(".", {"recursive": True}) ]
+    AUTORELOADER_IGNORE_PATTERNS = [ "*.pyc", "*__pycache__*", "*.db", "*.db-journal"]
+    # TODO generate the following dictionary dynamically by scanning the project
     KV_FILES = { # *.kv files to watch
         os.path.join(os.getcwd(), "main.kv"),
         os.path.join(os.getcwd(), "libs/features/home/home_screen.kv"),
         os.path.join(os.getcwd(), "libs/features/about/about_screen.kv"),
         os.path.join(os.getcwd(), "libs/features/settings/settings_screen.kv"),
     }
-    AUTORELOADER_IGNORE_PATTERNS = [ "*.pyc", "*__pycache__*", "*.db", "*.db-journal"]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
