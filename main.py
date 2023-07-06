@@ -44,6 +44,7 @@ class MainApp(MDApp, App):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.icon = 'libs/assets/logo.ico'
         init_screen()
 
     def is_mobile_device(self):
