@@ -1,14 +1,20 @@
+import os
+
+from kaki.app import App
+
+from kivy.factory import Factory
+from kivy.clock import Clock
+from kivy.lang import Builder
+
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.label import MDLabel
 from kivymd.uix.chip import MDChip
 from kivymd.theming import ThemeManager
 from kivymd.app import MDApp
-from kivy.clock import Clock
-from kivy.lang import Builder
-from libs.utils.app_utils import get_app_screen, get_app_version_info, get_app_version_info_string
+
+from libs.utils.app_utils import get_app_version_info, get_app_version_info_string
 from libs.utils.screen_utils import init_screen, is_mobile
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
 from libs.utils.preferences_service import PreferencesService, Preferences
@@ -21,8 +27,20 @@ from libs.utils.preferences_service import PreferencesService, Preferences
 class AppScreen(MDScreen):
     pass
 
-class MainApp(MDApp):
-    dialog = None
+class MainApp(MDApp, App):
+    AUTORELOADER_PATHS = [(".", {"recursive": True}) ]
+    KV_FILES = { # *.kv files to watch
+        os.path.join(os.getcwd(), "libs/features/home/home_screen.kv"),
+        os.path.join(os.getcwd(), "libs/features/about/about_screen.kv"),
+        os.path.join(os.getcwd(), "libs/features/settings/settings_screen.kv"),
+    }
+    CLASSES = { # class to watch from *.py files
+        #"AppScreen": "main",
+        #"HomeScreen": "libs.features.home.home_screen",
+        #"AboutScreen": "libs.features.about.about_screen",
+        #"SettingsScreen": "libs.features.settings.settings_screen",
+    }
+    AUTORELOADER_IGNORE_PATTERNS = [ "*.pyc", "*__pycache__*", "*.db", "*.db-journal"]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -34,7 +52,7 @@ class MainApp(MDApp):
     def get_metadata(self):
         return get_app_version_info()
 
-    def build(self):
+    def build_app(self):
         self.service = PreferencesService()
         self.title = self.get_metadata()["name"]
         self.theme_cls.theme_style_switch_animation = True
@@ -42,11 +60,7 @@ class MainApp(MDApp):
         self.theme_cls.theme_style = self.service.get(Preferences.THEME_STYLE.name, default_value=ThemeMode.Dark.name)
         self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
 
-        # this is equivalent to just returning Builder.load_file(...)
-        # but being explicit here for clarity about whats going on with root widget
-        Builder.load_file("main_layout.kv")
-        appScreen = AppScreen()
-        return appScreen
+        return Factory.AppScreen()
 
     def on_start(self):
         Clock.schedule_once(self.on_app_started, 0)

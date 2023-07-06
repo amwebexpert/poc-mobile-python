@@ -5,14 +5,12 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.snackbar import Snackbar
 
-from libs.utils.app_utils import get_app_screen, get_app_version_info_short_string, get_app_name
+from libs.utils.app_utils import get_app_version_info_short_string, get_app_name
 
 from kivy.clock import Clock
 from kivy.lang import Builder
 import platform
 import os
-
-Builder.load_file("libs/features/about/about_screen.kv")
 
 class AboutScreen(MDScreen):
     dialog = None
@@ -43,7 +41,7 @@ class AboutScreen(MDScreen):
         print(text)
 
     def add_platform_infos(self, *args):
-        screen = get_app_screen("about")
+        screen = self.manager.get_screen("about")
         infos_panel = screen.ids["infos_panel"]
 
         infos_panel.add_row(("Platform", platform.system()))

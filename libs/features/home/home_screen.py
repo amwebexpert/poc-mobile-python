@@ -11,7 +11,6 @@ from kivy.clock import Clock
 from kivy.network.urlrequest import UrlRequest
 from kivy.animation import Animation
 
-from libs.utils.app_utils import get_app_screen
 from libs.utils.preferences_service import PreferencesService, Preferences
 from libs.utils.chat_gpt_service import ChatGptService
 
@@ -20,8 +19,6 @@ from kivy.lang import Builder
 from datetime import datetime
 import json
   
-Builder.load_file("libs/features/home/home_screen.kv")
-
 class HomeScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -56,7 +53,8 @@ class HomeScreen(MDScreen):
         self.getUIElement("chat_list").remove_widget(self.animated_layout)
 
     def getUIElement(self, name):
-        return get_app_screen("home").ids[name]
+        screen = self.manager.get_screen("home")
+        return screen.ids[name]
 
     def init_chat_history(self, *args):
         item = self.buildChatItemLeft("I'm an artificial intelligence helpful assistant. How can I help you?")
