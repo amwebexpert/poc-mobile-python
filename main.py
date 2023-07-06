@@ -60,7 +60,8 @@ class MainApp(MDApp, App):
         self.theme_cls.theme_style = self.service.get(Preferences.THEME_STYLE.name, default_value=ThemeMode.Dark.name)
         self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
 
-        return Factory.AppScreen()
+        self.screen = Factory.AppScreen()
+        return self.screen
 
     def on_start(self):
         Clock.schedule_once(self.on_app_started, 0)
@@ -73,7 +74,7 @@ class MainApp(MDApp, App):
         print("App stopped.")
 
     def show_info(self, *args):
-        self.root.ids['screen_manager'].current = "about"
+        self.screen.ids['screen_manager'].current = "about"
 
     def exit(self):
         Clock.schedule_once(self.stop, 0)
