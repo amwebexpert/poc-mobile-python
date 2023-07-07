@@ -14,7 +14,7 @@ from kivymd.uix.chip import MDChip
 from kivymd.theming import ThemeManager
 from kivymd.app import MDApp
 
-from libs.utils.app_utils import get_app_version_info, get_app_version_info_string
+from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch
 from libs.utils.screen_utils import init_screen, is_mobile
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
 from libs.utils.preferences_service import PreferencesService, Preferences
@@ -30,13 +30,7 @@ class AppScreen(MDScreen):
 class MainApp(MDApp, App):
     AUTORELOADER_PATHS = [(".", {"recursive": True}) ]
     AUTORELOADER_IGNORE_PATTERNS = [ "*.pyc", "*__pycache__*", "*.db", "*.db-journal"]
-    # TODO generate the following dictionary dynamically by scanning the project
-    KV_FILES = { # *.kv files to watch
-        os.path.join(os.getcwd(), "main.kv"),
-        os.path.join(os.getcwd(), "libs/features/home/home_screen.kv"),
-        os.path.join(os.getcwd(), "libs/features/about/about_screen.kv"),
-        os.path.join(os.getcwd(), "libs/features/settings/settings_screen.kv"),
-    }
+    KV_FILES = list_kv_files_to_watch()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

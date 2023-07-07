@@ -1,5 +1,8 @@
-from kivymd.app import MDApp
 import json
+import os
+from pathlib import Path
+
+from kivymd.app import MDApp
 
 def get_app_version_info():
     return json.load(open("libs/assets/app.json"))
@@ -15,3 +18,11 @@ def get_app_version_info_short_string():
 def get_app_name():
     infos = get_app_version_info()
     return infos["name"]
+
+def list_kv_files_to_watch():
+    kv_files = [os.path.join(os.getcwd(), "main.kv")]
+    appLibsDir = os.path.join(os.getcwd(), "libs")
+    for path in Path(appLibsDir).rglob('*.kv'):
+        if not (path.name == "theme.kv"):
+            kv_files.append(str(path.resolve()))
+    return set(kv_files)
