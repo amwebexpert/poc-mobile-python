@@ -72,10 +72,15 @@ Inside the `.kivy` file just add this:
 * https://stackoverflow.com/a/16269635/704681
 
 
-### Building Android App
+## Build for Android
+
+### Building for Android on macOS
 
     python ~/Library/Python/3.8/lib/python/site-packages/buildozer init
     python ~/Library/Python/3.8/lib/python/site-packages/buildozer android debug deploy run
+
+    python ~/Library/Python/3.11/lib/python/site-packages/buildozer init
+    python ~/Library/Python/3.11/lib/python/site-packages/buildozer android debug deploy run
 
 - Ugly workaround for [ssl issue](https://github.com/kivy/kivy/issues/5784):
   code /Library/Frameworks/Python.framework/Versions/Current/lib/python3.10/ssl.py
