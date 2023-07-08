@@ -1,5 +1,5 @@
 from kivy.core.window import Window
-import platform
+from libs.utils.platform_utils import is_ios, is_android
 
 def init_screen():
     if is_mobile():
@@ -15,14 +15,6 @@ def get_screen_width():
 
 def get_screen_height():
     return Window.height
-
-def is_android():
-    platform_name = platform.system().lower()
-    platform_release = platform.release().lower()
-    return "android" in platform_name or "android" in platform_release
-
-def is_ios():
-    return "ios" in platform.system().lower()
 
 def is_mobile():
     value = is_android() or is_ios()
