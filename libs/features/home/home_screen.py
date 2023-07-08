@@ -1,23 +1,14 @@
-from kivymd.app import MDApp
-from kivymd.uix.widget import Widget
+from datetime import datetime
+
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton
-from kivymd.uix.button import MDFlatButton
-from kivymd.uix.label import MDLabel
-from kivymd.uix.chip import MDChip
 
 from kivy.clock import Clock
-from kivy.network.urlrequest import UrlRequest
 from kivy.animation import Animation
+from kivy.factory import Factory
 
 from libs.utils.preferences_service import PreferencesService, Preferences
 from libs.utils.chat_gpt_service import ChatGptService
-
-from kivy.factory import Factory
-from kivy.lang import Builder
-from datetime import datetime
-import json
+from libs.utils.screen_utils import is_mobile
   
 class HomeScreen(MDScreen):
     def __init__(self, **kwargs):
@@ -85,7 +76,8 @@ class HomeScreen(MDScreen):
     def reset_input_and_set_focus(self):
         chat_input = self.getUIElement("chat_input_text")
         chat_input.text = ""
-        chat_input.focus = True
+        if not is_mobile():
+            chat_input.focus = True
     
     def on_success(self, responseMessage):
         self.remove_animation()

@@ -16,10 +16,14 @@ def get_screen_width():
 def get_screen_height():
     return Window.height
 
-def is_mobile():
+def is_android():
     platform_name = platform.system().lower()
     platform_release = platform.release().lower()
-    value = "android" in platform_name or "ios" in platform_name or "android" in platform_release
+    return "android" in platform_name or "android" in platform_release
 
-    # To ease testing is_mobile() True on desktop, just return: not value
-    return value
+def is_ios():
+    return "ios" in platform.system().lower()
+
+def is_mobile():
+    value = is_android() or is_ios()
+    return value # To ease testing is_mobile() True on desktop, just return: not value

@@ -1,18 +1,15 @@
-from kivy.metrics import dp
-from kivymd.uix.widget import Widget
-from kivymd.uix.screen import MDScreen
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton, MDRectangleFlatIconButton
-from kivymd.uix.snackbar import Snackbar
-
-from libs.utils.screen_utils import is_mobile
-from libs.utils.app_utils import get_app_version_info_short_string, get_app_name
-
-from kivy.clock import Clock
-from kivy.lang import Builder
 import platform
 import os
 import webbrowser
+
+from kivy.clock import Clock
+
+from kivymd.uix.screen import MDScreen
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton, MDRectangleFlatIconButton
+
+from libs.utils.screen_utils import is_mobile, is_android
+from libs.utils.app_utils import get_app_version_info_short_string, get_app_name
 
 class AboutScreen(MDScreen):
     dialog = None
@@ -50,7 +47,10 @@ class AboutScreen(MDScreen):
         screen = self.manager.get_screen("about")
         infos_panel = screen.ids["infos_panel"]
 
-        infos_panel.add_row(("Platform", platform.system()))
+        if is_android():
+            infos_panel.add_row(("Platform", "Android"))
+        else:
+            infos_panel.add_row(("Platform", platform.system()))            
         infos_panel.add_row(("Platform release", platform.release()))
         infos_panel.add_row(("Platform version", platform.version()))
         infos_panel.add_row(("Platform machine", platform.machine()))

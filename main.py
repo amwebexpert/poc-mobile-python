@@ -2,19 +2,16 @@ from kaki.app import App
 
 from kivy.factory import Factory
 from kivy.clock import Clock
-from kivy.core.window import Window
+from kivy.uix.screenmanager import SlideTransition, NoTransition
 
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 
 from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch
+from libs.utils.keyboard_utils import init_keyboard
 from libs.utils.screen_utils import init_screen, is_mobile
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
 from libs.utils.preferences_service import PreferencesService, Preferences
-
-# https://youtube.com/watch?v=sa4AVMjjzNo
-Window.keyboard_anim_args = {'d': 0.2, 't': 'in_out_expo'}
-Window.softinput_mode = "below_target"
 
 class AppScreen(MDScreen):
     pass
@@ -50,7 +47,10 @@ class MainApp(MDApp, App):
         Clock.schedule_once(self.on_app_started, 0)
     
     def on_app_started(self, *args):
-        self.screen.ids['screen_manager'].current = "home"
+        manager = self.screen.ids['screen_manager']
+        manager.transition = NoTransition()
+        manager.current = "home"
+        manager.transition = SlideTransition()
         info = get_app_version_info_string()
         print(f"App <{info}> started.")
 
@@ -64,4 +64,5 @@ class MainApp(MDApp, App):
         Clock.schedule_once(self.stop, 0)
 
 if __name__ == '__main__':
+    init_keyboard()
     MainApp().run()
