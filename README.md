@@ -74,6 +74,28 @@ Inside the `.kivy` file just add this:
 
 ## Build for Android
 
+### Building for Android on Linux Ubuntu
+
+First install the following dependencies:
+
+* https://kivy.org/doc/stable/installation/installation-linux.html#id1
+
+Then install these python dependencies:
+
+    pip install -r requirements-linux-ubuntu.txt
+
+Ensure both `kivy` and `kivymd` are up to date (see below reference for more detail)
+
+    pip install https://github.com/kivy/kivy/archive/master.zip
+    pip install https://github.com/kivymd/KivyMD/archive/master.zip
+
+    buildozer android clean
+    buildozer android debug deploy run
+
+#### References
+
+* https://stackoverflow.com/a/76644946/704681
+
 ### Building for Android on macOS
 
     python ~/Library/Python/3.8/lib/python/site-packages/buildozer init
