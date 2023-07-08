@@ -37,14 +37,11 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-#requirements = python3,kivy==2.2.0,kivymd==https://github.com/kivymd/KivyMD/archive/master.zip#sha256=5e8a5b8b2d835644e769b594fbe635f15416b4c9d52f48abd3aa8a5e560c1fe7,appdirs==1.4.4, arrow==1.2.3, binaryornot==0.4.4, certifi==2023.5.7, chardet==5.1.0, charset-normalizer==3.1.0, click==8.1.3, colorama==0.4.6, cookiecutter==2.1.1, distlib==0.3.6, docopt==0.6.2, docutils==0.20.1, filelock==3.12.1, idna==3.4, Jinja2==3.1.2, jinja2-time==0.2.0, Kivy==2.2.1, Kivy-examples==2.2.1, Kivy-Garden==0.1.5, MarkupSafe==2.1.3, materialyoucolor==1.2.0, openstep-parser==1.5.4, packaging==23.1, pbxproj==3.5.0, pep517==0.13.0, pexpect==4.8.0, platformdirs==3.8.0, ptyprocess==0.7.0, Pygments==2.15.1, python-dateutil==2.8.2, python-slugify==8.0.1, PyYAML==6.0, requests==2.31.0, sh==1.14.3, six==1.16.0, text-unidecode==1.3, toml==0.10.2, tomli==2.0.1, urllib3==2.0.3
-
 # DOC: How to fix a shader bug on an android device
 #      Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x40 in tid 3963 (SDLThread), pid 3902 (SDLActivity)
 # - https://github.com/kivymd/KivyMD/issues/1496
 # - https://github.com/kivymd/KivyMD#how-to-fix-a-shader-bug-on-an-android-device
-#requirements = kivy==master, kivymd==https://github.com/kivymd/KivyMD/archive/master.zip, python3, kaki
-requirements = python3,kivy==2.2.0,kaki,kivymd==https://github.com/kivymd/KivyMD/archive/master.zip#sha256=5e8a5b8b2d835644e769b594fbe635f15416b4c9d52f48abd3aa8a5e560c1fe7
+requirements = kivy==master, https://github.com/kivymd/KivyMD/archive/master.zip, python3, kaki
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -108,7 +105,8 @@ android.permissions = android.permission.INTERNET, android.permission.WRITE_EXTE
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-android.api = 34
+# (int) Target Android API, should be as high as possible.
+#android.api = 31
 
 # (int) Minimum API your APK / AAB will support.
 #android.minapi = 21
@@ -117,7 +115,7 @@ android.api = 34
 #android.sdk = 20
 
 # (str) Android NDK version to use
-android.ndk = 25b
+#android.ndk = 23b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
