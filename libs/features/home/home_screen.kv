@@ -22,4 +22,5 @@
                 multiline: True
             MDIconButton:
                 icon: "send"
-                on_release: root.send_message(chat_input_text.text)
+                disabled: not chat_input_text.text
+                on_release: root.send_message(chat_input_text.text.strip())
