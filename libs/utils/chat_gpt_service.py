@@ -10,7 +10,6 @@ class ChatGptService:
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.ai_system_initial_context = ai_system_initial_context
-        self.headers = { "Content-Type": "application/json", "Authorization": f"Bearer {api_key}" }
 
         self.start_new_session()
 
@@ -30,15 +29,20 @@ class ChatGptService:
             "frequency_penalty" : 0,
         }
 
+    def build_headers(self):
+        return { "Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}" }
+
     def send_message(self, text, on_success, on_error):
         self.on_success = on_success
         self.on_error = on_error
 
         payload = self.build_new_message(text)
+        headers = self.build_headers()
+
         request = UrlRequest(
             URL,
             req_body = json.dumps(payload),
-            req_headers = self.headers,
+            req_headers = headers,
             on_success = self.on_api_success,
             on_failure = self.on_api_error,
             on_error = self.on_api_error
@@ -51,4 +55,5 @@ class ChatGptService:
 
     def on_api_error(self, request, response):
         print(response)
-        self.on_error("Sorry, I didn't understand that.")
+        errorMessage = response["error"]["message"]
+        self.on_error(errorMessage)
