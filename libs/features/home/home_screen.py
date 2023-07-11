@@ -68,13 +68,15 @@ class HomeScreen(MDScreen):
         if (api_key == None):
             self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Missing OpenAI API key. Please set it in the settings screen."))
             return
+        self.chat_gpt_service.set_api_key(api_key)
         self.chat_gpt_service.send_message(text, on_success=self.on_success, on_error=self.on_error)
         self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
         self.add_animation()
     
     def reset_input_and_set_focus(self, clearText = False):
         chat_input = self.getUIElement("chat_input_text")
-        chat_input.text = ""
+        if clearText:
+            chat_input.text = ""
         if not is_mobile():
             chat_input.focus = True
     

@@ -5,17 +5,20 @@ URL = "https://api.openai.com/v1/chat/completions"
 
 class ChatGptService:
     def __init__(self, api_key = None, model="gpt-3.5-turbo", ai_system_initial_context="You are a helpful assistant.", temperature=0.7, max_tokens=150):
-        self.api_key = api_key
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.ai_system_initial_context = ai_system_initial_context
 
+        self.set_api_key(api_key)
         self.start_new_session()
+
+    def set_api_key(self, api_key):
+        self.api_key = api_key
 
     def start_new_session(self):
         self.messages = [{"role": "system", "content": self.ai_system_initial_context}]
-
+    
     def build_new_message(self, text):
         self.messages.append({"role": "user", "content": text})
         return {
