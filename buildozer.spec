@@ -41,7 +41,7 @@ version = 0.1
 #      Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x40 in tid 3963 (SDLThread), pid 3902 (SDLActivity)
 # - https://github.com/kivymd/KivyMD/issues/1496
 # - https://github.com/kivymd/KivyMD#how-to-fix-a-shader-bug-on-an-android-device
-requirements = kivy==master, https://github.com/kivymd/KivyMD/archive/master.zip, python3, kaki
+requirements = kivy==master, https://github.com/kivymd/KivyMD/archive/master.zip, python3, kaki, pyperclip
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

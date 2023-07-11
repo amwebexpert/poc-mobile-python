@@ -7,6 +7,8 @@ from kivy.uix.screenmanager import SlideTransition, NoTransition
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 
+import pyperclip
+
 from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch
 from libs.utils.keyboard_utils import init_keyboard
 from libs.utils.screen_utils import init_screen, is_mobile
@@ -59,6 +61,9 @@ class MainApp(MDApp, App):
 
     def show_info(self, *args):
         self.screen.ids['screen_manager'].current = "about"
+
+    def copy_text_to_clipboard(self, text):
+        pyperclip.copy(text)
 
     def exit(self):
         Clock.schedule_once(self.stop, 0)
