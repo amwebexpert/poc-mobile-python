@@ -9,6 +9,7 @@ from kivy.factory import Factory
 from libs.utils.preferences_service import PreferencesService, Preferences
 from libs.utils.chat_gpt_service import ChatGptService
 from libs.utils.screen_utils import is_mobile
+from libs.utils.string_utils import is_blank
   
 class HomeScreen(MDScreen):
     def __init__(self, **kwargs):
@@ -65,11 +66,13 @@ class HomeScreen(MDScreen):
 
     def send_message(self, text):
         api_key = self.preferences_service.get(Preferences.OPEN_AI_KEY.name)
-        if (api_key == None):
+        if is_blank(api_key):
             self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Missing OpenAI API key. Please set it in the settings screen."))
             return
+
         self.chat_gpt_service.set_api_key(api_key)
         self.chat_gpt_service.send_message(text, on_success=self.on_success, on_error=self.on_error)
+
         self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
         self.add_animation()
     
