@@ -2,7 +2,12 @@ import json
 import os
 from pathlib import Path
 
+from event_bus import EventBus
+
 from kivymd.app import MDApp
+
+# global events bus
+bus = EventBus()
 
 def get_app_version_info():
     return json.load(open("libs/assets/app.json"))

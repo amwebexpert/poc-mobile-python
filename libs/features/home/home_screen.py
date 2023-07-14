@@ -6,6 +6,7 @@ from kivy.clock import Clock
 from kivy.animation import Animation
 from kivy.factory import Factory
 
+from libs.utils.app_utils import bus
 from libs.utils.preferences_service import PreferencesService, Preferences
 from libs.utils.chat_gpt_service import ChatGptService
 from libs.utils.screen_utils import is_mobile
@@ -92,3 +93,7 @@ class HomeScreen(MDScreen):
         self.remove_animation()
         self.reset_input_and_set_focus(clearText=False)
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(errorMessage))
+
+    @bus.on("app_started_event")
+    def handle_app_started_event(info = "") -> None:
+        print(f"HomeScreen: App <{info}> started.")

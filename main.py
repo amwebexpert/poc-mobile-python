@@ -10,7 +10,7 @@ from kivymd.toast import toast
 
 import pyperclip
 
-from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch
+from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch, bus
 from libs.utils.keyboard_utils import init_keyboard
 from libs.utils.screen_utils import init_screen, is_mobile
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
@@ -54,13 +54,18 @@ class MainApp(MDApp, App):
         manager.transition = NoTransition()
         manager.current = "home"
         manager.transition = SlideTransition()
-        print(f"App <{get_app_version_info_string()}> started.")
+        bus.emit("app_started_event", get_app_version_info_string())
 
     def on_stop(self) -> None:
         print("App stopped.")
 
     def show_info(self, *args) -> None:
         self.screen.ids['screen_manager'].current = "about"
+
+    @bus.on("app_started_event")
+    def handle_app_started_event(info = "") -> None:
+        print(f"App <{info}> started.")
+
 
     def copy_text_to_clipboard(self, text) -> None:
         pyperclip.copy(text)
