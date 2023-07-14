@@ -6,6 +6,7 @@ from kivy.uix.screenmanager import SlideTransition, NoTransition
 
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
+from kivymd.toast import toast
 
 import pyperclip
 
@@ -64,6 +65,7 @@ class MainApp(MDApp, App):
 
     def copy_text_to_clipboard(self, text):
         pyperclip.copy(text)
+        toast(text = f'Content copied: "{text[0:20]}"...', duration = 2)
 
     def exit(self):
         Clock.schedule_once(self.stop, 0)
