@@ -8,14 +8,21 @@ from kivy.factory import Factory
 
 from libs.utils.app_utils import bus
 from libs.utils.preferences_service import PreferencesService, Preferences
+from libs.utils.chat.chat_session_service import ChatSessionService
+from libs.utils.chat.model.chat_session import ChatSession
+from libs.utils.chat.model.chat_item import ChatItem, ChatItemRole
+
 from libs.utils.chat_gpt_service import ChatGptService
 from libs.utils.screen_utils import is_mobile
 from libs.utils.string_utils import is_blank
   
 class HomeScreen(MDScreen):
+    chat_session: ChatSession = None
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        self.chat_session_service = ChatSessionService()
         self.preferences_service = PreferencesService()
         self.chat_gpt_service = ChatGptService(
             api_key = self.preferences_service.get(Preferences.OPEN_AI_KEY.name),
@@ -86,6 +93,11 @@ class HomeScreen(MDScreen):
     
     def on_success(self, responseMessage):
         self.remove_animation()
+
+        query = self.getUIElement("chat_input_text").text
+        self.chat_session = self.chat_session_service.save(chat_session=self.chat_session, query=query, response=responseMessage)
+        print(self.chat_session)
+
         self.reset_input_and_set_focus()
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
 
