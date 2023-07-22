@@ -21,7 +21,7 @@ class StorageService:
         self.conn.close()
     
     def execute(self, query: str) -> None:
-        logging.debug(f"--> sqlite: {query}")
+        logging.debug(f"sqlite: {query}")
         try:
             self.cursor.execute(query)
             self.conn.commit()

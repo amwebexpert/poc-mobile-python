@@ -22,7 +22,7 @@ class PreferencesService:
             else:
                 return result[0][0]
         except Exception as e:
-            logging.error(f"Unexpected error: {e}")
+            logging.exception(f"Unexpected error: {e}")
             return default_value
 
     def set(self, key: str, value = None) -> None:

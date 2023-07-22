@@ -4,27 +4,25 @@ from pathlib import Path
 
 from event_bus import EventBus
 
-from kivymd.app import MDApp
-
 # global events bus
 bus = EventBus()
 
-def get_app_version_info():
+def get_app_version_info() -> dict:
     return json.load(open("libs/assets/app.json"))
 
-def get_app_version_info_string():
+def get_app_version_info_string() -> str:
     infos = get_app_version_info()
     return f"{infos['name']} v{infos['version']} ({infos['version_date']})"
 
-def get_app_version_info_short_string():
+def get_app_version_info_short_string() -> str:
     infos = get_app_version_info()
     return f"{infos['version']} ({infos['version_date']})"
 
-def get_app_name():
+def get_app_name() -> str:
     infos = get_app_version_info()
     return infos["name"]
 
-def list_kv_files_to_watch():
+def list_kv_files_to_watch() -> set:
     kv_files = [os.path.join(os.getcwd(), "main.kv")]
     appLibsDir = os.path.join(os.getcwd(), "libs")
     for path in Path(appLibsDir).rglob('*.kv'):
