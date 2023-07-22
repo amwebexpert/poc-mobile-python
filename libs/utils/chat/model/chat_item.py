@@ -11,8 +11,10 @@ class ChatItem:
     description: str
     role: int = ChatItemRole.me.value
 
-    def __init__(self, chat_session_id: int, description: str, role: int = ChatItemRole.me.value, iso_created_at: str = datetime.utcnow().isoformat()) -> None:
+    def __init__(self, chat_session_id: int, description: str, role: int = ChatItemRole.me.value, iso_created_at: str = None, id: int = 0) -> None:
         self.chat_session_id = chat_session_id
-        self.iso_created_at = iso_created_at
         self.description = description
         self.role = role
+        self.id = id
+        if iso_created_at is None:
+            self.iso_created_at = datetime.utcnow().isoformat()

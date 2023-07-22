@@ -19,7 +19,8 @@ from libs.utils.screen_utils import is_mobile
 from libs.utils.string_utils import is_blank
   
 class HomeScreen(MDScreen):
-    chat_session: ChatSession = None
+    chat_session: ChatSession = ChatSession()
+    user_chat_item: ChatItem = None
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -75,6 +76,9 @@ class HomeScreen(MDScreen):
         return chatItem
 
     def send_message(self, text: str) -> None:
+        if is_blank(text):
+            return
+
         api_key = self.preferences_service.get(Preferences.OPEN_AI_KEY.name)
         if is_blank(api_key):
             self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Missing OpenAI API key. Please set it in the settings screen."))
@@ -83,10 +87,11 @@ class HomeScreen(MDScreen):
         self.chat_gpt_service.set_api_key(api_key)
         self.chat_gpt_service.send_message(text, on_success=self.on_success, on_error=self.on_error)
 
+        self.user_chat_item = ChatItem(chat_session_id=self.chat_session.id, description=text, role=ChatItemRole.me.value)
         self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
         self.add_animation()
     
-    def reset_input_and_set_focus(self, clearText: bool = False) -> None:
+    def reset_input_and_set_focus(self, clearText: bool = True) -> None:
         chat_input = self.getUIElement("chat_input_text")
         if clearText:
             chat_input.text = ""
@@ -96,9 +101,10 @@ class HomeScreen(MDScreen):
     def on_success(self, responseMessage: str) -> None:
         self.remove_animation()
 
-        query = self.getUIElement("chat_input_text").text
-        self.chat_session = self.chat_session_service.save(chat_session=self.chat_session, query=query, response=responseMessage)
-        logging.debug(self.chat_session)
+        ai_chat_item = ChatItem(chat_session_id=self.chat_session.id, description=responseMessage, role=ChatItemRole.AI.value)
+        self.chat_session.items.append(self.user_chat_item)
+        self.chat_session.items.append(ai_chat_item)
+        self.chat_session = self.chat_session_service.save(chat_session=self.chat_session)
 
         self.reset_input_and_set_focus()
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))

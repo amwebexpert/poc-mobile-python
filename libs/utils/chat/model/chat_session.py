@@ -9,8 +9,15 @@ class ChatSession:
     title: str
     items: List[ChatItem] = []
 
-    def __init__(self, title: str, items: List[ChatItem] = [], iso_created_at: str = datetime.utcnow().isoformat(), id: int = 0) -> None:
+    def __init__(self, 
+            title: str = None,
+            items: List[ChatItem] = [],
+            iso_created_at: str = None,
+            id: int = 0
+        ) -> None:
         self.id = id
-        self.iso_created_at = iso_created_at
-        self.title = title
         self.items = items
+        if iso_created_at is None:
+            self.iso_created_at = datetime.utcnow().isoformat()
+        if title is None:
+            self.title = datetime.now().strftime("%m-%d-%Y %H:%M")

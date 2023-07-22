@@ -33,37 +33,34 @@ class ChatSessionService:
             ]
         )
     
-    def save(self, chat_session: ChatSession, query: str, response: str) -> ChatSession:
+    def save(self, chat_session: ChatSession) -> ChatSession:
         self.storage_service.connect()
-        if chat_session is None:
-            chat_session = ChatSession(title=query)
+
+        if chat_session.id == 0:
             chat_session.id = self.create(chat_session)
-        self.add_chat_session_item(
-            chat_session=chat_session,
-            chat_item = ChatItem(chat_session_id=chat_session.id, description=query, role=ChatItemRole.me.value))
-        self.add_chat_session_item(
-            chat_session=chat_session,
-            chat_item = ChatItem(chat_session_id=chat_session.id, description=response, role=ChatItemRole.AI.value))
+
+        for chat_item in chat_session.items:
+            if chat_item.id == 0:
+                chat_item.id = self.add_chat_session_item(chat_session, chat_item)
+
         self.storage_service.close()
         return chat_session
 
-    def add_chat_session_item(self, chat_session: ChatSession, chat_item: ChatItem) -> None:
+    def add_chat_session_item(self, chat_session: ChatSession, chat_item: ChatItem) -> int:
         chat_item.id = self.storage_service.insert(
             table_name="chat_session_items", 
             columns=["chat_session_id", "iso_created_at", "description", "role"], 
-            values=[f"{chat_session.id}", f'"{chat_item.iso_created_at}"', f'"{chat_item.description}"', f'"{chat_item.role}"']
+            values=[f"{chat_session.id}", f'"{chat_item.iso_created_at}"', f'"{chat_item.description}"', f"{chat_item.role}"]
         )
+        return chat_item.id
 
     def create(self, chat_session: ChatSession) -> int:
-        chat_session_id = self.storage_service.insert(
+        chat_session.id = self.storage_service.insert(
             table_name="chat_sessions", 
             columns=["iso_created_at", "title"], 
             values=[f'"{chat_session.iso_created_at}"', f'"{chat_session.title}"']
         )
-        chat_session.id = chat_session_id
-        for chat_item in chat_session.items:
-            self.add_chat_session_item(chat_session=chat_session, chat_item=chat_item)
-        return chat_session_id
+        return chat_session.id
 
     def get(self, id = 0) -> ChatSession:
         self.storage_service.connect()
