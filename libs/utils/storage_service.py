@@ -71,7 +71,9 @@ class StorageService:
         return self.fetchall(query)
 
     def raise_exception(self, query: str, e: Exception) -> None:
-        raise Exception(f'Error while executing query "{query}": {e}')
+        error_message = f'Error while executing query "{query}": {e}'
+        logging.critical(error_message, stack_info=True)
+        raise Exception(error_message)
 
     def validateArrayLengths(self, columns: tuple, values: tuple):
         if len(columns) != len(values):
