@@ -14,23 +14,23 @@ class ChatSessionService:
     def create_chat_session_table(self) -> None:
         self.storage_service.create_table(
             table_name = "chat_sessions", 
-            columns=[
+            columns=(
                 "id              INTEGER PRIMARY KEY AUTOINCREMENT",
                 "iso_created_at  TEXT NOT NULL",
                 "title           TEXT NOT NULL"
-            ]
+            )
         )
     
     def create_chat_session_items_table(self) -> None:
         self.storage_service.create_table(
             table_name = "chat_session_items", 
-            columns=[
+            columns=(
                 "id              INTEGER PRIMARY KEY AUTOINCREMENT",
                 "chat_session_id INTEGER NOT NULL",
                 "iso_created_at  TEXT NOT NULL",
                 "description     TEXT NOT NULL",
                 "role            TEXT NOT NULL"
-            ]
+            )
         )
     
     def save(self, chat_session: ChatSession) -> ChatSession:
@@ -49,16 +49,16 @@ class ChatSessionService:
     def add_chat_session_item(self, chat_session: ChatSession, chat_item: ChatItem) -> int:
         chat_item.id = self.storage_service.insert(
             table_name="chat_session_items", 
-            columns=["chat_session_id", "iso_created_at", "description", "role"], 
-            values=[f"{chat_session.id}", f'"{chat_item.iso_created_at}"', f'"{chat_item.description}"', f"{chat_item.role}"]
+            columns=("chat_session_id", "iso_created_at", "description", "role"),
+            values=(chat_session.id, chat_item.iso_created_at, chat_item.description, chat_item.role)
         )
         return chat_item.id
 
     def create(self, chat_session: ChatSession) -> int:
         chat_session.id = self.storage_service.insert(
             table_name="chat_sessions", 
-            columns=["iso_created_at", "title"], 
-            values=[f'"{chat_session.iso_created_at}"', f'"{chat_session.title}"']
+            columns=("iso_created_at", "title"),
+            values=(chat_session.iso_created_at, chat_session.title)
         )
         return chat_session.id
 
