@@ -51,15 +51,13 @@ class StorageService:
 
     def insert(self, table_name: str, columns: tuple, values: tuple) -> int:
         self.validateArrayLengths(columns, values)
-        sqlValuesPlaceholders = ("?, " * len(values)).rstrip(", ")
-        query = f"INSERT INTO {table_name} ({SEP.join(columns)}) VALUES ({sqlValuesPlaceholders})"
+        query = f"INSERT INTO {table_name} ({SEP.join(columns)}) VALUES ({self.build_placeholders(values)})"
         self.execute(query, values)
         return self.cursor.lastrowid
-    
+
     def update(self, table_name: str, columns: tuple, values: tuple, condition: str) -> None:
         self.validateArrayLengths(columns, values)
-        sqlValuesPlaceholders = ("?, " * len(values)).rstrip(", ")
-        query = f"UPDATE {table_name} SET {SEP.join(columns)} = {sqlValuesPlaceholders} WHERE {condition}"
+        query = f"UPDATE {table_name} SET {SEP.join(columns)} = {self.build_placeholders(values)} WHERE {condition}"
         self.execute(query, values)
 
     def delete(self, table_name: str, condition: str) -> None:
@@ -78,3 +76,6 @@ class StorageService:
     def validateArrayLengths(self, columns: tuple, values: tuple):
         if len(columns) != len(values):
             raise ValueError(f"columns count: {len(columns)} != values count: {len(values)}")
+
+    def build_placeholders(self, values: tuple) -> str:
+        return ("?, " * len(values)).rstrip(", ")
