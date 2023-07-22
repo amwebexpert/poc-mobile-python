@@ -1,3 +1,4 @@
+import logging
 from kivy.network.urlrequest import UrlRequest
 import json
 
@@ -57,6 +58,6 @@ class ChatGptService:
         self.on_success(responseMessage)
 
     def on_api_error(self, request, response):
-        print(response)
+        logging.error(response)
         errorMessage = response["error"]["message"]
         self.on_error(errorMessage)

@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 from kivymd.uix.screen import MDScreen
@@ -96,7 +97,7 @@ class HomeScreen(MDScreen):
 
         query = self.getUIElement("chat_input_text").text
         self.chat_session = self.chat_session_service.save(chat_session=self.chat_session, query=query, response=responseMessage)
-        print(self.chat_session)
+        logging.debug(self.chat_session)
 
         self.reset_input_and_set_focus()
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
@@ -108,4 +109,4 @@ class HomeScreen(MDScreen):
 
     @bus.on("app_started_event")
     def handle_app_started_event(info = "") -> None:
-        print(f"HomeScreen: App <{info}> started.")
+        logging.debug(f"HomeScreen: App <{info}> started.")

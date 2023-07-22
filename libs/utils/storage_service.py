@@ -1,4 +1,6 @@
+import logging
 from typing import List
+
 import sqlite3
 
 from libs.utils.string_utils import is_blank
@@ -19,7 +21,7 @@ class StorageService:
         self.conn.close()
     
     def execute(self, query: str) -> None:
-        print(f"--> sqlite: {query}")
+        logging.debug(f"--> sqlite: {query}")
         try:
             self.cursor.execute(query)
             self.conn.commit()
@@ -62,7 +64,7 @@ class StorageService:
         query = f"DELETE FROM {table_name} WHERE {condition}"
         self.execute(query)
         if self.cursor.rowcount == 0:
-            print(f'No rows deleted for query: "{query}"')
+            logging.warning(f'No rows deleted for query: "{query}"')
 
     def select(self, table_name, columns: List[str], condition: str = "1=1"):
         query = f"SELECT {SEP.join(columns)} FROM {table_name} WHERE {condition}"

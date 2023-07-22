@@ -1,3 +1,4 @@
+import logging
 from kaki.app import App
 
 from kivy.factory import Factory
@@ -57,14 +58,14 @@ class MainApp(MDApp, App):
         bus.emit("app_started_event", get_app_version_info_string())
 
     def on_stop(self) -> None:
-        print("App stopped.")
+        logging.debug("App stopped.")
 
     def show_info(self, *args) -> None:
         self.screen.ids['screen_manager'].current = "about"
 
     @bus.on("app_started_event")
     def handle_app_started_event(info = "") -> None:
-        print(f"App <{info}> started.")
+        logging.debug(f"App <{info}> started.")
 
 
     def copy_text_to_clipboard(self, text) -> None:
