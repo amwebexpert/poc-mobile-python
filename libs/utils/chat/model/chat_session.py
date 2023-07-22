@@ -17,7 +17,14 @@ class ChatSession:
         ) -> None:
         self.id = id
         self.items = items
-        if iso_created_at is None:
+        self.iso_created_at = iso_created_at
+        self.title = title
+
+        # override None values with defaults
+        if self.iso_created_at is None:
             self.iso_created_at = datetime.utcnow().isoformat()
-        if title is None:
+        if self.title is None:
             self.title = datetime.now().strftime("%m-%d-%Y %H:%M")
+
+def __str__(self):
+     return f"ChatSession(id={self.id}, title={self.title}, items={self.items}, iso_created_at={self.iso_created_at})"

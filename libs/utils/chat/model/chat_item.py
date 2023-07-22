@@ -16,5 +16,8 @@ class ChatItem:
         self.description = description
         self.role = role
         self.id = id
-        if iso_created_at is None:
+        self.iso_created_at = iso_created_at
+
+        # override None values with defaults
+        if self.iso_created_at is None:
             self.iso_created_at = datetime.utcnow().isoformat()
