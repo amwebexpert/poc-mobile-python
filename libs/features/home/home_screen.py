@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime
 
+from kivymd.uix.widget import Widget
 from kivymd.uix.screen import MDScreen
 
 from kivy.clock import Clock
@@ -20,7 +21,7 @@ from libs.utils.string_utils import is_blank
 class HomeScreen(MDScreen):
     chat_session: ChatSession = None
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
 
         self.chat_session_service = ChatSessionService()
@@ -33,12 +34,12 @@ class HomeScreen(MDScreen):
         self.init_chat_animation()
         Clock.schedule_once(self.init_chat_history, 0)
 
-    def init_chat_animation(self, *args):
+    def init_chat_animation(self, *args) -> None:
         self.animated_layout = Factory.AnimatedIconButton()
         self.animation = Animation(opacity=0, d=0.7) + Animation(opacity=1, d=0.7)
         self.animation.repeat = True
 
-    def add_animation(self, *args):
+    def add_animation(self, *args) -> None:
         self.getUIElement("chat_list").add_widget(self.animated_layout)
         icons = self.animated_layout.ids
         self.animation.start(icons.animated_icon)
@@ -46,34 +47,34 @@ class HomeScreen(MDScreen):
         Clock.schedule_once(lambda *args: self.animation.start(icons.animated_icon_3), 0.3)
         self.getUIElement("chat_scroll").scroll_to(self.animated_layout)
 
-    def remove_animation(self, *args):
+    def remove_animation(self, *args) -> None:
         icons = self.animated_layout.ids
         self.animation.stop(icons.animated_icon)
         self.animation.stop(icons.animated_icon_2)
         self.animation.stop(icons.animated_icon_3)
         self.getUIElement("chat_list").remove_widget(self.animated_layout)
 
-    def getUIElement(self, name):
+    def getUIElement(self, name) -> Widget:
         screen = self.manager.get_screen("home")
         return screen.ids[name]
 
-    def init_chat_history(self, *args):
+    def init_chat_history(self, *args) -> None:
         item = self.buildChatItemLeft("I'm an artificial intelligence helpful assistant. How can I help you?")
         self.getUIElement("chat_list").add_widget(item)
 
-    def buildChatItemRight(self, text):
+    def buildChatItemRight(self, text: str) -> Widget:
         return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user")
     
-    def buildChatItemLeft(self, text):
+    def buildChatItemLeft(self, text: str) -> Widget:
         return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant")
 
-    def buildChatItem(self, chatItem, text, role):
+    def buildChatItem(self, chatItem: Widget, text: str, role: str) -> Widget:
         chatItem.ids.label.text = text
         chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"
         chatItem.ids.created_at.text = datetime.now().strftime("%m-%d-%Y %H:%M")
         return chatItem
 
-    def send_message(self, text):
+    def send_message(self, text: str) -> None:
         api_key = self.preferences_service.get(Preferences.OPEN_AI_KEY.name)
         if is_blank(api_key):
             self.getUIElement("chat_list").add_widget(self.buildChatItemLeft("Missing OpenAI API key. Please set it in the settings screen."))
@@ -85,14 +86,14 @@ class HomeScreen(MDScreen):
         self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
         self.add_animation()
     
-    def reset_input_and_set_focus(self, clearText = False):
+    def reset_input_and_set_focus(self, clearText: bool = False) -> None:
         chat_input = self.getUIElement("chat_input_text")
         if clearText:
             chat_input.text = ""
         if not is_mobile():
             chat_input.focus = True
     
-    def on_success(self, responseMessage):
+    def on_success(self, responseMessage: str) -> None:
         self.remove_animation()
 
         query = self.getUIElement("chat_input_text").text
@@ -102,11 +103,11 @@ class HomeScreen(MDScreen):
         self.reset_input_and_set_focus()
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
 
-    def on_error(self, errorMessage):
+    def on_error(self, errorMessage: str) -> None:
         self.remove_animation()
         self.reset_input_and_set_focus(clearText=False)
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(errorMessage))
 
     @bus.on("app_started_event")
-    def handle_app_started_event(info = "") -> None:
+    def handle_app_started_event(info: str = "") -> None:
         logging.debug(f"HomeScreen: App <{info}> started.")

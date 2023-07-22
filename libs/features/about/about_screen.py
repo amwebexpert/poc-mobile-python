@@ -15,17 +15,17 @@ from libs.utils.app_utils import get_app_version_info_short_string, get_app_name
 class AboutScreen(MDScreen):
     dialog = None
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         Clock.schedule_once(self.add_platform_infos, 0)
     
-    def get_app_version_info_short_string(self):
+    def get_app_version_info_short_string(self) -> str:
         return get_app_version_info_short_string()
     
-    def get_app_name(self):
+    def get_app_name(self) -> str:
         return get_app_name()
 
-    def more_info(self):
+    def more_info(self) -> None:
         title = "Copyrights and licences"
         text = """This app uses open sources libraries under common licences (MIT, Apache 2.0, etc.) and other assets registered under Creative Commons (Attribution 3.0 Unported). \n\nThe full list of licences and assets is available on the app's github page. The app's logo is original creation of Eucalyp Studio"""
 
@@ -44,7 +44,7 @@ class AboutScreen(MDScreen):
         self.dialog = MDDialog(title=title, text=text, auto_dismiss=True, buttons=buttons)
         self.dialog.open()
 
-    def add_platform_infos(self, *args):
+    def add_platform_infos(self, *args) -> None:
         screen = self.manager.get_screen("about")
         infos_panel = screen.ids["infos_panel"]
 
