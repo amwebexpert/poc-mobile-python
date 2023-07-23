@@ -4,6 +4,16 @@ Mobile python application
 
 Application developed in Python using KivyMD
 
+![GitHub last commit](https://img.shields.io/github/last-commit/amwebexpert/poc-mobile-python) ![GitHub](https://img.shields.io/github/license/amwebexpert/poc-mobile-python)
+
+* Some screen captures of the implemented features
+
+Platform     | About screen | Chat session | Settings
+------------ | ------------ | ------------ | -------------- |
+Android      | <img src="stores_presence/android-about.jpg" /> | <img src="stores_presence/android-chat-session.jpg" /> | <img src="stores_presence/android-settings.jpg" />
+MacOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_presence/macos-chat-session.png" /> | <img src="stores_presence/macos-settings.png" />
+
+
 ## Table of content
 
 - [Open Mindset app](#open-mindset-app)
