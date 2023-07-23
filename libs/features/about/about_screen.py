@@ -9,7 +9,7 @@ from kivymd.uix.button import MDFlatButton, MDRectangleFlatIconButton
 
 from libs.theme.base_screen import BaseScreen
 from libs.utils.platform_utils import is_android
-from libs.utils.screen_utils import is_mobile
+from libs.utils.screen_utils import is_screen_sm
 from libs.utils.app_utils import get_app_version_info_short_string, get_app_name
 
 class AboutScreen(BaseScreen):
@@ -29,8 +29,8 @@ class AboutScreen(BaseScreen):
         title = "Copyrights and licences"
         text = """This app uses open sources libraries under common licences (MIT, Apache 2.0, etc.) and other assets registered under Creative Commons (Attribution 3.0 Unported). \n\nThe full list of licences and assets is available on the app's github page. The app's logo is original creation of Eucalyp Studio"""
 
-        gitHubActionText = "GitHub" if is_mobile() else "GitHub Project"
-        logoActionText = "Logo" if is_mobile() else "Eucalyp Studio"
+        gitHubActionText = "GitHub" if is_screen_sm() else "GitHub Project"
+        logoActionText = "Logo" if is_screen_sm() else "Eucalyp Studio"
         buttons = [
             MDRectangleFlatIconButton(text=gitHubActionText, icon="github",
                 on_release=lambda _: webbrowser.open("https://github.com/amwebexpert/poc-mobile-python")),
@@ -38,7 +38,7 @@ class AboutScreen(BaseScreen):
                 on_release=lambda _: webbrowser.open("https://www.flaticon.com/authors/eucalyp")),
         ]
 
-        if not is_mobile():
+        if not is_screen_sm():
             buttons.append(MDFlatButton(text="Close", on_release=lambda _: self.dialog.dismiss()))
 
         self.dialog = MDDialog(title=title, text=text, auto_dismiss=True, buttons=buttons)

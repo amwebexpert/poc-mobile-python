@@ -17,8 +17,8 @@ from libs.utils.chat.model.chat_session import ChatSession
 from libs.utils.chat.model.chat_item import ChatItem, ChatItemRole
 
 from libs.utils.chat_gpt_service import ChatGptService
-from libs.utils.screen_utils import is_mobile, get_screen
 from libs.utils.string_utils import is_blank
+from libs.utils.keyboard_utils import has_soft_keyboard
 from libs.theme.theme_utils import AnimatedIcons
   
 class HomeScreen(BaseScreen):
@@ -111,7 +111,7 @@ class HomeScreen(BaseScreen):
         chat_input = self.getUIElement("chat_input_text")
         if clearText:
             chat_input.text = ""
-        if not is_mobile():
+        if not has_soft_keyboard():
             chat_input.focus = True
     
     def on_success(self, responseMessage: str) -> None:

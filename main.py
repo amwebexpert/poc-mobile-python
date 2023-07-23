@@ -12,7 +12,7 @@ import pyperclip
 
 from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch, bus
 from libs.utils.keyboard_utils import init_keyboard
-from libs.utils.screen_utils import init_screen, is_mobile
+from libs.utils.screen_utils import init_screen, is_screen_sm
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
 from libs.utils.preferences_service import PreferencesService, Preferences
 
@@ -28,8 +28,8 @@ class MainApp(MDApp):
         super().__init__(**kwargs)
         init_screen()
 
-    def is_mobile_device(self) -> bool:
-        return is_mobile()
+    def is_screen_sm(self) -> bool:
+        return is_screen_sm()
 
     def get_metadata(self) -> dict:
         return get_app_version_info()
@@ -51,9 +51,6 @@ class MainApp(MDApp):
         Clock.schedule_once(self.on_app_started, 0)
     
     def on_app_started(self, *args) -> None:
-        self.screen_manager.transition = NoTransition()
-        self.screen_manager.current = "home"
-        self.screen_manager.transition = SlideTransition()
         bus.emit("app_started_event", get_app_version_info_string())
 
     def on_stop(self) -> None:

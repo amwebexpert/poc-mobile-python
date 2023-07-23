@@ -1,3 +1,4 @@
+import os
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.screen import MDScreen
@@ -6,7 +7,13 @@ from kivy.core.window import Window
 from libs.utils.platform_utils import is_ios, is_android
 
 def init_screen() -> None:
-    if is_mobile():
+    if is_mobile_simulation():
+        Window.top = 0
+        Window.left = 0
+        Window.size = (420, 780)
+        return
+
+    if is_screen_sm():
         Window.maximize()
     else:
         Window.size = (800, 600)
@@ -20,9 +27,12 @@ def get_screen_width() -> int:
 def get_screen_height() -> int:
     return Window.height
 
-def is_mobile() -> bool:
-    value = is_android() or is_ios()
-    return value # To ease testing is_mobile() True on desktop, just return: not value
+# https://getbootstrap.com/docs/5.0/layout/breakpoints/
+def is_screen_sm() -> bool:
+    return is_mobile_simulation() or get_screen_width() <= 576
+
+def is_mobile_simulation() -> bool:
+    return "MOBILE_SIMULATION" in os.environ
 
 def get_screen_manager() -> MDScreenManager:
     return MDApp.get_running_app().screen_manager
