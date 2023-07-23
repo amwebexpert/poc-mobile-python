@@ -19,6 +19,7 @@ from libs.utils.chat.model.chat_item import ChatItem, ChatItemRole
 from libs.utils.chat_gpt_service import ChatGptService
 from libs.utils.screen_utils import is_mobile, get_screen
 from libs.utils.string_utils import is_blank
+from libs.theme.theme_utils import AnimatedIcons
   
 class HomeScreen(BaseScreen):
     chat_session: ChatSession = ChatSession()
@@ -34,7 +35,7 @@ class HomeScreen(BaseScreen):
             ai_system_initial_context = self.preferences_service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name),
             temperature = float(self.preferences_service.get(Preferences.AI_TEMPERATURE.name, 0))
         )
-        self.init_chat_animation()
+        self.animatedIcons = AnimatedIcons()
         Clock.schedule_once(self.init_chat_history, 0)
         Clock.schedule_once(self.init_sessions_drop_down_menu, 0)
 
@@ -62,26 +63,14 @@ class HomeScreen(BaseScreen):
         self.get_chat_session_menu_button().set_item(chat_session.title)
         self.menu.dismiss()
 
-    # TODO move animation methods into a separate class
-    def init_chat_animation(self, *args) -> None:
-        self.animated_layout = Factory.AnimatedIconButton()
-        self.animation = Animation(opacity=0, d=0.7) + Animation(opacity=1, d=0.7)
-        self.animation.repeat = True
-
     def add_animation(self, *args) -> None:
-        self.getUIElement("chat_list").add_widget(self.animated_layout)
-        icons = self.animated_layout.ids
-        self.animation.start(icons.animated_icon)
-        Clock.schedule_once(lambda *args: self.animation.start(icons.animated_icon_2), 0.7)
-        Clock.schedule_once(lambda *args: self.animation.start(icons.animated_icon_3), 0.3)
-        self.getUIElement("chat_scroll").scroll_to(self.animated_layout)
+        self.getUIElement("chat_list").add_widget(self.animatedIcons.widget)
+        self.getUIElement("chat_scroll").scroll_to(self.animatedIcons.widget)
+        self.animatedIcons.start_animation()
 
     def remove_animation(self, *args) -> None:
-        icons = self.animated_layout.ids
-        self.animation.stop(icons.animated_icon)
-        self.animation.stop(icons.animated_icon_2)
-        self.animation.stop(icons.animated_icon_3)
-        self.getUIElement("chat_list").remove_widget(self.animated_layout)
+        self.animatedIcons.stop_animation()
+        self.getUIElement("chat_list").remove_widget(self.animatedIcons.widget)
 
     def init_chat_history(self, *args) -> None:
         item = self.buildChatItemLeft("I'm an artificial intelligence helpful assistant. How can I help you?")
