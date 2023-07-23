@@ -11,9 +11,10 @@ Application developed in Python using KivyMD
   - [Utilities](#utilities)
     - [Preview list of MD icons](#preview-list-of-md-icons)
     - [Startup \& hot reload](#startup--hot-reload)
+    - [Simulating a mobile device on desktop](#simulating-a-mobile-device-on-desktop)
     - [DB Browser for SQLite](#db-browser-for-sqlite)
     - [Snippet to see the layout border of any widget](#snippet-to-see-the-layout-border-of-any-widget)
-  - [Managing environment](#managing-environment)
+  - [Managing development environment](#managing-development-environment)
     - [Python \>= 3.9 on MacOS](#python--39-on-macos)
     - [Changing default python executable using simlink](#changing-default-python-executable-using-simlink)
     - [Current requirements (freeze them or install from)](#current-requirements-freeze-them-or-install-from)
@@ -46,6 +47,16 @@ Know issue in `DEBUG` mode:
 
 - Pressing the *space bar* from the query textinput field of the chat session triggers an unexpected hot reload event.
 
+### Simulating a mobile device on desktop
+
+Normal startup
+
+    MOBILE_SIMULATION=1 python main.py
+
+Combined with hot-reload
+
+    DEBUG=1 MOBILE_SIMULATION=1 python main.py
+
 ### DB Browser for SQLite
 
 This native Python app makes usage of SQLite3 as it's persistence mechanism (preferences, chat session...). Although you can visualize raw data using command lines like `sqlite3 chat_sessions.db` we recommand using the [DB Browser for SQLite](https://sqlitebrowser.org/) which is a high quality, visual, open source tool to create, design, and edit database files compatible with SQLite.
@@ -63,7 +74,7 @@ Inside the `.kivy` file just add this:
             rectangle: self.x, self.y, self.width, self.height
 ```
 
-## Managing environment
+## Managing development environment
 
 ### Python >= 3.9 on MacOS
 
