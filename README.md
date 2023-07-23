@@ -4,6 +4,28 @@ Mobile python application
 
 Application developed in Python using KivyMD
 
+## Table of content
+
+- [Open Mindset app](#open-mindset-app)
+  - [Table of content](#table-of-content)
+  - [Utilities](#utilities)
+    - [Preview list of MD icons](#preview-list-of-md-icons)
+    - [Startup \& hot reload](#startup--hot-reload)
+    - [DB Browser for SQLite](#db-browser-for-sqlite)
+    - [Snippet to see the layout border of any widget](#snippet-to-see-the-layout-border-of-any-widget)
+  - [Managing environment](#managing-environment)
+    - [Python \>= 3.9 on MacOS](#python--39-on-macos)
+    - [Changing default python executable using simlink](#changing-default-python-executable-using-simlink)
+    - [Current requirements (freeze them or install from)](#current-requirements-freeze-them-or-install-from)
+    - [Upgrade then freeze requirements](#upgrade-then-freeze-requirements)
+      - [References](#references)
+  - [Build for Android](#build-for-android)
+    - [Building for Android on Linux Ubuntu](#building-for-android-on-linux-ubuntu)
+      - [References](#references-1)
+    - [Building for Android on macOS](#building-for-android-on-macos)
+      - [Reference](#reference)
+
+
 ## Utilities
 
 ### Preview list of MD icons
