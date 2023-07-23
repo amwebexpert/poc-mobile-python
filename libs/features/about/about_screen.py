@@ -4,15 +4,15 @@ import webbrowser
 
 from kivy.clock import Clock
 
-from kivymd.uix.screen import MDScreen
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton, MDRectangleFlatIconButton
 
+from libs.theme.base_screen import BaseScreen
 from libs.utils.platform_utils import is_android
 from libs.utils.screen_utils import is_mobile
 from libs.utils.app_utils import get_app_version_info_short_string, get_app_name
 
-class AboutScreen(MDScreen):
+class AboutScreen(BaseScreen):
     dialog = None
 
     def __init__(self, **kwargs) -> None:

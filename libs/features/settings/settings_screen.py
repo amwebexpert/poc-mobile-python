@@ -1,22 +1,18 @@
 from kivymd.app import MDApp
-from kivymd.uix.screen import MDScreen
-from kivymd.uix.widget import Widget
 from kivymd.uix.menu import MDDropdownMenu
 
 from kivy.clock import Clock
+
+from libs.theme.base_screen import BaseScreen
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
 from libs.utils.preferences_service import PreferencesService, Preferences
   
-class SettingsScreen(MDScreen):
+class SettingsScreen(BaseScreen):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         self.service = PreferencesService()
         Clock.schedule_once(self.init_ui, 0)
-    
-    def getUIElement(self, name: str) -> Widget:
-        screen = self.manager.get_screen("settings")
-        return screen.ids[name]
     
     def init_ui(self, *args) -> None:
         self.init_primary_colors_drop_down_list()

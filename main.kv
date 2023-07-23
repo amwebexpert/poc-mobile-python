@@ -1,6 +1,5 @@
 #: include libs/theme/theme.kv
 
-#: import BaseScreen libs.theme.base_screen.BaseScreen
 #: import HomeScreen libs.features.home.home_screen.HomeScreen
 #: import AboutScreen libs.features.about.about_screen.AboutScreen
 #: import SettingsScreen libs.features.settings.settings_screen.SettingsScreen
@@ -18,8 +17,6 @@
     MDNavigationLayout:
         MDScreenManager:
             id: screen_manager
-            BaseScreen:
-                name: "base"
             HomeScreen:
                 name: "home"
             SettingsScreen:

@@ -2,12 +2,13 @@ import logging
 from datetime import datetime
 
 from kivymd.uix.widget import Widget
-from kivymd.uix.screen import MDScreen
 from kivymd.uix.menu import MDDropdownMenu
 
 from kivy.clock import Clock
 from kivy.animation import Animation
 from kivy.factory import Factory
+
+from libs.theme.base_screen import BaseScreen
 
 from libs.utils.app_utils import bus
 from libs.utils.preferences_service import PreferencesService, Preferences
@@ -19,7 +20,7 @@ from libs.utils.chat_gpt_service import ChatGptService
 from libs.utils.screen_utils import is_mobile, get_screen
 from libs.utils.string_utils import is_blank
   
-class HomeScreen(MDScreen):
+class HomeScreen(BaseScreen):
     chat_session: ChatSession = ChatSession()
     user_chat_item: ChatItem = None
 
@@ -81,10 +82,6 @@ class HomeScreen(MDScreen):
         self.animation.stop(icons.animated_icon_2)
         self.animation.stop(icons.animated_icon_3)
         self.getUIElement("chat_list").remove_widget(self.animated_layout)
-
-    def getUIElement(self, name) -> Widget:
-        screen = get_screen("home")
-        return screen.ids[name]
 
     def init_chat_history(self, *args) -> None:
         item = self.buildChatItemLeft("I'm an artificial intelligence helpful assistant. How can I help you?")
