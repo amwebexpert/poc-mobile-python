@@ -20,6 +20,14 @@ With hot-reload enabled
 
     DEBUG=1 python main.py
 
+Know issue in `DEBUG` mode:
+
+- Pressing the *space bar* from the query textinput field of the chat session triggers an unexpected hot reload event.
+
+### DB Browser for SQLite
+
+This native Python app makes usage of SQLite3 as it's persistence mechanism (preferences, chat session...). Although you can visualize raw data using command lines like `sqlite3 chat_sessions.db` we recommand using the [DB Browser for SQLite](https://sqlitebrowser.org/) which is a high quality, visual, open source tool to create, design, and edit database files compatible with SQLite.
+
 ### Snippet to see the layout border of any widget
 
 Inside the `.kivy` file just add this:
