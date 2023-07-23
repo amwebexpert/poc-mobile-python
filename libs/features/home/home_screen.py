@@ -3,6 +3,7 @@ from datetime import datetime
 
 from kivymd.uix.widget import Widget
 from kivymd.uix.screen import MDScreen
+from kivymd.uix.menu import MDDropdownMenu
 
 from kivy.clock import Clock
 from kivy.animation import Animation
@@ -34,7 +35,30 @@ class HomeScreen(MDScreen):
         )
         self.init_chat_animation()
         Clock.schedule_once(self.init_chat_history, 0)
+        Clock.schedule_once(self.init_sessions_drop_down_menu, 0)
 
+    def get_chat_session_menu_button(self) -> Widget:
+        return self.getUIElement("chat_session_menu_button")
+
+    def init_sessions_drop_down_menu(self, *args) -> None:
+        chat_sessions = self.chat_session_service.get_all_sessions()
+        items = [
+            {
+                "text": chat_session.title,
+                "viewclass": "OneLineListItem",
+                "on_release": lambda x=chat_session: self.on_chat_session_selected(x),
+            } for chat_session in chat_sessions
+        ]
+        self.menu = MDDropdownMenu(caller = self.get_chat_session_menu_button(), items = items, width_mult = 10)
+
+    def open_chat_sessions_menu(self) -> None:
+        self.menu.open()
+    
+    def on_chat_session_selected(self, chat_session: ChatSession) -> None:
+        self.get_chat_session_menu_button().set_item(chat_session.title)
+        self.menu.dismiss()
+
+    # TODO move animation methods into a separate class
     def init_chat_animation(self, *args) -> None:
         self.animated_layout = Factory.AnimatedIconButton()
         self.animation = Animation(opacity=0, d=0.7) + Animation(opacity=1, d=0.7)

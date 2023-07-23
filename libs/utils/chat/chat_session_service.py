@@ -1,7 +1,8 @@
+from typing import List
 
 from libs.utils.storage_service import StorageService
 from libs.utils.chat.model.chat_session import ChatSession
-from libs.utils.chat.model.chat_item import ChatItem, ChatItemRole
+from libs.utils.chat.model.chat_item import ChatItem
 
 class ChatSessionService:
     def __init__(self) -> None:
@@ -33,6 +34,16 @@ class ChatSessionService:
             )
         )
     
+    def get_all_sessions(self) -> List[ChatSession]:
+        self.storage_service.connect()
+        result = self.storage_service.select("chat_sessions", ["*"])
+        chat_sessions = []
+        for chat_session_rs in result:
+            chat_session = ChatSession(id = chat_session_rs[0], iso_created_at = chat_session_rs[1], title = chat_session_rs[2])
+            chat_sessions.append(chat_session)
+        self.storage_service.close()
+        return chat_sessions
+
     def save(self, chat_session: ChatSession) -> ChatSession:
         self.storage_service.connect()
 
