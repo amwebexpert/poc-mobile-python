@@ -16,7 +16,7 @@ from libs.utils.chat.model.chat_session import ChatSession
 from libs.utils.chat.model.chat_item import ChatItem, ChatItemRole
 
 from libs.utils.chat_gpt_service import ChatGptService
-from libs.utils.screen_utils import is_mobile
+from libs.utils.screen_utils import is_mobile, get_screen
 from libs.utils.string_utils import is_blank
   
 class HomeScreen(MDScreen):
@@ -36,6 +36,9 @@ class HomeScreen(MDScreen):
         self.init_chat_animation()
         Clock.schedule_once(self.init_chat_history, 0)
         Clock.schedule_once(self.init_sessions_drop_down_menu, 0)
+
+    def on_enter(self, *args) -> None:
+        logging.debug("HomeScreen: on_enter")
 
     def get_chat_session_menu_button(self) -> Widget:
         return self.getUIElement("chat_session_menu_button")
@@ -80,7 +83,7 @@ class HomeScreen(MDScreen):
         self.getUIElement("chat_list").remove_widget(self.animated_layout)
 
     def getUIElement(self, name) -> Widget:
-        screen = self.manager.get_screen("home")
+        screen = get_screen("home")
         return screen.ids[name]
 
     def init_chat_history(self, *args) -> None:

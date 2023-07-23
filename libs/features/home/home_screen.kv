@@ -4,13 +4,15 @@
             cols: 2
             adaptive_height: True
             padding_x: dp(10)
+            spacing: dp(20)
             MDLabel:
-                text: "Chat sessions"
+                text: "Chat sessions:"
                 pos_hint: {"center_y": .5}
                 adaptive_width: True
                 height: self.texture_size[1]
             MDDropDownItem:
                 id: chat_session_menu_button
+                size_hint: 1, None
                 pos_hint: {"center_x": .5, "center_y": .5}
                 icon: "select-color"
                 text: "Load previous session"

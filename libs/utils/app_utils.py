@@ -23,7 +23,9 @@ def get_app_name() -> str:
     return infos["name"]
 
 def list_kv_files_to_watch() -> set:
-    kv_files = [os.path.join(os.getcwd(), "main.kv")]
+    # including main.kv makes the app loading screens twice
+    #kv_files = [os.path.join(os.getcwd(), "main.kv")]
+    kv_files = []
     appLibsDir = os.path.join(os.getcwd(), "libs")
     for path in Path(appLibsDir).rglob('*.kv'):
         if not (path.name == "theme.kv"):

@@ -1,12 +1,11 @@
 import logging
-from kaki.app import App
 
 from kivy.factory import Factory
 from kivy.clock import Clock
 from kivy.uix.screenmanager import SlideTransition, NoTransition
 
 from kivymd.uix.screen import MDScreen
-from kivymd.app import MDApp
+from kivymd.tools.hotreload.app import MDApp
 from kivymd.toast import toast
 
 import pyperclip
@@ -20,7 +19,7 @@ from libs.utils.preferences_service import PreferencesService, Preferences
 class AppScreen(MDScreen):
     pass
 
-class MainApp(MDApp, App):
+class MainApp(MDApp):
     AUTORELOADER_PATHS = [(".", {"recursive": True}) ]
     AUTORELOADER_IGNORE_PATTERNS = [ "*.pyc", "*__pycache__*", "*.db", "*.db-journal"]
     KV_FILES = list_kv_files_to_watch()
@@ -35,7 +34,7 @@ class MainApp(MDApp, App):
     def get_metadata(self) -> dict:
         return get_app_version_info()
 
-    def build_app(self) -> AppScreen:
+    def build_app(self, first=False):
         self.service = PreferencesService()
         self.title = self.get_metadata()["name"]
         self.icon = "libs/assets/logo.ico"
@@ -44,29 +43,28 @@ class MainApp(MDApp, App):
         self.theme_cls.theme_style = self.service.get(Preferences.THEME_STYLE.name, default_value=ThemeMode.Dark.name)
         self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
 
-        self.screen = Factory.AppScreen()
-        return self.screen
+        appScreen = Factory.AppScreen()
+        self.screen_manager = appScreen.ids["screen_manager"]
+        return appScreen
 
     def on_start(self) -> None:
         Clock.schedule_once(self.on_app_started, 0)
     
     def on_app_started(self, *args) -> None:
-        manager = self.screen.ids['screen_manager']
-        manager.transition = NoTransition()
-        manager.current = "home"
-        manager.transition = SlideTransition()
+        self.screen_manager.transition = NoTransition()
+        self.screen_manager.current = "home"
+        self.screen_manager.transition = SlideTransition()
         bus.emit("app_started_event", get_app_version_info_string())
 
     def on_stop(self) -> None:
         logging.debug("App stopped.")
 
     def show_info(self, *args) -> None:
-        self.screen.ids['screen_manager'].current = "about"
+        self.screen_manager.current = "about"
 
     @bus.on("app_started_event")
     def handle_app_started_event(info = "") -> None:
         logging.debug(f"App <{info}> started.")
-
 
     def copy_text_to_clipboard(self, text) -> None:
         pyperclip.copy(text)
