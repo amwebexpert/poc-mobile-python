@@ -1,3 +1,5 @@
+import logging
+
 from kivymd.uix.screen import MDScreen
 from kivy.uix.widget import Widget
 
@@ -11,3 +13,6 @@ class BaseScreen(MDScreen):
     def getUIElement(self, name: str) -> Widget:
         screen = get_screen(self.name)
         return screen.ids[name]
+
+    def on_enter(self, *args) -> None:
+        logging.debug(f'Entering screen "{self.name}"')

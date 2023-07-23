@@ -22,8 +22,14 @@ from libs.utils.string_utils import is_blank
 from libs.theme.theme_utils import AnimatedIcons
   
 class HomeScreen(BaseScreen):
+    chat_session_service: ChatSessionService = None
+    preferences_service: PreferencesService = None
+    chat_gpt_service: ChatGptService = None
+
     chat_session: ChatSession = ChatSession()
     user_chat_item: ChatItem = None
+
+    animatedIcons: AnimatedIcons = None
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -38,9 +44,6 @@ class HomeScreen(BaseScreen):
         self.animatedIcons = AnimatedIcons()
         Clock.schedule_once(self.init_chat_history, 0)
         Clock.schedule_once(self.init_sessions_drop_down_menu, 0)
-
-    def on_enter(self, *args) -> None:
-        logging.debug("HomeScreen: on_enter")
 
     def get_chat_session_menu_button(self) -> Widget:
         return self.getUIElement("chat_session_menu_button")

@@ -34,7 +34,7 @@ class MainApp(MDApp):
     def get_metadata(self) -> dict:
         return get_app_version_info()
 
-    def build_app(self, first=False):
+    def build_app(self):
         self.service = PreferencesService()
         self.title = self.get_metadata()["name"]
         self.icon = "libs/assets/logo.ico"
