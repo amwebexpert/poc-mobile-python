@@ -1,11 +1,12 @@
 import logging
+from kaki.app import App
 
 from kivy.factory import Factory
 from kivy.clock import Clock
 from kivy.uix.screenmanager import SlideTransition, NoTransition
 
 from kivymd.uix.screen import MDScreen
-from kivymd.tools.hotreload.app import MDApp
+from kivymd.app import MDApp
 from kivymd.toast import toast
 
 import pyperclip
@@ -19,7 +20,7 @@ from libs.utils.preferences_service import PreferencesService, Preferences
 class AppScreen(MDScreen):
     pass
 
-class MainApp(MDApp):
+class MainApp(MDApp, App):
     AUTORELOADER_PATHS = [(".", {"recursive": True}) ]
     AUTORELOADER_IGNORE_PATTERNS = [ "*.pyc", "*__pycache__*", "*.db", "*.db-journal"]
     KV_FILES = list_kv_files_to_watch()
@@ -34,7 +35,7 @@ class MainApp(MDApp):
     def get_metadata(self) -> dict:
         return get_app_version_info()
 
-    def build_app(self):
+    def build_app(self) -> AppScreen:
         self.service = PreferencesService()
         self.title = self.get_metadata()["name"]
         self.icon = "libs/assets/logo.ico"
@@ -44,7 +45,7 @@ class MainApp(MDApp):
         self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
 
         appScreen = Factory.AppScreen()
-        self.screen_manager = appScreen.ids["screen_manager"]
+        self.screen_manager = appScreen.ids['screen_manager']
         return appScreen
 
     def on_start(self) -> None:
@@ -62,6 +63,7 @@ class MainApp(MDApp):
     @bus.on("app_started_event")
     def handle_app_started_event(info = "") -> None:
         logging.debug(f"App <{info}> started.")
+
 
     def copy_text_to_clipboard(self, text) -> None:
         pyperclip.copy(text)

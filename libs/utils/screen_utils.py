@@ -13,10 +13,11 @@ def init_screen() -> None:
         Window.size = (420, 780)
         return
 
-    if is_screen_sm():
+    if is_android() or is_ios():
         Window.maximize()
-    else:
-        Window.size = (800, 600)
+        return
+
+    Window.size = (800, 600)
 
 def get_screen_size() -> tuple:
     return Window.size
@@ -28,8 +29,9 @@ def get_screen_height() -> int:
     return Window.height
 
 # https://getbootstrap.com/docs/5.0/layout/breakpoints/
+# TODO For now Window dimensions does not seam to work on mobile
 def is_screen_sm() -> bool:
-    return is_mobile_simulation() or get_screen_width() <= 576
+    return is_mobile_simulation() or is_android() or is_ios()
 
 def is_mobile_simulation() -> bool:
     return "MOBILE_SIMULATION" in os.environ
