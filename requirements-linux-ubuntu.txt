@@ -35,7 +35,7 @@ Jinja2==3.1.2
 jinja2-time==0.2.0
 kaki==0.1.9
 keyring==23.5.0
-Kivy @ https://github.com/kivy/kivy/archive/master.zip#sha256=54c8fb2758f38deaaca6651b6bb415d809b01793d43395cfac0ad3aa8573a9ae
+Kivy==2.2.1
 Kivy-examples==2.2.1
 Kivy-Garden==0.1.5
 kivy-ios==2023.5.21
