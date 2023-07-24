@@ -2,7 +2,7 @@
 
 Mobile python application
 
-Application developed in Python using KivyMD. The goal is to have a single Python codebase that can be build and deploy on many platforms, namely: `Android`, `iOS`, `macOS`, `Linux`, `Windows`)
+The 💯% `Python` native application using the `KivyMD` framework. The goal is to have a single `Python` codebase that can be built and deployed on many platforms: `Android`, `iOS`, `macOS`, `Linux` and `Windows`.
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/amwebexpert/poc-mobile-python) ![GitHub](https://img.shields.io/github/license/amwebexpert/poc-mobile-python)
 
