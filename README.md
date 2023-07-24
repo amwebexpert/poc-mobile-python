@@ -11,7 +11,8 @@ Application developed in Python using KivyMD
 Platform     | About screen | Chat session | Settings
 ------------ | ------------ | ------------ | -------------- |
 Android      | <img src="stores_presence/android-about.jpg" /> | <img src="stores_presence/android-chatgpt-session.jpg" /> | <img src="stores_presence/android-settings.jpg" />
-MacOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_presence/macos-chatgpt-session.png" /> | <img src="stores_presence/macos-settings.png" />
+macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_presence/macos-chatgpt-session.png" /> | <img src="stores_presence/macos-settings.png" />
+iOS          | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
 
 
 ## Table of content
