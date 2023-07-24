@@ -89,6 +89,12 @@ Inside the `.kivy` file just add this:
 
 ## Managing development environment
 
+### Virtual environment
+
+We can manually delete the `kivy_venv` folder and recreate it whenever necessary
+
+    python3 -m virtualenv kivy_venv
+
 ### Python >= 3.9 on MacOS
 
     brew update
@@ -110,16 +116,12 @@ Inside the `.kivy` file just add this:
     sudo ln -s /opt/homebrew/Cellar/python@3.8/3.8.17/bin/python3.8 /usr/local/bin/python
     sudo ln -s /opt/homebrew/Cellar/python@3.11/3.11.3/bin/python3 /usr/local/bin/python
 
-### Current requirements (freeze them or install from)
-
-    pip freeze > requirements.txt
-    pip install -r requirements.txt
-
-### Upgrade then freeze requirements
+### Current requirements (update, freeze them or install from)
 
     pip install pip-review
     pip-review --local --interactive
     pip freeze > requirements.txt
+    pip install -r requirements.txt
 
 #### References
 
