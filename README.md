@@ -12,7 +12,7 @@ Platform     | About screen | Chat session | Settings
 ------------ | ------------ | ------------ | -------------- |
 Android      | <img src="stores_presence/android-about.jpg" /> | <img src="stores_presence/android-chatgpt-session.jpg" /> | <img src="stores_presence/android-settings.jpg" />
 macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_presence/macos-chatgpt-session.png" /> | <img src="stores_presence/macos-settings.png" />
-macOS        | <img src="stores_presence/ubuntu-about.png" /> | <img src="stores_presence/ubuntu-chatgpt-session.png" /> | <img src="stores_presence/ubuntu-settings.png" />
+Linux        | <img src="stores_presence/ubuntu-about.png" /> | <img src="stores_presence/ubuntu-chatgpt-session.png" /> | <img src="stores_presence/ubuntu-settings.png" />
 iOS          | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
 Windows      | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
 
