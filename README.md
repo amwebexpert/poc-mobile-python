@@ -21,17 +21,18 @@ Windows      | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
 
 - [Open Mindset app](#open-mindset-app)
   - [Table of content](#table-of-content)
-  - [Utilities](#utilities)
-    - [Preview list of MD icons](#preview-list-of-md-icons)
+  - [Getting Started](#getting-started)
     - [Startup \& hot reload](#startup--hot-reload)
     - [Simulating a mobile device on desktop](#simulating-a-mobile-device-on-desktop)
+  - [Utilities](#utilities)
+    - [Preview list of Material Design implemented icons](#preview-list-of-material-design-implemented-icons)
     - [DB Browser for SQLite](#db-browser-for-sqlite)
     - [Snippet to see the layout border of any widget](#snippet-to-see-the-layout-border-of-any-widget)
   - [Managing development environment](#managing-development-environment)
+    - [Virtual environment](#virtual-environment)
     - [Python \>= 3.9 on MacOS](#python--39-on-macos)
     - [Changing default python executable using simlink](#changing-default-python-executable-using-simlink)
-    - [Current requirements (freeze them or install from)](#current-requirements-freeze-them-or-install-from)
-    - [Upgrade then freeze requirements](#upgrade-then-freeze-requirements)
+    - [Current requirements (update, freeze them or install from)](#current-requirements-update-freeze-them-or-install-from)
       - [References](#references)
   - [Build for Android](#build-for-android)
     - [Building for Android on Linux Ubuntu](#building-for-android-on-linux-ubuntu)
@@ -40,11 +41,19 @@ Windows      | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
       - [Reference](#reference)
 
 
-## Utilities
+## Getting Started
 
-### Preview list of MD icons
+In order to start using the app in interpreted or development mode, you must first install the Kivy framework on your computer. Once you have installed Kivy, you can install KivyMD:
 
-    python utils/icons/main.py
+- Install [Kivy Framework](https://kivy.org)
+- Install [KivyMD](https://kivymd.readthedocs.io)
+
+Then you can install the Open Mindset app dependencies as follow (depending on your development platform)
+
+    pip install -r requirements.txt
+or
+
+    pip install -r requirements-linux-ubuntu.txt
 
 ### Startup & hot reload
 
@@ -69,6 +78,12 @@ Normal startup
 Combined with hot-reload
 
     DEBUG=1 MOBILE_SIMULATION=1 python main.py
+
+## Utilities
+
+### Preview list of Material Design implemented icons
+
+    python utils/icons/main.py
 
 ### DB Browser for SQLite
 
