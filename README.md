@@ -1,10 +1,9 @@
 # Open Mindset app
 
-Mobile python application
+A 💯% `Python` application using the `KivyMD` framework. The goal is to have a single `Python` codebase that can be built and deployed on all 
+native platforms: `Android`, `iOS`, `macOS`, `Linux` and `Windows`.
 
-The 💯% `Python` native application using the `KivyMD` framework. The goal is to have a single `Python` codebase that can be built and deployed on many platforms: `Android`, `iOS`, `macOS`, `Linux` and `Windows`.
-
-![GitHub last commit](https://img.shields.io/github/last-commit/amwebexpert/poc-mobile-python) ![GitHub](https://img.shields.io/github/license/amwebexpert/poc-mobile-python)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/amwebexpert/poc-mobile-python) ![GitHub Release Date](https://img.shields.io/github/release-date/amwebexpert/poc-mobile-python) ![GitHub last commit](https://img.shields.io/github/last-commit/amwebexpert/poc-mobile-python) ![GitHub](https://img.shields.io/github/license/amwebexpert/poc-mobile-python)
 
 * Some screen captures of the implemented features
 
