@@ -16,3 +16,5 @@ chat.db
 .idea/
 openmindset.zip
 chat_sessions.db
+
+venv/

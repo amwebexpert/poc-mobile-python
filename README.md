@@ -28,16 +28,16 @@ iOS          | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
     - [DB Browser for SQLite](#db-browser-for-sqlite)
     - [Snippet to see the layout border of any widget](#snippet-to-see-the-layout-border-of-any-widget)
   - [Managing development environment](#managing-development-environment)
+    - [Python on MacOS with brew](#python-on-macos-with-brew)
     - [Virtual environment](#virtual-environment)
-    - [Python \>= 3.9 on MacOS](#python--39-on-macos)
-    - [Changing default python executable using simlink](#changing-default-python-executable-using-simlink)
-    - [Current requirements (update, freeze them or install from)](#current-requirements-update-freeze-them-or-install-from)
+    - [Dependency libraries (update, freeze them or install from)](#dependency-libraries-update-freeze-them-or-install-from)
       - [References](#references)
   - [Build for Android](#build-for-android)
     - [Building for Android on Linux Ubuntu](#building-for-android-on-linux-ubuntu)
       - [References](#references-1)
     - [Building for Android on macOS](#building-for-android-on-macos)
       - [Reference](#reference)
+    - [Building for iOS](#building-for-ios)
 
 
 ## Getting Started
@@ -103,34 +103,24 @@ Inside the `.kivy` file just add this:
 
 ## Managing development environment
 
-### Virtual environment
-
-We can manually delete the `kivy_venv` folder and recreate it whenever necessary
-
-    python3 -m virtualenv kivy_venv
-
-### Python >= 3.9 on MacOS
+### Python on MacOS with brew
 
     brew update
-    brew install python3
-    brew upgrade python3
+    brew install python@3.10
 
     brew install cython
     echo 'export PATH="/opt/homebrew/opt/cython/bin:$PATH"' >> ~/.zshrc
 
-### Changing default python executable using simlink
+Then change your `.zshrc` aliases as [explained here](https://apple.stackexchange.com/a/461063/364767)
 
-    brew install python@3.8
-    brew link --force python@3.8
+### Virtual environment
 
-    brew install python@3.11
-    brew link --force python@3.11
+We can manually delete the `venv` folder and recreate it whenever necessary
 
-    sudo rm /usr/local/bin/python
-    sudo ln -s /opt/homebrew/Cellar/python@3.8/3.8.17/bin/python3.8 /usr/local/bin/python
-    sudo ln -s /opt/homebrew/Cellar/python@3.11/3.11.3/bin/python3 /usr/local/bin/python
+    python3 -m venv venv
+    . venv/bin/activate
 
-### Current requirements (update, freeze them or install from)
+### Dependency libraries (update, freeze them or install from)
 
     pip install pip-review
     pip-review --local --interactive
@@ -182,4 +172,9 @@ Ensure both `kivy` and `kivymd` are up to date (see below reference for more det
 #### Reference
 
 * https://kivy.org/doc/stable/guide/packaging-android.html
+
+
+### Building for iOS
+
+Follow the instructions for packing your application from the [Kivy official online documentation](https://kivy.org/)
 
