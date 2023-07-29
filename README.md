@@ -108,8 +108,12 @@ Inside the `.kivy` file just add this:
 
 ### Python on MacOS with brew
 
+Some usefull brew commands
+
     brew update
-    brew install python@3.10
+    brew config
+    brew leaves | xargs brew desc --eval-all
+    brew cleanup
 
     brew install cython
     echo 'export PATH="/opt/homebrew/opt/cython/bin:$PATH"' >> ~/.zshrc
@@ -194,13 +198,19 @@ You can also follow the kivy instructions for packing your application from the 
 
 #### iOS build issues and solution (or workarounds)
 
-- [creating a custom VSCode Rosetta terminal](https://dev.to/markwitt_me/creating-a-custom-vscode-terminal-profile-for-using-rosetta-on-an-m1-mac-apple-silicon-2gb2)
-- [launch terminal in Rosetta mode](https://apple.stackexchange.com/a/409774/364767)
+- [creating a custom VSCode Rosetta terminal](https://dev.to/markwitt_me/creating-a-custom-vscode-terminal-profile-for-using-rosetta-on-an-m1-mac-apple-silicon-2gb2) However I discovered that the raw macOS terminal (see link below) was working in all cases while I had some obscur issues with the VSCode Rosetta terminal so be carefull
+- [launch macOS terminal in Rosetta mode](https://apple.stackexchange.com/a/409774/364767)
 - [command to know current rosetta mode](https://stackoverflow.com/a/67690510/704681) (1 === rosetta, 0 !== rossetta)
+    - `sysctl -n sysctl.proc_translated`
 
 For some reason you may have to downgrade cython for kivy build to succeed. The cython specific version to use:
 
 	pip install cython==0.29.36
+
+Bypass macOS default built in python version:
+
+     sudo ln -fs /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 /usr/local/bin/python
+
 
 ## About Kivy framework
 
