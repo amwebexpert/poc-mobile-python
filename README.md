@@ -39,6 +39,8 @@ iOS          | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
     - [Building for Android on macOS](#building-for-android-on-macos)
       - [Reference](#reference)
     - [Building for iOS](#building-for-ios)
+      - [iOS build issues and solution (or workarounds)](#ios-build-issues-and-solution-or-workarounds)
+  - [About Kivy framework](#about-kivy-framework)
 
 
 ## Getting Started
@@ -181,5 +183,28 @@ Ensure both `kivy` and `kivymd` are up to date (see below reference for more det
 
 ### Building for iOS
 
-Follow the instructions for packing your application from the [Kivy official online documentation](https://kivy.org/)
+Good article here:
+- https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825
+
+You can also follow the kivy instructions for packing your application from the [Kivy official online documentation](https://kivy.org/)
+
+    ./venv/bin/toolchain status
+    ./venv/bin/toolchain build libffi
+    ./venv/bin/toolchain build python3 kivy
+
+#### iOS build issues and solution (or workarounds)
+
+- [creating a custom VSCode Rosetta terminal](https://dev.to/markwitt_me/creating-a-custom-vscode-terminal-profile-for-using-rosetta-on-an-m1-mac-apple-silicon-2gb2)
+- [launch terminal in Rosetta mode](https://apple.stackexchange.com/a/409774/364767)
+- [command to know current rosetta mode](https://stackoverflow.com/a/67690510/704681) (1 === rosetta, 0 !== rossetta)
+
+For some reason you may have to downgrade cython for kivy build to succeed. The cython specific version to use:
+
+	pip install cython==0.29.36
+
+## About Kivy framework
+
+Why is Kivy not popular?
+
+Basically runs on donation from people like you and me and some organisations and this is unlike other frameworks that are (or were) backed by giants like Google (Flutter) or Facebook (React Native). So, Kivy might lack marketing funds, making it less popular among other frameworks but it's still a preferred choice in Python ecosystem.
 
