@@ -1,3 +1,11 @@
+# _______________________________________________________________________________________________________
+# StackOverflow: https://stackoverflow.com/a/44649450/704681
+#
+# Brew has not run the Install Certificates.command that comes in the Python3 bundle for Mac.
+# The solution to this issue is to run the following script (copied from Install Certificates.command)
+# after brew install python3:
+# _______________________________________________________________________________________________________
+
 # install_certifi.py
 #
 # sample script to install or update a set of default Root Certificates
