@@ -41,6 +41,7 @@ iOS          | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
     - [Building for iOS](#building-for-ios)
       - [iOS build issues and solution (or workarounds)](#ios-build-issues-and-solution-or-workarounds)
   - [About Kivy framework](#about-kivy-framework)
+  - [About the app name](#about-the-app-name)
 
 
 ## Getting Started
@@ -218,3 +219,9 @@ Why is Kivy not popular?
 
 Basically runs on donation from people like you and me and some organisations and this is unlike other frameworks that are (or were) backed by giants like Google (Flutter) or Facebook (React Native). So, Kivy might lack marketing funds, making it less popular among other frameworks but it's still a preferred choice in Python ecosystem.
 
+## About the app name
+
+By definition:
+> An open mindset is a tendency to be receptive to new ideas and information. Having an open mindset means being objective when approaching new things, listening to other points of view, and being willing to admit what you don't know.
+
+I decided to give it that name since this is my life philosophy and I was looking for a real project to learn `Python` language.
