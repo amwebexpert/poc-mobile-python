@@ -29,6 +29,7 @@ iOS          | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
     - [Snippet to see the layout border of any widget](#snippet-to-see-the-layout-border-of-any-widget)
   - [Managing development environment](#managing-development-environment)
     - [Python on MacOS with brew](#python-on-macos-with-brew)
+    - [Certify installation](#certify-installation)
     - [Virtual environment](#virtual-environment)
     - [Dependency libraries (update, freeze them or install from)](#dependency-libraries-update-freeze-them-or-install-from)
       - [References](#references)
@@ -112,6 +113,10 @@ Inside the `.kivy` file just add this:
     echo 'export PATH="/opt/homebrew/opt/cython/bin:$PATH"' >> ~/.zshrc
 
 Then change your `.zshrc` aliases as [explained here](https://apple.stackexchange.com/a/461063/364767)
+
+### Certify installation
+
+    python ./scripts/certificates/install_certifi.py
 
 ### Virtual environment
 
