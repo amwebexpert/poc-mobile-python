@@ -13,7 +13,7 @@ Android      | <img src="stores_presence/android-about.jpg" /> | <img src="store
 macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_presence/macos-chatgpt-session.png" /> | <img src="stores_presence/macos-settings.png" />
 Linux        | <img src="stores_presence/ubuntu-about.png" /> | <img src="stores_presence/ubuntu-chatgpt-session.png" /> | <img src="stores_presence/ubuntu-settings.png" />
 Windows      | <img src="stores_presence/windows-about.png" /> | <img src="stores_presence/windows-chatgpt-session.png" /> | <img src="stores_presence/windows-settings.png" />
-iOS          | stay tuned 📺 | stay tuned 📺 | stay tuned 📺
+iOS          | stay tuned 📺 | Contributors are welcome to do that one! | Nice medium [article here](https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825)
 
 
 ## Table of content
@@ -194,6 +194,9 @@ Ensure both `kivy` and `kivymd` are up to date (see below reference for more det
 
 ### Building for iOS
 
+Note:
+- Contributors are welcome to do that one, collected below some beginning instructions with some issues and solutions.
+
 Good article here:
 - https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825
 
@@ -201,7 +204,8 @@ You can also follow the kivy instructions for packing your application from the 
 
     ./venv/bin/toolchain status
     ./venv/bin/toolchain build libffi
-    ./venv/bin/toolchain ffpyplayer
+    ./venv/bin/toolchain build ffpyplayer
+    ./venv/bin/toolchain build pillow
     ./venv/bin/toolchain build python3 kivy
 
 #### iOS build issues and solution (or workarounds)
