@@ -137,7 +137,6 @@ We can manually delete the `venv` folder and recreate it whenever necessary
     pip install kivy
     pip install kivymd
     pip install kaki
-    pip install 
     pip install pyperclip
     pip install event_bus
 
