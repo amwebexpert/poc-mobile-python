@@ -195,6 +195,7 @@ You can also follow the kivy instructions for packing your application from the 
 
     ./venv/bin/toolchain status
     ./venv/bin/toolchain build libffi
+    ./venv/bin/toolchain ffpyplayer
     ./venv/bin/toolchain build python3 kivy
 
 #### iOS build issues and solution (or workarounds)
@@ -211,6 +212,18 @@ For some reason you may have to downgrade cython for kivy build to succeed. The 
 Bypass macOS default built in python version:
 
      sudo ln -fs /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 /usr/local/bin/python
+
+XCode build failure
+
+    rsync warning: some files vanished before they could be transferred (code 24) at /AppleInternal/BuildRoot/Library/Caches/com.apple.xbs/Sources/rsync/rsync-54.120.1/rsync/main.c(996) [sender=2.6.9]
+    Command PhaseScriptExecution failed with a nonzero exit code
+
+Solution from [here](https://github.com/kivy/kivy-ios/issues/513#issuecomment-646689846)
+
+    % cd
+    % toolchain build python3 kivy openssl
+    % toolchain create <my_app_name> <full_path_to_my_app_source_directory>
+    % open <my_app_name>-ios/<my_app_name>.xcodeproj
 
 
 ## About Kivy framework

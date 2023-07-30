@@ -11,9 +11,9 @@ filelock==3.12.1
 idna==3.4
 Jinja2==3.1.2
 kaki==0.1.9
-Kivy @ https://github.com/kivy/kivy/archive/master.zip#sha256=54c8fb2758f38deaaca6651b6bb415d809b01793d43395cfac0ad3aa8573a9ae
+Kivy==2.2.1
 Kivy-Garden==0.1.5
-kivymd @ https://github.com/kivymd/KivyMD/archive/master.zip#sha256=e55b90474afa09a6c971f4ef1cdf07a4e028d7e565d8165179b7fc9b8f6b4d1b
+kivymd==1.1.1
 MarkupSafe==2.1.3
 materialyoucolor==1.2.0
 packaging==23.1
