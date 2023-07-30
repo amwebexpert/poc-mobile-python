@@ -38,8 +38,8 @@ iOS          | stay tuned 📺 | Contributors are welcome to do that one! | Nice
       - [References](#references-1)
     - [Building for Android on macOS](#building-for-android-on-macos)
       - [Reference](#reference)
-    - [Building for iOS](#building-for-ios)
-      - [iOS build issues and solution (or workarounds)](#ios-build-issues-and-solution-or-workarounds)
+  - [Building for iOS](#building-for-ios)
+    - [iOS build issues and solution (or workarounds)](#ios-build-issues-and-solution-or-workarounds)
   - [About Kivy framework](#about-kivy-framework)
   - [About the app name](#about-the-app-name)
 
@@ -192,7 +192,7 @@ Ensure both `kivy` and `kivymd` are up to date (see below reference for more det
 * https://kivy.org/doc/stable/guide/packaging-android.html
 
 
-### Building for iOS
+## Building for iOS
 
 Note:
 - Contributors are welcome to do that one, collected below some beginning instructions with some issues and solutions.
@@ -208,7 +208,7 @@ You can also follow the kivy instructions for packing your application from the 
     ./venv/bin/toolchain build pillow
     ./venv/bin/toolchain build python3 kivy
 
-#### iOS build issues and solution (or workarounds)
+### iOS build issues and solution (or workarounds)
 
 - [creating a custom VSCode Rosetta terminal](https://dev.to/markwitt_me/creating-a-custom-vscode-terminal-profile-for-using-rosetta-on-an-m1-mac-apple-silicon-2gb2) However I discovered that the raw macOS terminal (see link below) was working in all cases while I had some obscur issues with the VSCode Rosetta terminal so be carefull
 - [launch macOS terminal in Rosetta mode](https://apple.stackexchange.com/a/409774/364767)
