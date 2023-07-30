@@ -13,7 +13,7 @@ Android      | <img src="stores_presence/android-about.jpg" /> | <img src="store
 macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_presence/macos-chatgpt-session.png" /> | <img src="stores_presence/macos-settings.png" />
 Linux        | <img src="stores_presence/ubuntu-about.png" /> | <img src="stores_presence/ubuntu-chatgpt-session.png" /> | <img src="stores_presence/ubuntu-settings.png" />
 Windows      | <img src="stores_presence/windows-about.png" /> | <img src="stores_presence/windows-chatgpt-session.png" /> | <img src="stores_presence/windows-settings.png" />
-iOS          | stay tuned 📺 | Contributors are welcome to do that one! | Nice medium [article here](https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825)
+iOS          | stay tuned 📺 | Contributors are welcome to do that one, [open task detail here](https://github.com/amwebexpert/poc-mobile-python/issues/1)! | Nice medium [article here](https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825)
 
 
 ## Table of content
