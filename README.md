@@ -51,12 +51,9 @@ In order to start using the app in interpreted or development mode, you must fir
 - Install [Kivy Framework](https://kivy.org)
 - Install [KivyMD](https://kivymd.readthedocs.io)
 
-Then you can install the Open Mindset app dependencies as follow (depending on your development platform)
+Then you can install the Open Mindset app dependencies as follow
 
     pip install -r requirements.txt
-or
-
-    pip install -r requirements-linux-ubuntu.txt
 
 ### Startup & hot reload
 
@@ -134,12 +131,6 @@ We can manually delete the `venv` folder and recreate it whenever necessary
 
 ### Dependency libraries (update, freeze them or install from)
 
-    pip install kivy
-    pip install kivymd
-    pip install kaki
-    pip install pyperclip
-    pip install event_bus
-
     pip install pip-review
     pip-review --local --interactive
     pip freeze > requirements.txt
@@ -160,7 +151,7 @@ First install the following dependencies:
 
 Then install these python dependencies:
 
-    pip install -r requirements-linux-ubuntu.txt
+    pip install -r requirements.txt
 
 Ensure both `kivy` and `kivymd` are up to date (see below reference for more detail)
 
