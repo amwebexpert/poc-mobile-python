@@ -134,6 +134,13 @@ We can manually delete the `venv` folder and recreate it whenever necessary
 
 ### Dependency libraries (update, freeze them or install from)
 
+    pip install kivy
+    pip install kivymd
+    pip install kaki
+    pip install 
+    pip install pyperclip
+    pip install event_bus
+
     pip install pip-review
     pip-review --local --interactive
     pip freeze > requirements.txt
