@@ -45,13 +45,15 @@ macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_
 
 ## Getting Started
 
-In order to start using the app in interpreted or development mode, you must first install the Kivy framework on your computer. Once you have installed Kivy, you can install KivyMD:
+In order to start using the app in interpreted or development mode, you must first install the `Kivy` framework on your computer. Once you have installed `Kivy`, you can install `KivyMD`:
 
 - Install [Kivy Framework](https://kivy.org)
 - Install [KivyMD](https://kivymd.readthedocs.io)
 
 Then you can install the Open Mindset app dependencies as follow
 
+    python3 -m venv venv
+    . venv/bin/activate
     pip install -r requirements.txt
 
 ### Startup & hot reload
@@ -191,7 +193,7 @@ Good article here:
 - https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825
 
 Directories structure (according to medium article above)
-```
+```sh
     _environments/
         venv_wshKivy/
     kivyBuilds/
@@ -202,7 +204,7 @@ Directories structure (according to medium article above)
 ```
 
 - toolchain commands:
-```
+```sh
     toolchain status
     toolchain build libffi
     toolchain build ffpyplayer
@@ -221,7 +223,7 @@ Build notes and frequently used commands:
 - we must clone the app from github *WITHOUT* `venv` (wipe the `venv` folder entirely in order to build ios stuff)
 - when doing small code changes within the app, here are the steps to re-create the XCode Project:
 
-```
+```sh
     rm -rf openmindset-ios
     toolchain create openmindset /Users/andre.masson/git/perso/python-projects/openmindset
     cp /Users/andre.masson/git/perso/python-projects/openmindset/data/icon.png openmindset-ios/
