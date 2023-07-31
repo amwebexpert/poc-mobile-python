@@ -12,7 +12,7 @@ Android      | <img src="stores_presence/android-about.jpg" /> | <img src="store
 macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_presence/macos-chatgpt-session.png" /> | <img src="stores_presence/macos-settings.png" />
 Linux        | <img src="stores_presence/ubuntu-about.png" /> | <img src="stores_presence/ubuntu-chatgpt-session.png" /> | <img src="stores_presence/ubuntu-settings.png" />
 Windows      | <img src="stores_presence/windows-about.png" /> | <img src="stores_presence/windows-chatgpt-session.png" /> | <img src="stores_presence/windows-settings.png" />
-iOS          | stay tuned 📺 | Contributors are welcome to do that one, [open task detail here](https://github.com/amwebexpert/poc-mobile-python/issues/1)! | Nice medium [article here](https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825)
+iOS          | <img src="stores_presence/ios-about.png" /> | <img src="stores_presence/ios-chatgpt-session.png" /> | <img src="stores_presence/ios-settings.png" />
 
 
 ## Table of content
@@ -190,13 +190,43 @@ Note:
 Good article here:
 - https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825
 
-You can also follow the kivy instructions for packing your application from the [Kivy official online documentation](https://kivy.org/)
+Directories structure (according to medium article above)
+```
+    _environments/
+        venv_wshKivy/
+    kivyBuilds/
+        build/
+        dist/
+        openmindset-ios/
+    openmindset/
+```
 
-    ./venv/bin/toolchain status
-    ./venv/bin/toolchain build libffi
-    ./venv/bin/toolchain build ffpyplayer
-    ./venv/bin/toolchain build pillow
-    ./venv/bin/toolchain build python3 kivy
+- toolchain commands:
+```
+    toolchain status
+    toolchain build libffi
+    toolchain build ffpyplayer
+    toolchain build pillow
+    toolchain build python3 kivy
+
+    toolchain pip install kivymd
+    toolchain pip install kaki
+    toolchain pip install watchdog
+    toolchain pip install pyperclip
+    toolchain pip install event_bus
+```
+
+Build notes and frequently used commands:
+
+- we must clone the app from github *WITHOUT* `venv` (wipe the `venv` folder entirely in order to build ios stuff)
+- when doing small code changes within the app, here are the steps to re-create the XCode Project:
+
+```
+    rm -rf openmindset-ios
+    toolchain create openmindset /Users/andre.masson/git/perso/python-projects/openmindset
+    cp /Users/andre.masson/git/perso/python-projects/openmindset/data/icon.png openmindset-ios/
+    open openmindset-ios/openmindset.xcodeproj
+```
 
 ### iOS build issues and solution (or workarounds)
 
@@ -204,6 +234,14 @@ You can also follow the kivy instructions for packing your application from the 
 - [launch macOS terminal in Rosetta mode](https://apple.stackexchange.com/a/409774/364767)
 - [command to know current rosetta mode](https://stackoverflow.com/a/67690510/704681) (1 === rosetta, 0 !== rossetta)
     - `sysctl -n sysctl.proc_translated`
+    - `arch`
+      - will display `arm64` for ARM architecture
+      - will display `x86_64` (or `i386`) for rosetta architecture
+- Very slow `iOS Simulator` [discussed here](https://stackoverflow.com/questions/59570740/bad-xcode-iphone-simulator-performance-python-kivy-app)
+- duplicate symbol about `libsdl2_ttf.a` and `libfreetype.a`
+  - https://github.com/kivy/kivy-ios/issues/787#issuecomment-1489027427
+    Since `sdl2_ttf` now builds its own version of `libfreetype`, we will need to update some of our recipes accordingly.
+    as a workaround, you're likely good to just remove `libfreetype.a` from "Frameworks, Libraries and embedded content"
 
 For some reason you may have to downgrade cython for kivy build to succeed. The cython specific version to use:
 
