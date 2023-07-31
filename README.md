@@ -6,10 +6,10 @@ Some of the goals of the app:
 
 - `KivyMD` app skeleton pattern including classique UI elements (navbar menu, top navbar, responsive, material design...)
 - learn and demonstrate best programming practices in a 💯% `Python` development environment
-- experiment with a lot of IA-related stuff (not just OpenAI or ChatGPT, but IA that can be useful within a mobile/native app local context)
+- experiment with a lot of AI-related stuff (not just OpenAI or ChatGPT, but AI that can be useful within a mobile/native app local context)
 - document recipes for building artifacts of specific native OS
 - have concrete examples of broadcasting events and react to these events through an MVC pattern
-- and much more as we experiment with nice IA and existing technologies and other open-source libraries...
+- and much more as we experiment with nice AI and existing technologies and other open-source libraries...
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/amwebexpert/poc-mobile-python) ![GitHub Release Date](https://img.shields.io/github/release-date/amwebexpert/poc-mobile-python) ![GitHub last commit](https://img.shields.io/github/last-commit/amwebexpert/poc-mobile-python) ![GitHub](https://img.shields.io/github/license/amwebexpert/poc-mobile-python)
 
