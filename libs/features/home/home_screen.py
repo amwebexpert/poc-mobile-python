@@ -20,7 +20,9 @@ from libs.utils.chat_gpt_service import ChatGptService
 from libs.utils.string_utils import is_blank
 from libs.utils.keyboard_utils import has_soft_keyboard
 from libs.theme.theme_utils import AnimatedIcons
-  
+
+CHAT_DATETIME_FORMAT = "%m-%d-%Y %H:%M"
+
 class HomeScreen(BaseScreen):
     chat_session_service: ChatSessionService = None
     preferences_service: PreferencesService = None
@@ -64,7 +66,18 @@ class HomeScreen(BaseScreen):
     
     def on_chat_session_selected(self, chat_session: ChatSession) -> None:
         self.get_chat_session_menu_button().set_item(chat_session.title)
+        self.chat_session = self.chat_session_service.get(chat_session.id)
+        self.chat_gpt_service.resume_existing_session(self.chat_session)
+        self.recreate_chat_list_from_session()
         self.menu.dismiss()
+    
+    def recreate_chat_list_from_session(self) -> None:
+        self.getUIElement("chat_list").clear_widgets()
+        for chat_item in self.chat_session.items:
+            if int(chat_item.role) == ChatItemRole.me.value:
+                self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text=chat_item.description, created_at=chat_item.iso_created_at))
+            else:
+                self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(text=chat_item.description, created_at=chat_item.iso_created_at))
 
     def add_animation(self, *args) -> None:
         self.getUIElement("chat_list").add_widget(self.animatedIcons.widget)
@@ -79,16 +92,17 @@ class HomeScreen(BaseScreen):
         item = self.buildChatItemLeft("I'm an artificial intelligence helpful assistant. How can I help you?")
         self.getUIElement("chat_list").add_widget(item)
 
-    def buildChatItemRight(self, text: str) -> Widget:
-        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user")
+    def buildChatItemRight(self, text: str, created_at: str = None) -> Widget:
+        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user", created_at=created_at)
     
-    def buildChatItemLeft(self, text: str) -> Widget:
-        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant")
+    def buildChatItemLeft(self, text: str, created_at: str = None) -> Widget:
+        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant", created_at=created_at)
 
-    def buildChatItem(self, chatItem: Widget, text: str, role: str) -> Widget:
+    def buildChatItem(self, chatItem: Widget, text: str, role: str, created_at: str = None) -> Widget:
+        timestamp = datetime.now() if created_at is None else datetime.fromisoformat(created_at)
         chatItem.ids.label.text = text
+        chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
         chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"
-        chatItem.ids.created_at.text = datetime.now().strftime("%m-%d-%Y %H:%M")
         return chatItem
 
     def send_message(self, text: str) -> None:

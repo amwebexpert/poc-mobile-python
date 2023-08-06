@@ -3,6 +3,9 @@ from typing import Callable
 from kivy.network.urlrequest import UrlRequest
 import json
 
+from libs.utils.chat.model.chat_item import ChatItem, ChatItemRole
+from libs.utils.chat.model.chat_session import ChatSession
+
 URL = "https://api.openai.com/v1/chat/completions"
 
 class ChatGptService:
@@ -20,7 +23,16 @@ class ChatGptService:
 
     def start_new_session(self) -> None:
         self.messages = [{"role": "system", "content": self.ai_system_initial_context}]
-    
+
+    def resume_existing_session(self, chat_session: ChatSession) -> None:
+        self.start_new_session()
+        for chat_item in chat_session.items:
+            self.add_from_chat_item(chat_item)
+
+    def add_from_chat_item(self, chat_item: ChatItem) -> None:    
+        role = "user" if int(chat_item.role) == ChatItemRole.me.value else "assistant"
+        self.messages.append({"role": role, "content": chat_item.description})
+
     def build_new_message(self, text: str) -> None:
         self.messages.append({"role": "user", "content": text})
         return {
