@@ -81,7 +81,7 @@ class ChatSessionService:
             return None
 
         chat_session_rs = result[0]
-        chat_session = ChatSession(id = chat_session_rs[0], iso_created_at = chat_session_rs[1], title = chat_session_rs[2])
+        chat_session = ChatSession(title = chat_session_rs[2], items = [], iso_created_at = chat_session_rs[1], id = chat_session_rs[0])
         self.load_chat_session_items(chat_session)
         self.storage_service.close()
         return chat_session
