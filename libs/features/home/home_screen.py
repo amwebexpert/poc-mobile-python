@@ -121,28 +121,36 @@ class HomeScreen(BaseScreen):
         self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text))
         self.add_animation()
     
-    def reset_input_and_set_focus(self, clearText: bool = True) -> None:
+    def reset_input_and_set_focus(self, clear_text: bool = True) -> None:
         chat_input = self.getUIElement("chat_input_text")
-        if clearText:
+        if clear_text:
             chat_input.text = ""
         if not has_soft_keyboard():
             chat_input.focus = True
     
-    def on_success(self, responseMessage: str) -> None:
+    def on_success(self, response_message: str) -> None:
         self.remove_animation()
 
-        ai_chat_item = ChatItem(chat_session_id=self.chat_session.id, description=responseMessage, role=ChatItemRole.AI.value)
+        if not self.chat_session.has_items():
+            self.chat_gpt_service.generate_summary_title(question=self.user_chat_item.description, on_success=self.update_session_title)
+
+        ai_chat_item = ChatItem(chat_session_id=self.chat_session.id, description=response_message, role=ChatItemRole.AI.value)
         self.chat_session.items.append(self.user_chat_item)
         self.chat_session.items.append(ai_chat_item)
         self.chat_session = self.chat_session_service.save(chat_session=self.chat_session)
 
         self.reset_input_and_set_focus()
-        self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(responseMessage))
+        self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(response_message))
 
-    def on_error(self, errorMessage: str) -> None:
+    def update_session_title(self, title: str) -> None:
+        self.chat_session.title = f"{self.chat_session.title} {title}"
+        self.chat_session_service.update_chat_session_title(self.chat_session)
+        self.init_sessions_drop_down_menu()
+
+    def on_error(self, error_message: str) -> None:
         self.remove_animation()
-        self.reset_input_and_set_focus(clearText=False)
-        self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(errorMessage))
+        self.reset_input_and_set_focus(clear_text=False)
+        self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(error_message))
 
     @bus.on("app_started_event")
     def handle_app_started_event(info: str = "") -> None:

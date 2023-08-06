@@ -26,5 +26,8 @@ class ChatSession:
         if self.title is None:
             self.title = datetime.now().strftime("%m-%d-%Y %H:%M")
 
+    def has_items(self) -> bool:
+        return len(self.items) > 0
+
 def __str__(self):
      return f"ChatSession(id={self.id}, title={self.title}, items={self.items}, iso_created_at={self.iso_created_at})"
