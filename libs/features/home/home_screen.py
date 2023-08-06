@@ -131,6 +131,9 @@ class HomeScreen(BaseScreen):
     def on_success(self, response_message: str) -> None:
         self.remove_animation()
 
+        if not self.chat_session.has_items():
+            self.chat_gpt_service.generate_summary_title(question=self.user_chat_item.description, on_success=self.update_session_title)
+
         ai_chat_item = ChatItem(chat_session_id=self.chat_session.id, description=response_message, role=ChatItemRole.AI.value)
         self.chat_session.items.append(self.user_chat_item)
         self.chat_session.items.append(ai_chat_item)
@@ -138,6 +141,11 @@ class HomeScreen(BaseScreen):
 
         self.reset_input_and_set_focus()
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(response_message))
+
+    def update_session_title(self, title: str) -> None:
+        self.chat_session.title = f"{self.chat_session.title} {title}"
+        self.chat_session_service.update_chat_session_title(self.chat_session)
+        self.init_sessions_drop_down_menu()
 
     def on_error(self, error_message: str) -> None:
         self.remove_animation()
