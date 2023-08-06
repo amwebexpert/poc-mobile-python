@@ -58,6 +58,16 @@ class ChatSessionService:
         self.storage_service.close()
         return chat_session
 
+    def update_chat_session_title(self, chat_session: ChatSession) -> None:
+        self.storage_service.connect()
+        self.storage_service.update(
+            table_name="chat_sessions", 
+            columns=("title",), 
+            values=(chat_session.title,), 
+            condition=f"id = {chat_session.id}"
+        )
+        self.storage_service.close()
+
     def add_chat_session_item(self, chat_session: ChatSession, chat_item: ChatItem) -> int:
         chat_item.id = self.storage_service.insert(
             table_name="chat_session_items", 
