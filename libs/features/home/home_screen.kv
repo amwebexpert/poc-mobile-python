@@ -4,19 +4,18 @@
             cols: 2
             adaptive_height: True
             padding_x: dp(10)
-            spacing: dp(20)
             MDLabel:
-                text: "Chat sessions:"
-                pos_hint: {"center_y": .5}
+                text: "Current session"
+                id: chat_session_label
+            MDBoxLayout:
                 adaptive_width: True
-                height: self.texture_size[1]
-            MDDropDownItem:
-                id: chat_session_menu_button
-                size_hint: 1, None
-                pos_hint: {"center_x": .5, "center_y": .5}
-                icon: "select-color"
-                text: "Load previous session"
-                on_release: root.open_chat_sessions_menu()
+                MDIconButton:
+                    id: chat_session_menu_button
+                    icon: "history"
+                    on_release: root.open_chat_sessions_menu()
+                MDIconButton:
+                    icon: "plus"
+                    on_release: root.on_new_chat_session()
         ScrollView:
             id: chat_scroll
             do_scroll_x: False

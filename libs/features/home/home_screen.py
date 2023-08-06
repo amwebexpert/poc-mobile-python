@@ -47,8 +47,8 @@ class HomeScreen(BaseScreen):
         Clock.schedule_once(self.init_chat_history, 0)
         Clock.schedule_once(self.init_sessions_drop_down_menu, 0)
 
-    def get_chat_session_menu_button(self) -> Widget:
-        return self.getUIElement("chat_session_menu_button")
+    def get_chat_session_title(self) -> Widget:
+        return self.getUIElement("chat_session_label")
 
     def init_sessions_drop_down_menu(self, *args) -> None:
         chat_sessions = self.chat_session_service.get_all_sessions()
@@ -59,17 +59,24 @@ class HomeScreen(BaseScreen):
                 "on_release": lambda x=chat_session: self.on_chat_session_selected(x),
             } for chat_session in chat_sessions
         ]
-        self.menu = MDDropdownMenu(caller = self.get_chat_session_menu_button(), items = items, width_mult = 10)
+        self.menu = MDDropdownMenu(caller = self.get_chat_session_title(), items = items, width_mult = 10)
 
     def open_chat_sessions_menu(self) -> None:
         self.menu.open()
     
     def on_chat_session_selected(self, chat_session: ChatSession) -> None:
-        self.get_chat_session_menu_button().set_item(chat_session.title)
+        self.get_chat_session_title().text = chat_session.title
         self.chat_session = self.chat_session_service.get(chat_session.id)
         self.chat_gpt_service.resume_existing_session(self.chat_session)
         self.recreate_chat_list_from_session()
         self.menu.dismiss()
+    
+    def on_new_chat_session(self, *args) -> None:
+        self.chat_session = ChatSession()
+        self.chat_session = self.chat_session_service.save(self.chat_session)
+        self.get_chat_session_title().text = self.chat_session.title
+        self.chat_gpt_service.resume_existing_session(self.chat_session)
+        self.recreate_chat_list_from_session()
     
     def recreate_chat_list_from_session(self) -> None:
         self.getUIElement("chat_list").clear_widgets()
@@ -143,9 +150,10 @@ class HomeScreen(BaseScreen):
         self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(response_message))
 
     def update_session_title(self, title: str) -> None:
-        self.chat_session.title = f"{self.chat_session.title} {title}"
+        self.chat_session.title = f"{title} ({self.chat_session.title})"
         self.chat_session_service.update_chat_session_title(self.chat_session)
         self.init_sessions_drop_down_menu()
+        self.get_chat_session_title().text = self.chat_session.title
 
     def on_error(self, error_message: str) -> None:
         self.remove_animation()
