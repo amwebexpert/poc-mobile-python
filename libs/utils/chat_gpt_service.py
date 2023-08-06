@@ -81,3 +81,30 @@ class ChatGptService:
         logging.error(response)
         error_message = response["error"]["message"]
         self.on_error(error_message)
+
+    def generate_summary_title(self, question: str, on_success: Callable) -> None:
+        UrlRequest(
+            URL,
+            req_body = json.dumps(self.build_generate_summary_title(question)),
+            req_headers = self.build_headers(),
+            on_success = lambda request, response: on_success(response["choices"][0]["message"]["content"]),
+            on_failure = lambda request, response: logging.error(response),
+            on_error = lambda request, response: logging.error(response)
+        )
+
+    def build_generate_summary_title(self, question: str) -> None:
+        messages = [{"role": "system", "content": "You are expert at summarizing long questions as small titles."}]
+
+        content = f'Respond with a title that summarize it in its original language the following question with no more than 5 words.\n\nQuestion: "{question} ?"\n\nTitle:\n\n'
+        messages.append({"role": "user", "content": content})
+
+        return {
+            "model": self.model,
+            "temperature" : self.temperature,
+            "max_tokens" : self.max_tokens,
+            "messages" : messages,
+            "n" : 1,
+            "stream" : False,
+            "presence_penalty" : 0,
+            "frequency_penalty" : 0,
+        }
