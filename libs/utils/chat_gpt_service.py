@@ -9,6 +9,13 @@ from libs.utils.chat.model.chat_session import ChatSession
 URL = "https://api.openai.com/v1/chat/completions"
 
 class ChatGptService:
+    messages: list[str]
+    api_key: str
+    model: str
+    temperature: float
+    max_tokens: int
+    ai_system_initial_context: str
+
     def __init__(self, api_key: str = None, model: str = "gpt-3.5-turbo", ai_system_initial_context: str = "You are a helpful assistant.", temperature: float = 0.7, max_tokens: int = 150):
         self.model = model
         self.temperature = temperature
