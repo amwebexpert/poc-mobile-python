@@ -30,7 +30,7 @@ class ChatSessionService:
                 "chat_session_id INTEGER NOT NULL",
                 "iso_created_at  TEXT NOT NULL",
                 "description     TEXT NOT NULL",
-                "role            TEXT NOT NULL"
+                "role            INTEGER NOT NULL"
             )
         )
     
@@ -42,6 +42,7 @@ class ChatSessionService:
             chat_session = ChatSession(id = chat_session_rs[0], iso_created_at = chat_session_rs[1], title = chat_session_rs[2])
             chat_sessions.append(chat_session)
         self.storage_service.close()
+        chat_sessions.sort(key=lambda session: session.iso_created_at, reverse=True)
         return chat_sessions
 
     def save(self, chat_session: ChatSession) -> ChatSession:
