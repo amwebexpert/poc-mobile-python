@@ -66,11 +66,11 @@ class ChatGptService:
         )
 
     def on_api_success(self, request, response: dict) -> None:
-        responseMessage = response["choices"][0]["message"]["content"]
-        self.messages.append({"role": "assistant", "content": responseMessage})
-        self.on_success(responseMessage)
+        response_message = response["choices"][0]["message"]["content"]
+        self.messages.append({"role": "assistant", "content": response_message})
+        self.on_success(response_message)
 
     def on_api_error(self, request, response: dict) -> None:
         logging.error(response)
-        errorMessage = response["error"]["message"]
-        self.on_error(errorMessage)
+        error_message = response["error"]["message"]
+        self.on_error(error_message)
