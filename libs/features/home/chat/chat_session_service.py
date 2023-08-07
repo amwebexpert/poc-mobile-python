@@ -1,8 +1,8 @@
 from typing import List
 
-from libs.utils.storage_service import StorageService
-from libs.utils.chat.model.chat_session import ChatSession
-from libs.utils.chat.model.chat_item import ChatItem
+from libs.services.storage_service import StorageService
+from libs.features.home.chat.model.chat_item import ChatItem
+from libs.features.home.chat.model.chat_session import ChatSession
 
 class ChatSessionService:
     def __init__(self) -> None:

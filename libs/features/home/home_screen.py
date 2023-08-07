@@ -5,20 +5,22 @@ from kivymd.uix.widget import Widget
 from kivymd.uix.menu import MDDropdownMenu
 
 from kivy.clock import Clock
-from kivy.animation import Animation
 from kivy.factory import Factory
 
 from libs.theme.base_screen import BaseScreen
 
-from libs.utils.app_utils import bus
-from libs.utils.preferences_service import PreferencesService, Preferences
-from libs.utils.chat.chat_session_service import ChatSessionService
-from libs.utils.chat.model.chat_session import ChatSession
-from libs.utils.chat.model.chat_item import ChatItem, ChatItemRole
 
-from libs.utils.chat_gpt_service import ChatGptService
+from libs.features.home.chat_gpt_service import ChatGptService
+from libs.features.home.chat.chat_session_service import ChatSessionService
+from libs.features.home.chat.model.chat_session import ChatSession
+from libs.features.home.chat.model.chat_item import ChatItem, ChatItemRole
+
+from libs.features.settings.preferences_service import PreferencesService, Preferences
+
+from libs.utils.app_utils import bus
 from libs.utils.string_utils import is_blank
 from libs.utils.keyboard_utils import has_soft_keyboard
+
 from libs.theme.theme_utils import AnimatedIcons
 
 CHAT_DATETIME_FORMAT = "%m-%d-%Y %H:%M"

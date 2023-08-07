@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from libs.utils.chat.model.chat_item import ChatItem
+from libs.features.home.chat.model.chat_item import ChatItem
 
 class ChatSession:
     id: int

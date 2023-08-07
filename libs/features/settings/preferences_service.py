@@ -1,7 +1,7 @@
 from enum import Enum
 import logging
 
-from libs.utils.storage_service import StorageService
+from libs.services.storage_service import StorageService
 
 Preferences = Enum("Preferences", ["OPEN_AI_KEY", "AI_SYSTEM_INITIAL_CONTEXT", "AI_TEMPERATURE", "THEME_PRIMARY_COLOR", "THEME_STYLE"])
 

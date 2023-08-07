@@ -15,7 +15,7 @@ from libs.utils.app_utils import get_app_version_info, get_app_version_info_stri
 from libs.utils.keyboard_utils import init_keyboard
 from libs.utils.screen_utils import init_screen, is_screen_sm
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
-from libs.utils.preferences_service import PreferencesService, Preferences
+from libs.features.settings.preferences_service import PreferencesService, Preferences
 
 class AppScreen(MDScreen):
     pass

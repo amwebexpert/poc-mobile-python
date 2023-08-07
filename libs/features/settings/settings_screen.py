@@ -5,7 +5,7 @@ from kivy.clock import Clock
 
 from libs.theme.base_screen import BaseScreen
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
-from libs.utils.preferences_service import PreferencesService, Preferences
+from libs.features.settings.preferences_service import PreferencesService, Preferences
   
 class SettingsScreen(BaseScreen):
 
