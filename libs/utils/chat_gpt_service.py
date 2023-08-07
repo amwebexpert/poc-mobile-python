@@ -13,13 +13,11 @@ class ChatGptService:
     api_key: str
     model: str
     temperature: float
-    max_tokens: int
     ai_system_initial_context: str
 
-    def __init__(self, api_key: str = None, model: str = "gpt-3.5-turbo", ai_system_initial_context: str = "You are a helpful assistant.", temperature: float = 0.7, max_tokens: int = 150):
+    def __init__(self, api_key: str = None, model: str = "gpt-3.5-turbo", ai_system_initial_context: str = "You are a helpful assistant.", temperature: float = 0.7):
         self.model = model
         self.temperature = temperature
-        self.max_tokens = max_tokens
         self.ai_system_initial_context = ai_system_initial_context
 
         self.set_api_key(api_key)
@@ -45,7 +43,6 @@ class ChatGptService:
         return {
             "model": self.model,
             "temperature" : self.temperature,
-            "max_tokens" : self.max_tokens,
             "messages" : self.messages,
             "n" : 1,
             "stream" : False,
@@ -95,13 +92,12 @@ class ChatGptService:
     def build_generate_summary_title(self, question: str) -> None:
         messages = [{"role": "system", "content": "You are expert at summarizing long questions as small titles."}]
 
-        content = f'Respond with a title that summarize it in its original language the following question with no more than 5 words.\n\nQuestion: "{question} ?"\n\nTitle:\n\n'
+        content = f'Respond with a title that summarize it in its original language the following question with a maximum of 5 words.\n\nQuestion: "{question} ?"\n\nTitle:\n\n'
         messages.append({"role": "user", "content": content})
 
         return {
             "model": self.model,
             "temperature" : self.temperature,
-            "max_tokens" : self.max_tokens,
             "messages" : messages,
             "n" : 1,
             "stream" : False,
