@@ -23,7 +23,7 @@ from libs.utils.keyboard_utils import has_soft_keyboard
 
 from libs.theme.theme_utils import AnimatedIcons
 
-CHAT_DATETIME_FORMAT = "%m-%d-%Y %H:%M"
+CHAT_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 
 class HomeScreen(BaseScreen):
     chat_session_service: ChatSessionService = None
