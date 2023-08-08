@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from libs.features.home.chat.model.chat_item import ChatItem
+from libs.features.ai_chat.chat.model.chat_item import ChatItem
 
 CHAT_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 

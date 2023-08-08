@@ -3,8 +3,8 @@ from typing import Callable
 from kivy.network.urlrequest import UrlRequest
 import json
 
-from libs.features.home.chat.model.chat_item import ChatItem, ChatItemRole
-from libs.features.home.chat.model.chat_session import ChatSession
+from libs.features.ai_chat.chat.model.chat_item import ChatItem, ChatItemRole
+from libs.features.ai_chat.chat.model.chat_session import ChatSession
 
 URL = "https://api.openai.com/v1/chat/completions"
 

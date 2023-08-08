@@ -1,42 +1,18 @@
 <HomeScreen>
     AppScreenLayout:
-        MDGridLayout:
-            cols: 2
-            adaptive_height: True
-            padding_x: dp(10)
-            MDLabel:
-                text: "Current session"
-                id: chat_session_label
-            MDBoxLayout:
-                adaptive_width: True
-                MDIconButton:
-                    id: chat_session_menu_button
-                    icon: "history"
-                    on_release: root.open_chat_sessions_menu()
-                MDIconButton:
-                    icon: "plus"
-                    on_release: root.on_new_chat_session()
         ScrollView:
-            id: chat_scroll
+            id: scroll_view
             do_scroll_x: False
             do_scroll_y: True
             always_overscroll: False
             MDBoxLayout:
                 orientation: "vertical"
-                id: chat_list
+                id: scroll_view_box
                 adaptive_height: True
                 spacing: dp(4)
-        MDBoxLayout:
-            adaptive_height: True
-            MDTextField:
-                id: chat_input_text
-                hint_text: "Query message"
-                helper_text: "Type your query message here"
-                text: ""
-                helper_text_mode: "on_focus"
-                max_text_length: 1024
-                multiline: True
-            MDIconButton:
-                icon: "send"
-                disabled: not chat_input_text.text
-                on_release: root.send_message(chat_input_text.text.strip())
+                MDRectangleFlatIconButton:
+                    id: more_info_button
+                    icon: "chat"
+                    text: "ChatGPT"
+                    on_release: root.ai_chat()
+                    pos_hint: {"center_x": 0.5}
