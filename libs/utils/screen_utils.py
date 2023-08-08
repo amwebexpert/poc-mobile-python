@@ -5,6 +5,7 @@ from kivymd.uix.screen import MDScreen
 from kivy.core.window import Window
 
 from libs.utils.platform_utils import is_ios, is_android
+from libs.theme.app_navigation_bar import AppNavigationBar
 
 def init_screen() -> None:
     if is_mobile_simulation():
@@ -41,3 +42,6 @@ def get_screen_manager() -> MDScreenManager:
 
 def get_screen(screen_name: str) -> MDScreen:
     return get_screen_manager().get_screen(screen_name)
+
+def get_navigation_bar() -> AppNavigationBar:
+    return MDApp.get_running_app().app_navigation_bar

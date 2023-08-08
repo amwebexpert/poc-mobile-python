@@ -3,16 +3,15 @@
 #: import HomeScreen libs.features.home.home_screen.HomeScreen
 #: import AboutScreen libs.features.about.about_screen.AboutScreen
 #: import SettingsScreen libs.features.settings.settings_screen.SettingsScreen
+#: import AppNavigationBar libs.theme.app_navigation_bar.AppNavigationBar
 
 <AppScreen>:
-    MDTopAppBar:
+    AppNavigationBar:
+        id: app_navigation_bar
         title: app.get_metadata()["name"]
         md_bg_color: app.theme_cls.primary_color
         pos_hint: {"top": 1}
-        left_action_items:
-            [['menu', lambda _: nav_drawer.set_state("open")]]
-        right_action_items:
-            [['information-outline', lambda _: app.show_info()]]
+        nav_drawer: nav_drawer
 
     MDNavigationLayout:
         MDScreenManager:
@@ -40,28 +39,22 @@
                     icon: "home"
                     text: "Home screen"
                     theme_text_color: "Primary"
-                    on_release:
-                        screen_manager.current = "home"
-                        nav_drawer.set_state("close")
+                    on_release: app_navigation_bar.navigate_to("home")
                 MDNavigationDrawerItem:
                     icon: "cog"
                     text: "Settings"
                     theme_text_color: "Primary"
-                    on_release:
-                        screen_manager.current = "settings"
-                        nav_drawer.set_state("close")
+                    on_release: app_navigation_bar.navigate_to("settings")
                 MDNavigationDrawerItem:
                     icon: "information"
                     text: "About this app..."
                     theme_text_color: "Primary"
-                    on_release:
-                        screen_manager.current = "about"
-                        nav_drawer.set_state("close")
+                    on_release: app_navigation_bar.navigate_to("about")
                 MDNavigationDrawerDivider:
                 MDNavigationDrawerItem:
                     icon: "exit-to-app"
                     text: "Exit"
                     theme_text_color: "Primary"
                     on_release:
-                        nav_drawer.set_state("close")
+                        app_navigation_bar.close_menu()
                         app.exit()

@@ -39,14 +39,23 @@ class MainApp(MDApp, App):
         self.service = PreferencesService()
         self.title = self.get_metadata()["name"]
         self.icon = "libs/assets/logo.ico"
+        self.init_theme()
+
+        appScreen = Factory.AppScreen()
+        self.init_app_navigation(appScreen)
+        return appScreen
+
+    def init_theme(self) -> None:
         self.theme_cls.theme_style_switch_animation = True
         self.theme_cls.theme_style_switch_animation_duration = 0.8
         self.theme_cls.theme_style = self.service.get(Preferences.THEME_STYLE.name, default_value=ThemeMode.Dark.name)
         self.theme_cls.primary_palette = self.service.get(Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
 
-        appScreen = Factory.AppScreen()
+    def init_app_navigation(self, appScreen: AppScreen) -> None:
         self.screen_manager = appScreen.ids['screen_manager']
-        return appScreen
+        self.app_navigation_bar = appScreen.ids['app_navigation_bar']
+        self.app_navigation_bar.screen_manager = self.screen_manager
+        self.app_navigation_bar.navigate_to("home")
 
     def on_start(self) -> None:
         Clock.schedule_once(self.on_app_started, 0)
@@ -56,9 +65,6 @@ class MainApp(MDApp, App):
 
     def on_stop(self) -> None:
         logging.debug("App stopped.")
-
-    def show_info(self, *args) -> None:
-        self.screen_manager.current = "about"
 
     @bus.on("app_started_event")
     def handle_app_started_event(info = "") -> None:
