@@ -3,13 +3,11 @@ from kaki.app import App
 
 from kivy.factory import Factory
 from kivy.clock import Clock
-from kivy.uix.screenmanager import SlideTransition, NoTransition
+from kivy.core.clipboard import Clipboard
 
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivymd.toast import toast
-
-import pyperclip
 
 from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch, bus
 from libs.utils.keyboard_utils import init_keyboard
@@ -72,7 +70,7 @@ class MainApp(MDApp, App):
 
 
     def copy_text_to_clipboard(self, text) -> None:
-        pyperclip.copy(text)
+        Clipboard.copy(text)
         toast(text = f'Content copied: "{text[0:20]}"...', duration = 2)
 
     def exit(self) -> None:

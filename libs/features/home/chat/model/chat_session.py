@@ -3,6 +3,8 @@ from typing import List
 
 from libs.features.home.chat.model.chat_item import ChatItem
 
+CHAT_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
+
 class ChatSession:
     id: int
     iso_created_at: str
@@ -24,7 +26,7 @@ class ChatSession:
         if self.iso_created_at is None:
             self.iso_created_at = datetime.utcnow().isoformat()
         if self.title is None:
-            self.title = datetime.now().strftime("%m-%d-%Y %H:%M")
+            self.title = datetime.now().strftime(CHAT_DATETIME_FORMAT)
 
     def has_items(self) -> bool:
         return len(self.items) > 0

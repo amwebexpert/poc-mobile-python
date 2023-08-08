@@ -12,7 +12,7 @@ from libs.theme.base_screen import BaseScreen
 
 from libs.features.home.chat_gpt_service import ChatGptService
 from libs.features.home.chat.chat_session_service import ChatSessionService
-from libs.features.home.chat.model.chat_session import ChatSession
+from libs.features.home.chat.model.chat_session import ChatSession, CHAT_DATETIME_FORMAT
 from libs.features.home.chat.model.chat_item import ChatItem, ChatItemRole
 
 from libs.features.settings.preferences_service import PreferencesService, Preferences
@@ -22,8 +22,6 @@ from libs.utils.string_utils import is_blank
 from libs.utils.keyboard_utils import has_soft_keyboard
 
 from libs.theme.theme_utils import AnimatedIcons
-
-CHAT_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 
 class HomeScreen(BaseScreen):
     chat_session_service: ChatSessionService = None
@@ -74,19 +72,21 @@ class HomeScreen(BaseScreen):
         self.menu.dismiss()
     
     def on_new_chat_session(self, *args) -> None:
-        self.chat_session = ChatSession()
+        self.chat_session = ChatSession(items=[])
         self.chat_session = self.chat_session_service.save(self.chat_session)
         self.get_chat_session_title().text = self.chat_session.title
         self.chat_gpt_service.resume_existing_session(self.chat_session)
         self.recreate_chat_list_from_session()
     
     def recreate_chat_list_from_session(self) -> None:
-        self.getUIElement("chat_list").clear_widgets()
+        chat_list = self.getUIElement("chat_list")
+        chat_list.clear_widgets() # normally this would be enough
+
         for chat_item in self.chat_session.items:
             if int(chat_item.role) == ChatItemRole.me.value:
-                self.getUIElement("chat_list").add_widget(self.buildChatItemRight(text=chat_item.description, created_at=chat_item.iso_created_at))
+                chat_list.add_widget(self.buildChatItemRight(text=chat_item.description, created_at=chat_item.iso_created_at))
             else:
-                self.getUIElement("chat_list").add_widget(self.buildChatItemLeft(text=chat_item.description, created_at=chat_item.iso_created_at))
+                chat_list.add_widget(self.buildChatItemLeft(text=chat_item.description, created_at=chat_item.iso_created_at))
 
     def add_animation(self, *args) -> None:
         self.getUIElement("chat_list").add_widget(self.animatedIcons.widget)
@@ -100,6 +100,7 @@ class HomeScreen(BaseScreen):
     def init_chat_history(self, *args) -> None:
         item = self.buildChatItemLeft("I'm an artificial intelligence helpful assistant. How can I help you?")
         self.getUIElement("chat_list").add_widget(item)
+        self.getUIElement("chat_scroll").scroll_to(item)
 
     def buildChatItemRight(self, text: str, created_at: str = None) -> Widget:
         return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user", created_at=created_at)
