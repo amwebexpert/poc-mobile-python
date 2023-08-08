@@ -223,7 +223,6 @@ Directories structure (according to medium article above)
     toolchain pip install kivymd
     toolchain pip install kaki
     toolchain pip install watchdog
-    toolchain pip install pyperclip
     toolchain pip install event_bus
 ```
 
