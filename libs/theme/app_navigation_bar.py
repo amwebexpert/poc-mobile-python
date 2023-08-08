@@ -1,6 +1,7 @@
 import logging
 
 from kivy.uix.screenmanager import ScreenManager
+from kivy.core.window import Window
 
 from kivymd.app import MDApp
 from kivymd.uix.toolbar import MDTopAppBar
@@ -17,6 +18,17 @@ class AppNavigationBar(MDTopAppBar):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         self.screens_stack = []
+        Window.bind(on_keyboard=self.hook_keyboard)
+    
+    def hook_keyboard(self, window, key, *args) -> bool:
+        if key == 27:
+            if self.nav_drawer.state == "open":
+                self.close_menu()
+            elif self.can_go_back():
+                self.go_back()
+            else:
+                MDApp.get_running_app().stop()
+            return True
     
     def close_menu(self) -> None:
         self.nav_drawer.set_state("close")
