@@ -93,7 +93,7 @@ Combined with hot-reload
 
 ### Preview list of Material Design implemented icons
 
-    python utils/icons/main.py
+    python scripts/icons/main.py
 
 ### DB Browser for SQLite
 

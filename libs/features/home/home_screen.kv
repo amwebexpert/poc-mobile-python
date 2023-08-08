@@ -14,5 +14,11 @@
                     id: more_info_button
                     icon: "chat"
                     text: "ChatGPT"
-                    on_release: root.ai_chat()
+                    on_release: root.navigate_to("ai_chat")
+                    pos_hint: {"center_x": 0.5}
+                MDRectangleFlatIconButton:
+                    id: more_info_button
+                    icon: "file-image"
+                    text: "Image Generation"
+                    on_release: root.navigate_to("ai_chat")
                     pos_hint: {"center_x": 0.5}
