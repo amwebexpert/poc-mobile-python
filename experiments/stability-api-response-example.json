@@ -1,0 +1,14 @@
+[
+  [
+    {
+      "base64": "...very long string...",
+      "finishReason": "SUCCESS",
+      "seed": 1050625087
+    },
+    {
+      "base64": "...very long string...",
+      "finishReason": "CONTENT_FILTERED",
+      "seed": 1229191277
+    }
+  ]
+]
