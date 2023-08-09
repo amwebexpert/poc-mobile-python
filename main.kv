@@ -4,6 +4,7 @@
 #: import AboutScreen libs.features.about.about_screen.AboutScreen
 #: import SettingsScreen libs.features.settings.settings_screen.SettingsScreen
 #: import AIChatScreen libs.features.ai_chat.ai_chat_screen.AIChatScreen
+#: import Text2ImgScreen libs.features.ai_text_to_img.text2img_screen.Text2ImgScreen
 #: import AppNavigationBar libs.theme.app_navigation_bar.AppNavigationBar
 
 <AppScreen>:
@@ -21,6 +22,8 @@
                 name: "home"
             AIChatScreen:
                 name: "ai_chat"
+            Text2ImgScreen:
+                name: "text2img"
             SettingsScreen:
                 name: "settings"
             AboutScreen:
@@ -48,6 +51,11 @@
                     text: "ChatGPT"
                     theme_text_color: "Primary"
                     on_release: app_navigation_bar.navigate_to("ai_chat")
+                MDNavigationDrawerItem:
+                    icon: "image"
+                    text: "Image generator"
+                    theme_text_color: "Primary"
+                    on_release: app_navigation_bar.navigate_to("text2img")
                 MDNavigationDrawerItem:
                     icon: "cog"
                     text: "Settings"

@@ -1,4 +1,4 @@
-<HomeScreen>
+<Text2ImgScreen>
     AppScreenLayout:
         ScrollView:
             id: scroll_view
@@ -12,13 +12,7 @@
                 spacing: dp(4)
                 MDRectangleFlatIconButton:
                     id: more_info_button
-                    icon: "chat"
-                    text: "ChatGPT"
-                    on_release: root.navigate_to("ai_chat")
-                    pos_hint: {"center_x": 0.5}
-                MDRectangleFlatIconButton:
-                    id: more_info_button
-                    icon: "file-image"
-                    text: "Image Generation"
-                    on_release: root.navigate_to("text2img")
+                    icon: "image"
+                    text: "Text to Image"
+                    on_release: print("Text2ImgScreen")
                     pos_hint: {"center_x": 0.5}
