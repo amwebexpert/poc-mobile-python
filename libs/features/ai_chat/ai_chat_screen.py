@@ -8,7 +8,6 @@ from kivy.factory import Factory
 
 from libs.theme.base_screen import BaseScreen
 
-
 from libs.features.ai_chat.chat_gpt_service import ChatGptService
 from libs.features.ai_chat.chat.chat_session_service import ChatSessionService
 from libs.features.ai_chat.chat.model.chat_session import ChatSession, CHAT_DATETIME_FORMAT
