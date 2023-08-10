@@ -17,17 +17,23 @@ class SettingsScreen(BaseScreen):
     def init_ui(self, *args) -> None:
         self.init_primary_colors_drop_down_list()
         self.init_ai_system_context()
-        self.init_api_key()
+        self.init_open_ai_key()
+        self.init_stability_ai_key()
         self.init_ai_temperature()
 
     def init_ai_system_context(self) -> None:
         value = self.service.get(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, default_value="You are a helpful assistant.")
         self.getUIElement("ai_system_initial_context").text = value
 
-    def init_api_key(self) -> None:
+    def init_open_ai_key(self) -> None:
         value = self.service.get(Preferences.OPEN_AI_KEY.name)
         if value is not None:
             self.getUIElement("open_ai_key").text = value
+    
+    def init_stability_ai_key(self) -> None:
+        value = self.service.get(Preferences.STABILITY_AI_KEY.name)
+        if value is not None:
+            self.getUIElement("stability_ai_key").text = value
 
     def init_ai_temperature(self) -> None:
         value = self.service.get(Preferences.AI_TEMPERATURE.name, 0)
@@ -66,6 +72,9 @@ class SettingsScreen(BaseScreen):
 
     def set_open_ai_key(self, text: str) -> None:
         self.service.set(Preferences.OPEN_AI_KEY.name, text)
+    
+    def set_stability_ai_key(self, text: str) -> None:
+        self.service.set(Preferences.STABILITY_AI_KEY.name, text)
 
     def set_ai_initial_context(self, text: str) -> None:
         self.service.set(Preferences.AI_SYSTEM_INITIAL_CONTEXT.name, text)

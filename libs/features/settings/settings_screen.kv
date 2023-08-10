@@ -1,84 +1,105 @@
 <SettingsScreen>
     AppScreenLayout:
         spacing: dp(20)
-        MDRectangleFlatIconButton:
-            id: toggle_theme_button
-            pos_hint: {"center_x": .5, "center_y": .5}
-            icon: "theme-light-dark"
-            text: "Set dark theme" if app.theme_cls.theme_style == "Light" else "Set light theme"
-            on_release: root.toggle_theme()
-        MDGridLayout:
-            cols:  1 if app.is_screen_sm() else 2
-            adaptive_height: True
-            padding_x: dp(10)
-            spacing: dp(10), dp(10) if app.is_screen_sm() else 0
-            MDLabel:
-                text: "Primary Color"
-                pos_hint: {"center_y": .5}
-                adaptive_width: False if app.is_screen_sm() else True
-                height: self.texture_size[1]
-            MDDropDownItem:
-                id: primary_color_menu_button
-                pos_hint: {"center_x": .5, "center_y": .5}
-                icon: "select-color"
-                text: "Change primary color"
-                on_release: root.open_color_menu()
-            # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
-            MDWidget:
-                size_hint: 0, 0
-            MDWidget:
-                size_hint: 0, 0
-            MDLabel:
-                text: "Open AI key"
-                pos_hint: {"center_y": .5}
-                adaptive_width: False if app.is_screen_sm() else True
-                height: self.texture_size[1]
-            MDTextField:
-                id: open_ai_key
-                pos_hint: {"center_y": .5}
-                hint_text: "Open AI key value (see https://platform.openai.com)"
-                helper_text: "[https://platform.openai.com/account/api-keys]"
-                text: ""
-                on_text: root.set_open_ai_key(self.text)
-            # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
-            MDWidget:
-                size_hint: 0, 0
-            MDWidget:
-                size_hint: 0, 0
-            MDLabel:
-                text: "AI System context"
-                pos_hint: {"center_y": .5}
-                adaptive_width: False if app.is_screen_sm() else True
-                height: self.texture_size[1]
-            MDTextField:
-                id: ai_system_initial_context
-                pos_hint: {"center_y": .5}
-                hint_text: "AI system initial context"
-                text: "You are AI bot helpful assistant."
-                on_text: root.set_ai_initial_context(self.text)
-            # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
-            MDWidget:
-                size_hint: 0, 0
-            MDWidget:
-                size_hint: 0, 0
-            MDLabel:
-                text: "Temperature"
-                pos_hint: {"center_y": .5}
-                adaptive_width: False if app.is_screen_sm() else True
-                height: self.texture_size[1]
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            always_overscroll: False
             MDBoxLayout:
+                orientation: "vertical"
                 adaptive_height: True
-                padding_y: dp(8)
-                MDSlider:
-                    id: ai_temperature
-                    padding: 0
-                    min: 0
-                    max: 2
-                    step: 0.01
-                    hint: True
-                    active: True
-                    on_value: root.set_ai_temperature(self.value)
-        MDBoxLayout:
-            orientation: "vertical"
-            size_hint: 1, 1
-
+                spacing: dp(4)
+                MDRectangleFlatIconButton:
+                    id: toggle_theme_button
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    icon: "theme-light-dark"
+                    text: "Set dark theme" if app.theme_cls.theme_style == "Light" else "Set light theme"
+                    on_release: root.toggle_theme()
+                MDGridLayout:
+                    cols:  1 if app.is_screen_sm() else 2
+                    adaptive_height: True
+                    padding_x: dp(10)
+                    spacing: dp(10), dp(10) if app.is_screen_sm() else 0
+                    MDLabel:
+                        text: "Primary Color"
+                        pos_hint: {"center_y": .5}
+                        adaptive_width: False if app.is_screen_sm() else True
+                        height: self.texture_size[1]
+                    MDDropDownItem:
+                        id: primary_color_menu_button
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        icon: "select-color"
+                        text: "Change primary color"
+                        on_release: root.open_color_menu()
+                    # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
+                    MDWidget:
+                        size_hint: 0, 0
+                    MDWidget:
+                        size_hint: 0, 0
+                    MDLabel:
+                        text: "Open AI key"
+                        pos_hint: {"center_y": .5}
+                        adaptive_width: False if app.is_screen_sm() else True
+                        height: self.texture_size[1]
+                    MDTextField:
+                        id: open_ai_key
+                        pos_hint: {"center_y": .5}
+                        hint_text: "Open AI key value (see https://platform.openai.com)"
+                        helper_text: "[https://platform.openai.com/account/api-keys]"
+                        text: ""
+                        on_text: root.set_open_ai_key(self.text)
+                    # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
+                    MDWidget:
+                        size_hint: 0, 0
+                    MDWidget:
+                        size_hint: 0, 0
+                    MDLabel:
+                        text: "AI System context"
+                        pos_hint: {"center_y": .5}
+                        adaptive_width: False if app.is_screen_sm() else True
+                        height: self.texture_size[1]
+                    MDTextField:
+                        id: ai_system_initial_context
+                        pos_hint: {"center_y": .5}
+                        hint_text: "AI system initial context"
+                        text: "You are AI bot helpful assistant."
+                        on_text: root.set_ai_initial_context(self.text)
+                    # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
+                    MDWidget:
+                        size_hint: 0, 0
+                    MDWidget:
+                        size_hint: 0, 0
+                    MDLabel:
+                        text: "Temperature"
+                        pos_hint: {"center_y": .5}
+                        adaptive_width: False if app.is_screen_sm() else True
+                        height: self.texture_size[1]
+                    MDBoxLayout:
+                        adaptive_height: True
+                        padding_y: dp(8)
+                        MDSlider:
+                            id: ai_temperature
+                            padding: 0
+                            min: 0
+                            max: 2
+                            step: 0.01
+                            hint: True
+                            active: True
+                            on_value: root.set_ai_temperature(self.value)
+                    MDLabel:
+                        text: "Stability AI key"
+                        pos_hint: {"center_y": .5}
+                        adaptive_width: False if app.is_screen_sm() else True
+                        height: self.texture_size[1]
+                    MDTextField:
+                        id: stability_ai_key
+                        pos_hint: {"center_y": .5}
+                        hint_text: "Stability AI key value (see https://stability.ai/)"
+                        helper_text: "[https://stability.ai/]"
+                        text: ""
+                        on_text: root.set_stability_ai_key(self.text)
+                    # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
+                    MDWidget:
+                        size_hint: 0, 0
+                    MDWidget:
+                        size_hint: 0, 0
