@@ -10,15 +10,62 @@
                 id: scroll_view_box
                 adaptive_height: True
                 spacing: dp(4)
-                MDRectangleFlatIconButton:
-                    id: more_info_button
-                    icon: "chat"
-                    text: "ChatGPT"
-                    on_release: root.navigate_to("ai_chat")
-                    pos_hint: {"center_x": 0.5}
-                MDRectangleFlatIconButton:
-                    id: more_info_button
-                    icon: "file-image"
-                    text: "Image Generation"
-                    on_release: root.navigate_to("text2img")
-                    pos_hint: {"center_x": 0.5}
+                MDGridLayout:
+                    cols:  1 if app.is_screen_sm() else 2
+                    spacing: dp(16)
+                    padding: dp(2)
+                    MDCard:
+                        id: card_ai_chat
+                        orientation: "vertical"
+                        elevation: 1
+                        size_hint: 1, None
+                        height: self.minimum_height
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_touch_down:
+                            card_ai_chat.opacity = 0.7
+                            card_text2img.opacity = 1
+                        on_touch_up: card_ai_chat.opacity = 1
+                        on_release: root.navigate_to("ai_chat")
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            id: box
+                            size_hint_y: None
+                            height: dp(150)
+                            padding: dp(8)
+                            Image:
+                                source: "libs/assets/ai-chat.png"
+                                spacing: dp(8)
+                                height: 128
+                            MDRectangleFlatIconButton:
+                                id: more_info_button
+                                icon: "chat"
+                                text: "Chat GPT"
+                                on_release: root.navigate_to("ai_chat")
+                                line_color: 0, 0, 0, 0
+                                pos_hint: {"center_x": 0.5}
+                    MDCard:
+                        id: card_text2img
+                        orientation: "vertical"
+                        elevation: 1
+                        size_hint: 1, None
+                        height: self.minimum_height
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_touch_down: card_text2img.opacity = 0.7
+                        on_touch_up: card_text2img.opacity = 1
+                        on_release: root.navigate_to("text2img")
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            id: box
+                            size_hint_y: None
+                            height: dp(150)
+                            padding: dp(8)
+                            Image:
+                                source: "libs/assets/ai-img-gen.png"
+                                spacing: dp(8)
+                            MDRectangleFlatIconButton:
+                                id: more_info_button
+                                icon: "image"
+                                text: "Image generation"
+                                on_release: root.navigate_to("text2img")
+                                line_color: 0, 0, 0, 0
+                                pos_hint: {"center_x": 0.5}
