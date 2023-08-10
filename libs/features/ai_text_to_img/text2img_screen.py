@@ -46,7 +46,7 @@ class Text2ImgScreen(BaseScreen):
         text2img_sessions = self.session_service.get_all_sessions()
         items = [
             {
-                "text": session.query,
+                "text": self.build_title_from_session(session),
                 "viewclass": "OneLineListItem",
                 "on_release": lambda x=session: self.on_session_selected(x),
             } for session in text2img_sessions
@@ -61,10 +61,16 @@ class Text2ImgScreen(BaseScreen):
         self.session = self.session_service.get(session.id)
         self.recreate_text2img_list_from_session()
         self.menu.dismiss()
+    
+    def build_title_from_session(self, session: Text2ImgSession) -> str:
+        title = session.query[0:20]
+        if (len(session.query) > len(title)):
+            title += "…"
+        return title
 
     def recreate_text2img_list_from_session(self) -> None:
         text2img_list = self.getUIElement("text2img_list")
-        text2img_list.clear_widgets() # normally this would be enough
+        text2img_list.clear_widgets()
 
         text2img_list.add_widget(self.buildChatItemRight(text=self.session.query, created_at=self.session.iso_created_at))
         text2img_list.add_widget(self.buildChatItemLeft(text=self.session.base64, created_at=self.session.iso_response_received_at))
@@ -100,7 +106,7 @@ class Text2ImgScreen(BaseScreen):
         if is_blank(query):
             return
 
-        api_key = self.preferences_service.get(Preferences.OPEN_AI_KEY.name)
+        api_key = self.preferences_service.get(Preferences.STABILITY_AI_KEY.name)
         if is_blank(api_key):
             self.getUIElement("text2img_list").add_widget(self.buildChatItemLeft("Missing Stability API key. Please set it in the settings screen."))
             return
@@ -111,7 +117,7 @@ class Text2ImgScreen(BaseScreen):
         self.session = Text2ImgSession(query=query)
         self.getUIElement("text2img_list").add_widget(self.buildChatItemRight(query))
         self.add_animation()
-    
+
     def reset_input_and_set_focus(self, clear_text: bool = True) -> None:
         text2img_input = self.getUIElement("text2img_input_text")
         if clear_text:
@@ -125,7 +131,7 @@ class Text2ImgScreen(BaseScreen):
         self.session.base64 = base64
         self.session.iso_response_received_at = datetime.utcnow().isoformat()
         self.session = self.session_service.save(self.session)
-        self.get_session_title().text = datetime.now().strftime(CHAT_DATETIME_FORMAT)
+        self.get_session_title().text = self.build_title_from_session(self.session)
         self.recreate_text2img_list_from_session()
 
         self.reset_input_and_set_focus()

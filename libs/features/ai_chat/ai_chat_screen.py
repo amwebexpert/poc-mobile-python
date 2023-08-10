@@ -78,7 +78,7 @@ class AIChatScreen(BaseScreen):
     
     def recreate_chat_list_from_session(self) -> None:
         chat_list = self.getUIElement("chat_list")
-        chat_list.clear_widgets() # normally this would be enough
+        chat_list.clear_widgets()
 
         for chat_item in self.chat_session.items:
             if int(chat_item.role) == ChatItemRole.me.value:
