@@ -20,3 +20,4 @@ preferences.db
 text2img_sessions.db
 
 venv/
+generated-images/

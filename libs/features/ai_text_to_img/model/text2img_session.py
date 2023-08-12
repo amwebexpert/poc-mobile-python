@@ -8,18 +8,21 @@ class Text2ImgSession:
     iso_created_at: str
     query: str
     base64: str
+    base64_seed: str
 
     def __init__(self, 
             id: int = 0,
             iso_created_at: str = None,
             query: str = None,
             base64: str = None,
+            base64_seed: str = None,
             iso_response_received_at: str = None,
         ) -> None:
         self.id = id
         self.iso_created_at = iso_created_at
         self.query = query
         self.base64 = base64
+        self.base64_seed = base64_seed
         self.iso_response_received_at = iso_response_received_at
 
         # override None values with defaults

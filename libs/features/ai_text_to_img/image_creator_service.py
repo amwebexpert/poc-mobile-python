@@ -46,8 +46,8 @@ class ImageCreatorService:
         )
 
     def on_api_success(self, request, response: dict) -> None:
-        base64: str = response["artifacts"][0]["base64"]
-        self.on_success(base64)
+        artefact = response["artifacts"][0]
+        self.on_success(base64=artefact["base64"], base_64_seed=artefact["seed"])
 
     def on_api_error(self, request, response: dict) -> None:
         logging.error(response)

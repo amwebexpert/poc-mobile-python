@@ -1,10 +1,13 @@
 from datetime import datetime
-
-from kivymd.uix.widget import Widget
-from kivymd.uix.menu import MDDropdownMenu
+import base64
+from pathlib import Path
 
 from kivy.clock import Clock
 from kivy.factory import Factory
+from kivy.uix.image import Image
+
+from kivymd.uix.widget import Widget
+from kivymd.uix.menu import MDDropdownMenu
 
 from libs.theme.base_screen import BaseScreen
 
@@ -63,7 +66,7 @@ class Text2ImgScreen(BaseScreen):
         self.menu.dismiss()
     
     def build_title_from_session(self, session: Text2ImgSession) -> str:
-        title = session.query[0:20]
+        title = session.query[0:30]
         if (len(session.query) > len(title)):
             title += "…"
         return title
@@ -73,7 +76,9 @@ class Text2ImgScreen(BaseScreen):
         text2img_list.clear_widgets()
 
         text2img_list.add_widget(self.buildChatItemRight(text=self.session.query, created_at=self.session.iso_created_at))
-        text2img_list.add_widget(self.buildChatItemLeft(text=self.session.base64, created_at=self.session.iso_response_received_at))
+        if self.session.iso_response_received_at is not None:
+            session = self.session
+            text2img_list.add_widget(self.buildChatImageItemLeft(base_64_data=session.base64, base_64_seed=session.base64_seed, created_at=session.iso_response_received_at))
 
     def add_animation(self, *args) -> None:
         self.getUIElement("text2img_list").add_widget(self.animatedIcons.widget)
@@ -102,6 +107,29 @@ class Text2ImgScreen(BaseScreen):
         chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"
         return chatItem
 
+    def buildChatImageItemLeft(self, base_64_data: str, base_64_seed: str, created_at: str = None) -> Widget:
+        chatItem = Factory.AdaptativeImageBoxLeft()
+        timestamp = datetime.now() if created_at is None else datetime.fromisoformat(created_at)
+        chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
+        chatItem.ids.created_at.icon = "robot-outline"
+
+        image_path_and_name = self.write_image_data_to_file(base_64_data=base_64_data, base_64_seed=base_64_seed)
+        image = Image(source=image_path_and_name, height=512, width=512, size_hint_x = None, size_hint_y = None)
+        chatItem.ids.image_box.add_widget(image)
+
+        return chatItem
+
+    def write_image_data_to_file(self, base_64_data: str, base_64_seed: str):
+        image_path = "generated-images"
+        image_path_and_name = f"{image_path}/image-{base_64_seed}.png"
+
+        Path(image_path).mkdir(parents=True, exist_ok=True)
+        with open(image_path_and_name, "wb") as f:
+            decoded_image_data = base64.decodebytes(base_64_data.encode())
+            f.write(decoded_image_data)
+
+        return image_path_and_name
+
     def send_message(self, query: str) -> None:
         if is_blank(query):
             return
@@ -111,12 +139,12 @@ class Text2ImgScreen(BaseScreen):
             self.getUIElement("text2img_list").add_widget(self.buildChatItemLeft("Missing Stability API key. Please set it in the settings screen."))
             return
 
-        self.image_creator_service.set_api_key(api_key)
-        self.image_creator_service.send_message(query, on_success=self.on_success, on_error=self.on_error)
-
         self.session = Text2ImgSession(query=query)
         self.getUIElement("text2img_list").add_widget(self.buildChatItemRight(query))
         self.add_animation()
+
+        self.image_creator_service.set_api_key(api_key)
+        self.image_creator_service.send_message(self.session.query, on_success=self.on_success, on_error=self.on_error)
 
     def reset_input_and_set_focus(self, clear_text: bool = True) -> None:
         text2img_input = self.getUIElement("text2img_input_text")
@@ -125,17 +153,17 @@ class Text2ImgScreen(BaseScreen):
         if not has_soft_keyboard():
             text2img_input.focus = True
     
-    def on_success(self, base64: str) -> None:
+    def on_success(self, base64: str, base_64_seed: str) -> None:
         self.remove_animation()
 
         self.session.base64 = base64
+        self.session.base64_seed = base_64_seed
         self.session.iso_response_received_at = datetime.utcnow().isoformat()
         self.session = self.session_service.save(self.session)
         self.get_session_title().text = self.build_title_from_session(self.session)
         self.recreate_text2img_list_from_session()
 
         self.reset_input_and_set_focus()
-        self.getUIElement("text2img_list").add_widget(self.buildChatItemLeft(base64))
 
     def on_error(self, error_message: str) -> None:
         self.remove_animation()

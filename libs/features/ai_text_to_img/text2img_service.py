@@ -18,6 +18,7 @@ class Text2ImgService:
                 "iso_created_at            TEXT NOT NULL",
                 "query                     TEXT NOT NULL",
                 "base64                    TEXT NOT NULL",
+                "base64_seed               TEXT NOT NULL",
                 "iso_response_received_at  TEXT NOT NULL",
             )
         )
@@ -27,7 +28,7 @@ class Text2ImgService:
         result = self.storage_service.select("text_2_images", ["*"])
         elements = []
         for text2img_rs in result:
-            text2Img = Text2ImgSession(id = text2img_rs[0], iso_created_at = text2img_rs[1], request = text2img_rs[2], base64 = text2img_rs[3], iso_response_received_at = text2img_rs[4])
+            text2Img = self.build_from_resultset(text2img_rs)
             elements.append(text2Img)
         self.storage_service.close()
         elements.sort(key=lambda session: session.iso_created_at, reverse=True)
@@ -45,8 +46,8 @@ class Text2ImgService:
     def create(self, text2Img: Text2ImgSession) -> int:
         text2Img.id = self.storage_service.insert(
             table_name="text_2_images", 
-            columns=("iso_created_at", "query", "base64", "iso_response_received_at"),
-            values=(text2Img.iso_created_at, text2Img.query, text2Img.base64, text2Img.iso_response_received_at)
+            columns=("iso_created_at", "query", "base64", "base64_seed", "iso_response_received_at"),
+            values=(text2Img.iso_created_at, text2Img.query, text2Img.base64, text2Img.base64_seed, text2Img.iso_response_received_at)
         )
         return text2Img.id
 
@@ -67,6 +68,16 @@ class Text2ImgService:
             return None
 
         text2img_rs = result[0]
-        text2Img = Text2ImgSession(id = text2img_rs[0], iso_created_at = text2img_rs[1], query = text2img_rs[2], base64=text2img_rs[3], iso_response_received_at=text2img_rs[4])
+        text2Img = self.build_from_resultset(text2img_rs)
         self.storage_service.close()
         return text2Img
+
+    def build_from_resultset(self, text2img_rs: list[any]) -> Text2ImgSession:
+        return Text2ImgSession(
+            id = text2img_rs[0], 
+            iso_created_at = text2img_rs[1],
+            query = text2img_rs[2],
+            base64 = text2img_rs[3], 
+            base64_seed = text2img_rs[4],
+            iso_response_received_at = text2img_rs[5]
+        )

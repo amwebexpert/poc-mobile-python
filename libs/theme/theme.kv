@@ -75,6 +75,24 @@
         size_hint: None, None
         size: 160, 0
 
+<AdaptativeImageBoxLeft@MDBoxLayout>:
+    adaptive_height: True
+    orientation: "horizontal"
+    MDBoxLayout:
+        id: image_box
+        orientation: "vertical"
+        adaptive_height: True
+        MDRectangleFlatIconButton:
+            id: created_at
+            icon: "robot-outline"
+            text: ""
+            line_color: 0, 0, 0, 0
+            padding: 0, 0, 0, 0
+            on_release: print("image_box created_at press")
+    MDBoxLayout:
+        size_hint: None, None
+        size: 160, 0
+
 <AnimatedIconButton@MDBoxLayout>:
     orientation: "vertical"
     adaptive_height: True

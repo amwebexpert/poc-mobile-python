@@ -11,7 +11,7 @@ PRIMARY_COLORS: List[str] = ["Red" , "Pink" , "Purple" , "DeepPurple" , "Indigo"
 
 ThemeMode: Enum = Enum("ThemeMode", ["Light", "Dark"])
 
-class AnimatedIcons():
+class AnimatedIcons:
     icons = []
 
     def __init__(self, **kwargs) -> None:
