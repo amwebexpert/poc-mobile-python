@@ -88,7 +88,12 @@
             text: ""
             line_color: 0, 0, 0, 0
             padding: 0, 0, 0, 0
-            on_release: print("image_box created_at press")
+            on_release: app.open_file(generated_image.source)
+        Image:
+            id: generated_image
+            source: ""
+            size_hint: None, None
+            size: 512, 512
     MDBoxLayout:
         size_hint: None, None
         size: 160, 0

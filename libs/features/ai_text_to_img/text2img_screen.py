@@ -108,14 +108,13 @@ class Text2ImgScreen(BaseScreen):
         return chatItem
 
     def buildChatImageItemLeft(self, base_64_data: str, base_64_seed: str, created_at: str = None) -> Widget:
-        chatItem = Factory.AdaptativeImageBoxLeft()
         timestamp = datetime.now() if created_at is None else datetime.fromisoformat(created_at)
-        chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
-        chatItem.ids.created_at.icon = "robot-outline"
-
         image_path_and_name = self.write_image_data_to_file(base_64_data=base_64_data, base_64_seed=base_64_seed)
-        image = Image(source=image_path_and_name, height=512, width=512, size_hint_x = None, size_hint_y = None)
-        chatItem.ids.image_box.add_widget(image)
+
+        chatItem = Factory.AdaptativeImageBoxLeft()
+        chatItem.ids.created_at.icon = "robot-outline"
+        chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
+        chatItem.ids.generated_image.source = image_path_and_name
 
         return chatItem
 
@@ -160,8 +159,10 @@ class Text2ImgScreen(BaseScreen):
         self.session.base64_seed = base_64_seed
         self.session.iso_response_received_at = datetime.utcnow().isoformat()
         self.session = self.session_service.save(self.session)
-        self.get_session_title().text = self.build_title_from_session(self.session)
         self.recreate_text2img_list_from_session()
+
+        self.init_sessions_drop_down_menu()
+        self.get_session_title().text = self.build_title_from_session(self.session)
 
         self.reset_input_and_set_focus()
 
