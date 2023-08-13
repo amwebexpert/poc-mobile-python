@@ -4,7 +4,6 @@ from pathlib import Path
 
 from kivy.clock import Clock
 from kivy.factory import Factory
-from kivy.uix.image import Image
 
 from kivymd.uix.widget import Widget
 from kivymd.uix.menu import MDDropdownMenu

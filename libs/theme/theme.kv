@@ -1,3 +1,5 @@
+#: import ImageButton libs.theme.theme
+
 <AppScreenLayout@MDBoxLayout>:
     orientation: "vertical"
     padding: "16dp", "80dp", "16dp", "16dp"
@@ -89,11 +91,12 @@
             line_color: 0, 0, 0, 0
             padding: 0, 0, 0, 0
             on_release: app.open_file(generated_image.source)
-        Image:
+        ImageButton:
             id: generated_image
             source: ""
             size_hint: None, None
             size: 512, 512
+            on_press: app.open_file(generated_image.source)
     MDBoxLayout:
         size_hint: None, None
         size: 160, 0
