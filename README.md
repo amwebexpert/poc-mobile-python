@@ -6,7 +6,10 @@ Some of the goals of the app:
 
 - `KivyMD` app skeleton pattern including classique UI elements (navbar menu, top navbar, responsive, material design...)
 - learn and demonstrate best programming practices in a 💯% `Python` development environment
-- experiment with a lot of AI-related stuff (not just OpenAI or ChatGPT, but AI that can be useful within a mobile/native app local context)
+- experiment with a lot of AI-related stuff
+  - `OpenAI` `ChatGPT` API
+  - `Stability AI` `text to image` API
+  - plus more AI useful examples in a mobile/native app context
 - document recipes for building artifacts of specific native OS
 - have concrete examples of broadcasting events and react to these events through an MVC pattern
 - and much more as we experiment with nice AI and existing technologies and other open-source libraries...
