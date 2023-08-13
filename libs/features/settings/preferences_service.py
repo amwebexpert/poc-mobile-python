@@ -3,7 +3,7 @@ import logging
 
 from libs.services.storage_service import StorageService
 
-Preferences = Enum("Preferences", ["OPEN_AI_KEY", "AI_SYSTEM_INITIAL_CONTEXT", "AI_TEMPERATURE", "THEME_PRIMARY_COLOR", "THEME_STYLE"])
+Preferences = Enum("Preferences", ["OPEN_AI_KEY", "AI_SYSTEM_INITIAL_CONTEXT", "AI_TEMPERATURE", "THEME_PRIMARY_COLOR", "THEME_STYLE", "STABILITY_AI_KEY"])
 
 class PreferencesService:
     def __init__(self) -> None:

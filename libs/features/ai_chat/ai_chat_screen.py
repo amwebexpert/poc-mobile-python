@@ -8,7 +8,6 @@ from kivy.factory import Factory
 
 from libs.theme.base_screen import BaseScreen
 
-
 from libs.features.ai_chat.chat_gpt_service import ChatGptService
 from libs.features.ai_chat.chat.chat_session_service import ChatSessionService
 from libs.features.ai_chat.chat.model.chat_session import ChatSession, CHAT_DATETIME_FORMAT
@@ -79,7 +78,7 @@ class AIChatScreen(BaseScreen):
     
     def recreate_chat_list_from_session(self) -> None:
         chat_list = self.getUIElement("chat_list")
-        chat_list.clear_widgets() # normally this would be enough
+        chat_list.clear_widgets()
 
         for chat_item in self.chat_session.items:
             if int(chat_item.role) == ChatItemRole.me.value:

@@ -38,7 +38,7 @@ class ChatGptService:
         role = "user" if int(chat_item.role) == ChatItemRole.me.value else "assistant"
         self.messages.append({"role": role, "content": chat_item.description})
 
-    def build_new_message(self, text: str) -> None:
+    def build_new_message(self, text: str) -> dict:
         self.messages.append({"role": "user", "content": text})
         return {
             "model": self.model,

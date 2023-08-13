@@ -1,0 +1,39 @@
+<Text2ImgScreen>
+    AppScreenLayout:
+        MDGridLayout:
+            cols: 2
+            adaptive_height: True
+            padding_x: dp(10)
+            MDLabel:
+                text: "Current session"
+                id: text2img_session_label
+            MDBoxLayout:
+                adaptive_width: True
+                MDIconButton:
+                    id: text2img_session_menu_button
+                    icon: "history"
+                    on_release: root.open_sessions_menu()
+        ScrollView:
+            id: text2img_scroll
+            do_scroll_x: False
+            do_scroll_y: True
+            always_overscroll: False
+            MDBoxLayout:
+                orientation: "vertical"
+                id: text2img_list
+                adaptive_height: True
+                spacing: dp(4)
+        MDBoxLayout:
+            adaptive_height: True
+            MDTextField:
+                id: text2img_input_text
+                hint_text: "Image description"
+                helper_text: "Describe the image to generate"
+                text: ""
+                helper_text_mode: "on_focus"
+                max_text_length: 1024
+                multiline: True
+            MDIconButton:
+                icon: "send"
+                disabled: not text2img_input_text.text
+                on_release: root.send_message(text2img_input_text.text.strip())

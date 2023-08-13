@@ -1,3 +1,5 @@
+#: import ImageButton libs.theme.theme
+
 <AppScreenLayout@MDBoxLayout>:
     orientation: "vertical"
     padding: "16dp", "80dp", "16dp", "16dp"
@@ -71,6 +73,30 @@
                 text: ""
                 halign: "left"
                 color: app.theme_cls.text_color
+    MDBoxLayout:
+        size_hint: None, None
+        size: 160, 0
+
+<AdaptativeImageBoxLeft@MDBoxLayout>:
+    adaptive_height: True
+    orientation: "horizontal"
+    MDBoxLayout:
+        id: image_box
+        orientation: "vertical"
+        adaptive_height: True
+        MDRectangleFlatIconButton:
+            id: created_at
+            icon: "robot-outline"
+            text: ""
+            line_color: 0, 0, 0, 0
+            padding: 0, 0, 0, 0
+            on_release: app.open_file(generated_image.source)
+        ImageButton:
+            id: generated_image
+            source: ""
+            size_hint: None, None
+            size: 512, 512
+            on_press: app.open_file(generated_image.source)
     MDBoxLayout:
         size_hint: None, None
         size: 160, 0

@@ -10,11 +10,14 @@
 .cache/
 dist/
 build/
-preferences.db
-chat.db
 
 .idea/
 openmindset.zip
+
+## database files
 chat_sessions.db
+preferences.db
+text2img_sessions.db
 
 venv/
+generated-images/

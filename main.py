@@ -1,4 +1,6 @@
 import logging
+import subprocess
+
 from kaki.app import App
 
 from kivy.factory import Factory
@@ -69,9 +71,12 @@ class MainApp(MDApp, App):
         logging.debug(f"App <{info}> started.")
 
 
-    def copy_text_to_clipboard(self, text) -> None:
+    def copy_text_to_clipboard(self, text: str) -> None:
         Clipboard.copy(text)
         toast(text = f'Content copied: "{text[0:20]}"...', duration = 2)
+    
+    def open_file(self, filename: str) -> None:
+        subprocess.run(['open', filename], check=True)
 
     def exit(self) -> None:
         Clock.schedule_once(self.stop, 0)
