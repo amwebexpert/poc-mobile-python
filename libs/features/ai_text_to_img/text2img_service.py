@@ -36,10 +36,7 @@ class Text2ImgService:
 
     def save(self, text2img_session: Text2ImgSession) -> Text2ImgSession:
         self.storage_service.connect()
-
-        if text2img_session.id == 0:
-            text2img_session.id = self.create(text2img_session)
-
+        text2img_session.id = self.create(text2img_session)
         self.storage_service.close()
         return text2img_session
 
@@ -50,16 +47,6 @@ class Text2ImgService:
             values=(text2Img.iso_created_at, text2Img.query, text2Img.base64, text2Img.base64_seed, text2Img.iso_response_received_at)
         )
         return text2Img.id
-
-    def update_session_title(self, text2img: Text2ImgSession) -> None:
-        self.storage_service.connect()
-        self.storage_service.update(
-            table_name="text_2_images", 
-            columns=("query",), 
-            values=(text2img.query,), 
-            condition=f"id = {text2img.id}"
-        )
-        self.storage_service.close()
 
     def get(self, id = 0) -> Text2ImgSession:
         self.storage_service.connect()
