@@ -18,6 +18,7 @@ from libs.features.settings.preferences_service import PreferencesService, Prefe
 from libs.utils.app_utils import bus
 from libs.utils.string_utils import is_blank
 from libs.utils.keyboard_utils import has_soft_keyboard
+from libs.utils.date_utils import get_tz_delta
 
 from libs.theme.theme_utils import AnimatedIcons
 
@@ -107,7 +108,7 @@ class AIChatScreen(BaseScreen):
         return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant", created_at=created_at)
 
     def buildChatItem(self, chatItem: Widget, text: str, role: str, created_at: str = None) -> Widget:
-        timestamp = datetime.now() if created_at is None else datetime.fromisoformat(created_at)
+        timestamp = datetime.now() if created_at is None else datetime.fromisoformat(created_at) + get_tz_delta()
         chatItem.ids.label.text = text
         chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
         chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"

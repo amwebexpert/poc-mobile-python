@@ -17,6 +17,7 @@ from libs.features.ai_text_to_img.image_creator_service import ImageCreatorServi
 
 from libs.utils.string_utils import is_blank
 from libs.utils.keyboard_utils import has_soft_keyboard
+from libs.utils.date_utils import get_tz_delta
 
 from libs.theme.theme_utils import AnimatedIcons
 
@@ -100,7 +101,7 @@ class Text2ImgScreen(BaseScreen):
         return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant", date_and_time=created_at)
 
     def buildChatItem(self, chatItem: Widget, text: str, role: str, date_and_time: str = None) -> Widget:
-        timestamp = datetime.now() if date_and_time is None else datetime.fromisoformat(date_and_time)
+        timestamp = datetime.now() if date_and_time is None else datetime.fromisoformat(date_and_time) + get_tz_delta()
         chatItem.ids.label.text = text
         chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
         chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"
