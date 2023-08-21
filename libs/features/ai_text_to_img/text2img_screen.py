@@ -29,7 +29,7 @@ class Text2ImgScreen(BaseScreen):
 
     session: Text2ImgSession = Text2ImgSession()
 
-    animatedIcons: AnimatedIcons = None
+    animatedIcons = AnimatedIcons()
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -37,7 +37,6 @@ class Text2ImgScreen(BaseScreen):
         self.session_service = Text2ImgService()
         self.preferences_service = PreferencesService()
         self.image_creator_service = ImageCreatorService()
-        self.animatedIcons = AnimatedIcons()
         Clock.schedule_once(self.init_text2img_history, 0)
         Clock.schedule_once(self.init_sessions_drop_down_menu, 0)
 
@@ -61,7 +60,7 @@ class Text2ImgScreen(BaseScreen):
     def on_session_selected(self, session: Text2ImgSession) -> None:
         self.get_session_title().text = session.query
         self.session = self.session_service.get(session.id)
-        self.recreate_text2img_list_from_session()
+        self.recreate_text2img_list_from_session(clearAll=True)
         self.menu.dismiss()
     
     def build_title_from_session(self, session: Text2ImgSession) -> str:
@@ -70,9 +69,10 @@ class Text2ImgScreen(BaseScreen):
             title += "…"
         return title
 
-    def recreate_text2img_list_from_session(self) -> None:
+    def recreate_text2img_list_from_session(self, clearAll: bool = False) -> None:
         text2img_list = self.getUIElement("text2img_list")
-        text2img_list.clear_widgets()
+        if clearAll:
+            text2img_list.clear_widgets()
 
         text2img_list.add_widget(self.buildChatItemRight(text=self.session.query, created_at=self.session.iso_created_at))
         if self.session.iso_response_received_at is not None:
@@ -94,13 +94,13 @@ class Text2ImgScreen(BaseScreen):
         self.getUIElement("text2img_scroll").scroll_to(item)
 
     def buildChatItemRight(self, text: str, created_at: str = None) -> Widget:
-        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user", created_at=created_at)
+        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user", date_and_time=created_at)
     
     def buildChatItemLeft(self, text: str, created_at: str = None) -> Widget:
-        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant", created_at=created_at)
+        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant", date_and_time=created_at)
 
-    def buildChatItem(self, chatItem: Widget, text: str, role: str, created_at: str = None) -> Widget:
-        timestamp = datetime.now() if created_at is None else datetime.fromisoformat(created_at)
+    def buildChatItem(self, chatItem: Widget, text: str, role: str, date_and_time: str = None) -> Widget:
+        timestamp = datetime.now() if date_and_time is None else datetime.fromisoformat(date_and_time)
         chatItem.ids.label.text = text
         chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
         chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"
@@ -158,7 +158,10 @@ class Text2ImgScreen(BaseScreen):
         self.session.base64_seed = base_64_seed
         self.session.iso_response_received_at = datetime.utcnow().isoformat()
         self.session = self.session_service.save(self.session)
-        self.recreate_text2img_list_from_session()
+
+        text2img_list = self.getUIElement("text2img_list")
+        session = self.session
+        text2img_list.add_widget(self.buildChatImageItemLeft(base_64_data=session.base64, base_64_seed=session.base64_seed, created_at=session.iso_response_received_at))
 
         self.init_sessions_drop_down_menu()
         self.get_session_title().text = self.build_title_from_session(self.session)
