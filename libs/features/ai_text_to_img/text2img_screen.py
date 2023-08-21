@@ -120,7 +120,7 @@ class Text2ImgScreen(BaseScreen):
 
     def write_image_data_to_file(self, base_64_data: str, base_64_seed: str):
         image_path = "generated-images"
-        image_path_and_name = f"{image_path}/image-{base_64_seed}.png"
+        image_path_and_name = f"{image_path}/image-{base_64_seed}.png" # TODO use os.path.join instead
 
         Path(image_path).mkdir(parents=True, exist_ok=True)
         with open(image_path_and_name, "wb") as f:

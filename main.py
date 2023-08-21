@@ -12,6 +12,7 @@ from kivymd.app import MDApp
 from kivymd.toast import toast
 
 from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch, bus
+from libs.utils.platform_utils import is_android
 from libs.utils.keyboard_utils import init_keyboard
 from libs.utils.screen_utils import init_screen, is_screen_sm
 from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
@@ -76,7 +77,16 @@ class MainApp(MDApp, App):
         toast(text = f'Content copied: "{text[0:20]}"...', duration = 2)
     
     def open_file(self, filename: str) -> None:
-        subprocess.run(['open', filename], check=True)
+        if is_android():
+            # TODO - either copy file to an android public or create an OPEN android Intent, or both:
+            # https://stackoverflow.com/questions/3590955/intent-to-launch-the-clock-application-on-android
+            # https://www.albertgao.xyz/2017/05/22/how-to-get-current-app-folder-in-kivy/
+            # for now: just copy filename to the clipboard
+            root_folder = self.user_data_dir
+            fullfilename = f"{root_folder}/{filename}" # TODO use os.path.join instead of an f string
+            self.copy_text_to_clipboard(text=fullfilename)
+        else:
+            subprocess.run(['open', filename], check=True)
 
     def exit(self) -> None:
         Clock.schedule_once(self.stop, 0)
