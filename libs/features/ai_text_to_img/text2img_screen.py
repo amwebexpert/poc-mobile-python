@@ -78,7 +78,7 @@ class Text2ImgScreen(BaseScreen):
         text2img_list.add_widget(self.buildChatItemRight(text=self.session.query, created_at=self.session.iso_created_at))
         if self.session.iso_response_received_at is not None:
             session = self.session
-            text2img_list.add_widget(self.buildChatImageItemLeft(base_64_data=session.base64, base_64_seed=session.base64_seed, created_at=session.iso_response_received_at))
+            text2img_list.add_widget(self.buildChatImageItemLeft(base_64_data=session.base64, base_64_seed=session.base64_seed, date_and_time=session.iso_response_received_at))
 
     def add_animation(self, *args) -> None:
         self.getUIElement("text2img_list").add_widget(self.animatedIcons.widget)
@@ -107,8 +107,8 @@ class Text2ImgScreen(BaseScreen):
         chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"
         return chatItem
 
-    def buildChatImageItemLeft(self, base_64_data: str, base_64_seed: str, created_at: str = None) -> Widget:
-        timestamp = datetime.now() if created_at is None else datetime.fromisoformat(created_at)
+    def buildChatImageItemLeft(self, base_64_data: str, base_64_seed: str, date_and_time: str = None) -> Widget:
+        timestamp = datetime.now() if date_and_time is None else datetime.fromisoformat(date_and_time) + get_tz_delta()
         image_path_and_name = self.write_image_data_to_file(base_64_data=base_64_data, base_64_seed=base_64_seed)
 
         chatItem = Factory.AdaptativeImageBoxLeft()
@@ -162,7 +162,7 @@ class Text2ImgScreen(BaseScreen):
 
         text2img_list = self.getUIElement("text2img_list")
         session = self.session
-        text2img_list.add_widget(self.buildChatImageItemLeft(base_64_data=session.base64, base_64_seed=session.base64_seed, created_at=session.iso_response_received_at))
+        text2img_list.add_widget(self.buildChatImageItemLeft(base_64_data=session.base64, base_64_seed=session.base64_seed, date_and_time=session.iso_response_received_at))
 
         self.init_sessions_drop_down_menu()
         self.get_session_title().text = self.build_title_from_session(self.session)
