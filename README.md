@@ -57,16 +57,25 @@ macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_
 
 ## Getting Started
 
-In order to start using the app in interpreted or development mode, you must first install the `Kivy` framework on your computer. Once you have installed `Kivy`, you can install `KivyMD`:
-
-- Install [Kivy Framework](https://kivy.org)
-- Install [KivyMD](https://kivymd.readthedocs.io)
-
 Then you can install the Open Mindset app dependencies as follow
 
-    python3 -m venv venv
+First create and activate your virtual environment:
+   ```shell
+    python -m venv venv
     . venv/bin/activate
-    pip install -r requirements.txt
+   ```
+
+Use `pip-tools` to generate `requirements.txt` file from `requirements.in`:
+   ```shell
+    python -m pip install pip-tools
+    pip-compile requirements.in
+   ```
+
+Update the virtual environment dependencies:
+   ```shell
+   pip-sync
+   ```
+
 
 ### Startup & hot reload
 
@@ -135,25 +144,6 @@ Then change your `.zshrc` aliases as [explained here](https://apple.stackexchang
 
     python ./scripts/certificates/install_certifi.py
 
-### Virtual environment
-
-We can manually delete the `venv` folder and recreate it whenever necessary
-
-    python3 -m venv venv
-    . venv/bin/activate
-
-### Dependency libraries (update, freeze them or install from)
-
-    pip install pip-review
-    pip-review --local --interactive
-    pip freeze > requirements.txt
-    pip install -r requirements.txt
-
-#### References
-
-* https://stackoverflow.com/a/16269635/704681
-
-
 ## Build for Android
 
 ### Building for Android on Linux Ubuntu
@@ -164,7 +154,8 @@ First install the following dependencies:
 
 Then install these python dependencies:
 
-    pip install -r requirements.txt
+    pip-compile
+    pip-sync
 
 Ensure both `kivy` and `kivymd` are up to date (see below reference for more detail)
 
@@ -289,3 +280,8 @@ By definition:
 > An open mindset is a tendency to be receptive to new ideas and information. Having an open mindset means being objective when approaching new things, listening to other points of view, and being willing to admit what you don't know.
 
 I decided to give it that name since this is my life philosophy and I was looking for a real project to learn `Python` language.
+
+## Official related websites
+
+- [Kivy Framework](https://kivy.org)
+- [KivyMD](https://kivymd.readthedocs.io)
