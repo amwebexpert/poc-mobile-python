@@ -57,27 +57,27 @@ macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_
 
 ## Getting Started
 
-Then you can install the Open Mindset app dependencies as follow
+Then you can install the Open Mindset app dependencies as follow. First create and activate your virtual environment:
 
-First create and activate your virtual environment:
    ```shell
     python -m venv venv
     . venv/bin/activate
    ```
 
 Use `pip-tools` to generate `requirements.txt` file from `requirements.in`:
+
    ```shell
     python -m pip install pip-tools
     pip-compile requirements.in
    ```
 
 Update the virtual environment dependencies:
+
    ```shell
    pip-sync
    ```
 
-
-### Startup & hot reload
+### Startup & Hot Reload
 
 Normal startup
 
