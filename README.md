@@ -57,7 +57,7 @@ macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_
 
 ## Getting Started
 
-You may have some OS core dependencies to install (dll on Windows, system lib on Ubuntu, etc.) so follow the official Kivy install instruction depending on your operating system
+You may have some OS core dependencies to install (`dll` on Windows, system lib on Ubuntu, etc.) so follow the official Kivy install instructions depending on your operating system(s):
 
 - [Kivy Framework](https://kivy.org)
 - [KivyMD](https://kivymd.readthedocs.io)
