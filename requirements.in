@@ -4,7 +4,7 @@ docutils==0.20.1
 event-bus==1.0.2
 idna==3.4
 kaki==0.1.9
-Kivy @ https://github.com/kivy/kivy/archive/master.zip#sha256=54c8fb2758f38deaaca6651b6bb415d809b01793d43395cfac0ad3aa8573a9ae
+Kivy @ https://github.com/kivy/kivy/archive/master.zip#sha256=2eddbadf2ab0a5ebc2f1929219dae0dd49f95d09ca2063b7c761294db93e2743
 Kivy-Garden==0.1.5
 kivymd @ https://github.com/kivymd/KivyMD/archive/master.zip#sha256=e55b90474afa09a6c971f4ef1cdf07a4e028d7e565d8165179b7fc9b8f6b4d1b
 Pillow==10.0.0

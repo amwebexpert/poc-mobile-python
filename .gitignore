@@ -21,3 +21,6 @@ text2img_sessions.db
 
 venv/
 generated-images/
+
+requirements.txt
+requirements-dev.txt

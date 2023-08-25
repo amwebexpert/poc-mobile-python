@@ -1,0 +1,17 @@
+[project]
+name = "openmindset"
+description = "Python multi-platform app using the KivyMD framework, integrating Artificial Intelligence features."
+version = "1.1.0"
+authors = [
+    { name = "Andre Masson", email = "amwebexpert@gmail.com" }
+]
+dependencies = [
+]
+
+[project.optional-dependencies]
+dev = [
+]
+
+[build-system]
+requires = ["pip >= 20.1"]
+build-backend = "poetry.masonry.api"
