@@ -7,6 +7,8 @@ from kivymd.app import MDApp
 from kivymd.uix.toolbar import MDTopAppBar
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
 
+from libs.utils.keyboard_utils import KEY_VALUE_ESCAPE
+
 
 class AppNavigationBar(MDTopAppBar):  # pylint: disable=too-many-ancestors
     nav_drawer: MDNavigationDrawer
@@ -20,7 +22,7 @@ class AppNavigationBar(MDTopAppBar):  # pylint: disable=too-many-ancestors
         Window.bind(on_keyboard=self.hook_keyboard)
 
     def hook_keyboard(self, _window, key, *_args) -> bool:
-        if key == 27:
+        if key == KEY_VALUE_ESCAPE:
             if self.nav_drawer.state == "open":
                 self.close_menu()
             elif self.can_go_back():
