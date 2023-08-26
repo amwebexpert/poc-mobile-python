@@ -67,7 +67,7 @@ class PreviousMDIcons(Screen):
                     "viewclass": "CustomOneLineIconListItem",
                     "icon": name_icon,
                     "text": name_icon,
-                    "callback": lambda x: x,
+                    "callback": lambda item: item,
                 }
             )
 

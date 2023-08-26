@@ -66,13 +66,13 @@ class AppNavigationBar(MDTopAppBar):  # pylint: disable=too-many-ancestors
             self.right_action_items = []
         else:
             self.right_action_items = [
-                ["cog", lambda x: self.on_settings_action()]]
+                ["cog", lambda _: self.on_settings_action()]]
 
         if self.can_go_back():
-            self.left_action_items = [["arrow-left", lambda x: self.go_back()]]
+            self.left_action_items = [["arrow-left", lambda _: self.go_back()]]
         else:
             self.left_action_items = [
-                ["menu", lambda x: self.on_menu_action()]]
+                ["menu", lambda _: self.on_menu_action()]]
 
     def go_back(self) -> None:
         if not self.can_go_back():
