@@ -5,20 +5,21 @@ from libs.features.ai_chat.chat.model.chat_item import ChatItem
 
 CHAT_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 
+
 class ChatSession:
     id: int
     iso_created_at: str
     title: str
     items: List[ChatItem] = []
 
-    def __init__(self, 
-            title: str = None,
-            items: List[ChatItem] = [],
-            iso_created_at: str = None,
-            id: int = 0
-        ) -> None:
-        self.id = id
-        self.items = items
+    def __init__(self,
+                 title: str = None,
+                 items: List[ChatItem] = None,
+                 iso_created_at: str = None,
+                 id: int = 0  # pylint: disable=redefined-builtin, invalid-name
+                 ) -> None:
+        self.id = id  # pylint: disable=redefined-builtin, invalid-name
+        self.items = [] if items is None else items
         self.iso_created_at = iso_created_at
         self.title = title
 

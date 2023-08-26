@@ -23,7 +23,8 @@ from libs.theme.theme_utils import AnimatedIcons
 
 CHAT_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 
-class Text2ImgScreen(BaseScreen):
+
+class Text2ImgScreen(BaseScreen):  # pylint: disable=too-many-ancestors
     session_service: Text2ImgService = None
     preferences_service: PreferencesService = None
     image_creator_service: ImageCreatorService = None
@@ -38,13 +39,14 @@ class Text2ImgScreen(BaseScreen):
         self.session_service = Text2ImgService()
         self.preferences_service = PreferencesService()
         self.image_creator_service = ImageCreatorService()
+        self.menu = None
         Clock.schedule_once(self.init_text2img_history, 0)
         Clock.schedule_once(self.init_sessions_drop_down_menu, 0)
 
     def get_session_title(self) -> Widget:
-        return self.getUIElement("text2img_session_label")
+        return self.get_gui_element("text2img_session_label")
 
-    def init_sessions_drop_down_menu(self, *args) -> None:
+    def init_sessions_drop_down_menu(self, *_args) -> None:
         text2img_sessions = self.session_service.get_all_sessions()
         items = [
             {
@@ -53,7 +55,8 @@ class Text2ImgScreen(BaseScreen):
                 "on_release": lambda x=session: self.on_session_selected(x),
             } for session in text2img_sessions
         ]
-        self.menu = MDDropdownMenu(caller = self.get_session_title(), items = items, width_mult = 10)
+        self.menu = MDDropdownMenu(
+            caller=self.get_session_title(), items=items, width_mult=10)
 
     def open_sessions_menu(self) -> None:
         self.menu.open()
@@ -63,64 +66,75 @@ class Text2ImgScreen(BaseScreen):
         self.session = self.session_service.get(session.id)
         self.recreate_text2img_list_from_session(clearAll=True)
         self.menu.dismiss()
-    
+
     def build_title_from_session(self, session: Text2ImgSession) -> str:
         title = session.query[0:30]
-        if (len(session.query) > len(title)):
+        if len(session.query) > len(title):
             title += "…"
         return title
 
     def recreate_text2img_list_from_session(self, clearAll: bool = False) -> None:
-        text2img_list = self.getUIElement("text2img_list")
+        text2img_list = self.get_gui_element("text2img_list")
         if clearAll:
             text2img_list.clear_widgets()
 
-        text2img_list.add_widget(self.buildChatItemRight(text=self.session.query, created_at=self.session.iso_created_at))
+        text2img_list.add_widget(self.build_item_right(
+            text=self.session.query, created_at=self.session.iso_created_at))
         if self.session.iso_response_received_at is not None:
             session = self.session
-            text2img_list.add_widget(self.buildChatImageItemLeft(base_64_data=session.base64, base_64_seed=session.base64_seed, date_and_time=session.iso_response_received_at))
+            text2img_list.add_widget(self.build_image_item_left(
+                base_64_data=session.base64, base_64_seed=session.base64_seed, date_and_time=session.iso_response_received_at))
 
-    def add_animation(self, *args) -> None:
-        self.getUIElement("text2img_list").add_widget(self.animatedIcons.widget)
-        self.getUIElement("text2img_scroll").scroll_to(self.animatedIcons.widget)
+    def add_animation(self, *_args) -> None:
+        self.get_gui_element("text2img_list").add_widget(
+            self.animatedIcons.widget)
+        self.get_gui_element("text2img_scroll").scroll_to(
+            self.animatedIcons.widget)
         self.animatedIcons.start_animation()
 
-    def remove_animation(self, *args) -> None:
+    def remove_animation(self, *_args) -> None:
         self.animatedIcons.stop_animation()
-        self.getUIElement("text2img_list").remove_widget(self.animatedIcons.widget)
+        self.get_gui_element("text2img_list").remove_widget(
+            self.animatedIcons.widget)
 
-    def init_text2img_history(self, *args) -> None:
-        item = self.buildChatItemLeft("I'm an artificial intelligence image generator. Describe the image to generate.")
-        self.getUIElement("text2img_list").add_widget(item)
-        self.getUIElement("text2img_scroll").scroll_to(item)
+    def init_text2img_history(self, *_args) -> None:
+        item = self.build_item_left(
+            "I'm an artificial intelligence image generator. Describe the image to generate.")
+        self.get_gui_element("text2img_list").add_widget(item)
+        self.get_gui_element("text2img_scroll").scroll_to(item)
 
-    def buildChatItemRight(self, text: str, created_at: str = None) -> Widget:
-        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user", date_and_time=created_at)
-    
-    def buildChatItemLeft(self, text: str, created_at: str = None) -> Widget:
-        return self.buildChatItem(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant", date_and_time=created_at)
+    def build_item_right(self, text: str, created_at: str = None) -> Widget:
+        return self.build_chat_item(chatItem=Factory.AdaptativeLabelBoxRight(), text=text, role="user", date_and_time=created_at)
 
-    def buildChatItem(self, chatItem: Widget, text: str, role: str, date_and_time: str = None) -> Widget:
-        timestamp = datetime.now() if date_and_time is None else datetime.fromisoformat(date_and_time) + get_tz_delta()
+    def build_item_left(self, text: str, created_at: str = None) -> Widget:
+        return self.build_chat_item(chatItem=Factory.AdaptativeLabelBoxLeft(), text=text, role="assistant", date_and_time=created_at)
+
+    def build_chat_item(self, chatItem: Widget, text: str, role: str, date_and_time: str = None) -> Widget:
+        timestamp = datetime.now() if date_and_time is None else datetime.fromisoformat(
+            date_and_time) + get_tz_delta()
         chatItem.ids.label.text = text
         chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
         chatItem.ids.created_at.icon = "human-greeting-variant" if role == "user" else "robot-outline"
         return chatItem
 
-    def buildChatImageItemLeft(self, base_64_data: str, base_64_seed: str, date_and_time: str = None) -> Widget:
-        timestamp = datetime.now() if date_and_time is None else datetime.fromisoformat(date_and_time) + get_tz_delta()
-        image_path_and_name = self.write_image_data_to_file(base_64_data=base_64_data, base_64_seed=base_64_seed)
+    def build_image_item_left(self, base_64_data: str, base_64_seed: str, date_and_time: str = None) -> Widget:
+        timestamp = datetime.now() if date_and_time is None else datetime.fromisoformat(
+            date_and_time) + get_tz_delta()
+        image_path_and_name = self.write_image_data_to_file(
+            base_64_data=base_64_data, base_64_seed=base_64_seed)
 
-        chatItem = Factory.AdaptativeImageBoxLeft()
-        chatItem.ids.created_at.icon = "robot-outline"
-        chatItem.ids.created_at.text = timestamp.strftime(CHAT_DATETIME_FORMAT)
-        chatItem.ids.generated_image.source = image_path_and_name
+        chat_item = Factory.AdaptativeImageBoxLeft()
+        chat_item.ids.created_at.icon = "robot-outline"
+        chat_item.ids.created_at.text = timestamp.strftime(
+            CHAT_DATETIME_FORMAT)
+        chat_item.ids.generated_image.source = image_path_and_name
 
-        return chatItem
+        return chat_item
 
     def write_image_data_to_file(self, base_64_data: str, base_64_seed: str):
         image_path = "generated-images"
-        image_path_and_name = f"{image_path}/image-{base_64_seed}.png" # TODO use os.path.join instead
+        # TODO use os.path.join instead
+        image_path_and_name = f"{image_path}/image-{base_64_seed}.png"
 
         Path(image_path).mkdir(parents=True, exist_ok=True)
         with open(image_path_and_name, "wb") as f:
@@ -133,36 +147,41 @@ class Text2ImgScreen(BaseScreen):
         if is_blank(query):
             return
 
-        api_key = self.preferences_service.get(Preferences.STABILITY_AI_KEY.name)
+        api_key = self.preferences_service.get(
+            Preferences.STABILITY_AI_KEY.name)
         if is_blank(api_key):
-            self.getUIElement("text2img_list").add_widget(self.buildChatItemLeft("Missing Stability API key. Please set it in the settings screen."))
+            self.get_gui_element("text2img_list").add_widget(self.build_item_left(
+                "Missing Stability API key. Please set it in the settings screen."))
             return
 
         self.session = Text2ImgSession(query=query)
-        self.getUIElement("text2img_list").add_widget(self.buildChatItemRight(query))
+        self.get_gui_element("text2img_list").add_widget(
+            self.build_item_right(query))
         self.add_animation()
 
         self.image_creator_service.set_api_key(api_key)
-        self.image_creator_service.send_message(self.session.query, on_success=self.on_success, on_error=self.on_error)
+        self.image_creator_service.send_message(
+            self.session.query, on_success=self.on_success, on_error=self.on_error)
 
     def reset_input_and_set_focus(self, clear_text: bool = True) -> None:
-        text2img_input = self.getUIElement("text2img_input_text")
+        text2img_input = self.get_gui_element("text2img_input_text")
         if clear_text:
             text2img_input.text = ""
         if not has_soft_keyboard():
             text2img_input.focus = True
-    
-    def on_success(self, base64: str, base_64_seed: str) -> None:
+
+    def on_success(self, base64_: str, base_64_seed: str) -> None:
         self.remove_animation()
 
-        self.session.base64 = base64
+        self.session.base64 = base64_
         self.session.base64_seed = base_64_seed
         self.session.iso_response_received_at = datetime.utcnow().isoformat()
         self.session = self.session_service.save(self.session)
 
-        text2img_list = self.getUIElement("text2img_list")
+        text2img_list = self.get_gui_element("text2img_list")
         session = self.session
-        text2img_list.add_widget(self.buildChatImageItemLeft(base_64_data=session.base64, base_64_seed=session.base64_seed, date_and_time=session.iso_response_received_at))
+        text2img_list.add_widget(self.build_image_item_left(
+            base_64_data=session.base64, base_64_seed=session.base64_seed, date_and_time=session.iso_response_received_at))
 
         self.init_sessions_drop_down_menu()
         self.get_session_title().text = self.build_title_from_session(self.session)
@@ -172,4 +191,5 @@ class Text2ImgScreen(BaseScreen):
     def on_error(self, error_message: str) -> None:
         self.remove_animation()
         self.reset_input_and_set_focus(clear_text=False)
-        self.getUIElement("text2img_list").add_widget(self.buildChatItemLeft(error_message))
+        self.get_gui_element("text2img_list").add_widget(
+            self.build_item_left(error_message))

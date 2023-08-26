@@ -1,16 +1,20 @@
 import logging
 from typing import Callable
-from kivy.network.urlrequest import UrlRequest
 import json
 
-from libs.features.ai_chat.chat.model.chat_item import ChatItem, ChatItemRole
-from libs.features.ai_chat.chat.model.chat_session import ChatSession
+from kivy.network.urlrequest import UrlRequest
+
 
 URL = "https://api.stability.ai/v1/generation/stable-diffusion-xl-beta-v2-2-2/text-to-image"
+
 
 class ImageCreatorService:
     api_key: str = None
     query: str = None
+
+    def __init__(self) -> None:
+        self.on_success = None
+        self.on_error = None
 
     def set_api_key(self, api_key: str) -> None:
         self.api_key = api_key
@@ -19,7 +23,7 @@ class ImageCreatorService:
         return {
             "width": 512,
             "height": 512,
-            "text_prompts": [{ "text": query, "weight": 1 }],
+            "text_prompts": [{"text": query, "weight": 1}],
         }
 
     def build_headers(self) -> dict:
@@ -36,20 +40,21 @@ class ImageCreatorService:
         payload = self.build_payload(query)
         headers = self.build_headers()
 
-        request = UrlRequest(
+        UrlRequest(
             URL,
-            req_body = json.dumps(payload),
-            req_headers = headers,
-            on_success = self.on_api_success,
-            on_failure = self.on_api_error,
-            on_error = self.on_api_error
+            req_body=json.dumps(payload),
+            req_headers=headers,
+            on_success=self.on_api_success,
+            on_failure=self.on_api_error,
+            on_error=self.on_api_error
         )
 
-    def on_api_success(self, request, response: dict) -> None:
+    def on_api_success(self, _request, response: dict) -> None:
         artefact = response["artifacts"][0]
-        self.on_success(base64=artefact["base64"], base_64_seed=artefact["seed"])
+        self.on_success(base64_=artefact["base64"],
+                        base_64_seed=artefact["seed"])
 
-    def on_api_error(self, request, response: dict) -> None:
+    def on_api_error(self, _request, response: dict) -> None:
         logging.error(response)
-        error_message =  json.dumps(response)
+        error_message = json.dumps(response)
         self.on_error(error_message)

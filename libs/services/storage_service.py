@@ -3,9 +3,8 @@ from typing import List
 
 import sqlite3
 
-from libs.utils.string_utils import is_blank
-
 SEP = ", "
+
 
 class StorageService:
     def __init__(self, db_name: str) -> None:
@@ -19,29 +18,33 @@ class StorageService:
 
     def close(self) -> None:
         self.conn.close()
-    
-    def execute(self, query: str, params: List[any] = []) -> None:
-        logging.debug(f"sqlite: {query}")
+
+    def execute(self, query: str, params: List[any] = None) -> None:
+        if params is None:
+            params = []
+        logging.debug("sqlite: %s", query)
         try:
             self.cursor.execute(query, params)
             self.conn.commit()
-        except Exception as e:
-            self.raise_exception(query, e)
-            self.db.rollback()    
+        except sqlite3.Error as error:
+            self.raise_exception(query, error)
+            self.conn.rollback()
 
     def fetchall(self, query: str) -> List[tuple]:
         try:
             self.cursor.execute(query)
             return self.cursor.fetchall()
-        except Exception as e:
-            self.raise_exception(query, e)
+        except sqlite3.Error as error:
+            self.raise_exception(query, error)
+            return []
 
     def fetchone(self, query: str) -> tuple:
         try:
             self.cursor.execute(query)
             return self.cursor.fetchone()
-        except Exception as e:
-            self.raise_exception(query, e)
+        except sqlite3.Error as error:
+            self.raise_exception(query, error)
+            return None
 
     def create_table(self, table_name: str, columns: tuple) -> None:
         if not columns:
@@ -50,13 +53,13 @@ class StorageService:
         self.execute(query)
 
     def insert(self, table_name: str, columns: tuple, values: tuple) -> int:
-        self.validateArrayLengths(columns, values)
+        self.validate_array_lengths(columns, values)
         query = f"INSERT INTO {table_name} ({SEP.join(columns)}) VALUES ({self.build_placeholders(values)})"
         self.execute(query, values)
         return self.cursor.lastrowid
 
     def update(self, table_name: str, columns: tuple, values: tuple, condition: str) -> None:
-        self.validateArrayLengths(columns, values)
+        self.validate_array_lengths(columns, values)
         query = f"UPDATE {table_name} SET {SEP.join(columns)} = {self.build_placeholders(values)} WHERE {condition}"
         self.execute(query, values)
 
@@ -64,20 +67,21 @@ class StorageService:
         query = f"DELETE FROM {table_name} WHERE {condition}"
         self.execute(query)
         if self.cursor.rowcount == 0:
-            logging.warning(f'No rows deleted for query: "{query}"')
+            logging.warning('No rows deleted for query: "%s"', query)
 
     def select(self, table_name, columns: tuple, condition: str = "1=1"):
         query = f"SELECT {SEP.join(columns)} FROM {table_name} WHERE {condition}"
         return self.fetchall(query)
 
-    def raise_exception(self, query: str, e: Exception) -> None:
-        error_message = f'Error while executing query "{query}": {e}'
+    def raise_exception(self, query: str, error: sqlite3.Error) -> None:
+        error_message = f'Error while executing query "{query}": {error}'
         logging.critical(error_message, stack_info=True)
-        raise Exception(error_message)
+        raise RuntimeError(error_message)
 
-    def validateArrayLengths(self, columns: tuple, values: tuple):
+    def validate_array_lengths(self, columns: tuple, values: tuple):
         if len(columns) != len(values):
-            raise ValueError(f"columns count: {len(columns)} != values count: {len(values)}")
+            raise ValueError(
+                f"columns count: {len(columns)} != values count: {len(values)}")
 
     def build_placeholders(self, values: tuple) -> str:
         return ("?, " * len(values)).rstrip(", ")

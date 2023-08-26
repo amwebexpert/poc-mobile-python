@@ -1,7 +1,5 @@
 from datetime import datetime
-from typing import List
 
-from libs.features.ai_chat.chat.model.chat_item import ChatItem
 
 class Text2ImgSession:
     id: int
@@ -10,15 +8,15 @@ class Text2ImgSession:
     base64: str
     base64_seed: str
 
-    def __init__(self, 
-            id: int = 0,
-            iso_created_at: str = None,
-            query: str = None,
-            base64: str = None,
-            base64_seed: str = None,
-            iso_response_received_at: str = None,
-        ) -> None:
-        self.id = id
+    def __init__(self,  # pylint: disable=too-many-arguments
+                 id: int = 0,  # pylint: disable=redefined-builtin, invalid-name
+                 iso_created_at: str = None,
+                 query: str = None,
+                 base64: str = None,
+                 base64_seed: str = None,
+                 iso_response_received_at: str = None,
+                 ) -> None:
+        self.id = id  # pylint: disable=redefined-builtin, invalid-name
         self.iso_created_at = iso_created_at
         self.query = query
         self.base64 = base64

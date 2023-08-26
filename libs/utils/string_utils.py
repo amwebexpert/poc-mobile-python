@@ -1,7 +1,8 @@
-def is_blank(myString = None) -> bool:
-    if myString is None:
+def is_blank(my_string=None) -> bool:
+    if my_string is None:
         return True
-    return not myString.strip()
+    return not my_string.strip()
 
-def is_not_blank(myString = None) -> bool:
-    return not is_blank(myString)
+
+def is_not_blank(my_string=None) -> bool:
+    return not is_blank(my_string)
