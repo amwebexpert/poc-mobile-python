@@ -101,13 +101,11 @@
         size_hint: None, None
         size: 160, 0
 
-<AnimatedIconButton@MDBoxLayout>:
-    orientation: "vertical"
+<AnimatedRobotIcons@MDBoxLayout>:
+    orientation: "horizontal"
     adaptive_height: True
-    padding: 0, 0, 0, 0
     spacing: 0
-    MDBoxLayout:
-        id: icons_row
-        orientation: "horizontal"
-        adaptive_height: True
-        spacing: 0
+
+<AminatedRobotIcon@MDIconButton>:
+    icon_size: "16sp"
+    padding: 0, 0, 0, 0
