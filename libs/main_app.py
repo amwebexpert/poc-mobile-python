@@ -14,7 +14,7 @@ from kivymd.toast import toast
 from libs.utils.app_utils import get_app_version_info, get_app_version_info_string, list_kv_files_to_watch, bus
 from libs.utils.platform_utils import is_android
 from libs.utils.screen_utils import init_screen, is_screen_sm
-from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
+from libs.theme.theme import PRIMARY_COLORS, ThemeMode
 from libs.features.settings.preferences_service import PreferencesService, Preferences
 
 

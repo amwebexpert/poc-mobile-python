@@ -19,7 +19,7 @@ from libs.utils.string_utils import is_blank
 from libs.utils.keyboard_utils import has_soft_keyboard
 from libs.utils.date_utils import get_tz_delta
 
-from libs.theme.theme_utils import AnimatedIcons
+from libs.theme.theme import AnimatedIcons
 
 CHAT_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 

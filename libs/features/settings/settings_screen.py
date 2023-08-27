@@ -4,7 +4,7 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.clock import Clock
 
 from libs.theme.base_screen import BaseScreen
-from libs.theme.theme_utils import PRIMARY_COLORS, ThemeMode
+from libs.theme.theme import PRIMARY_COLORS, ThemeMode
 from libs.features.settings.preferences_service import PreferencesService, Preferences
 
 
