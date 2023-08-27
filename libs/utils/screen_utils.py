@@ -37,11 +37,11 @@ def is_screen_sm() -> bool:
 def is_mobile_simulation() -> bool:
     return "MOBILE_SIMULATION" in os.environ
 
+def get_navigation_bar() -> AppNavigationBar:
+    return MDApp.get_running_app().app_navigation_bar
+
 def get_screen_manager() -> MDScreenManager:
-    return MDApp.get_running_app().screen_manager
+    return get_navigation_bar().screen_manager
 
 def get_screen(screen_name: str) -> MDScreen:
     return get_screen_manager().get_screen(screen_name)
-
-def get_navigation_bar() -> AppNavigationBar:
-    return MDApp.get_running_app().app_navigation_bar

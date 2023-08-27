@@ -31,7 +31,6 @@ class MainApp(MDApp, App):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         self.service = PreferencesService()
-        self.screen_manager = None
         self.app_navigation_bar = None
         init_screen()
 
@@ -59,9 +58,7 @@ class MainApp(MDApp, App):
             Preferences.THEME_PRIMARY_COLOR.name, default_value=PRIMARY_COLORS[0])
 
     def init_app_navigation(self, app_screen: AppScreen) -> None:
-        self.screen_manager = app_screen.ids['screen_manager']
         self.app_navigation_bar = app_screen.ids['app_navigation_bar']
-        self.app_navigation_bar.screen_manager = self.screen_manager
         self.app_navigation_bar.navigate_to("home")
 
     def on_start(self) -> None:
