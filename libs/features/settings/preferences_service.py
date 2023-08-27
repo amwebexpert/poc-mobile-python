@@ -23,8 +23,7 @@ class PreferencesService:
             self.storage_service.close()
             if len(result) == 0:
                 return default_value
-            else:
-                return result[0][0]
+            return result[0][0]
         except Exception as error:  # pylint: disable=broad-except
             logging.exception("Unexpected error: %s", error)
             return default_value

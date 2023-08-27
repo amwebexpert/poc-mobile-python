@@ -90,7 +90,7 @@ class ChatSessionService:
         )
         return chat_session.id
 
-    def get(self, id=0) -> ChatSession:
+    def get(self, id=0) -> ChatSession:  # pylint: disable=redefined-builtin, invalid-name
         self.storage_service.connect()
         result = self.storage_service.select(
             "chat_sessions", ["*"], f"id = {id}")
@@ -98,8 +98,12 @@ class ChatSessionService:
             return None
 
         chat_session_rs = result[0]
-        chat_session = ChatSession(title=chat_session_rs[2], items=[
-        ], iso_created_at=chat_session_rs[1], id=chat_session_rs[0])
+        chat_session = ChatSession(
+            title=chat_session_rs[2],
+            items=[],
+            iso_created_at=chat_session_rs[1],
+            id=chat_session_rs[0]
+        )
         self.load_chat_session_items(chat_session)
         self.storage_service.close()
         return chat_session

@@ -51,7 +51,7 @@ class Text2ImgService:
         )
         return text2img.id
 
-    def get(self, id=0) -> Text2ImgSession:
+    def get(self, id=0) -> Text2ImgSession:  # pylint: disable=redefined-builtin, invalid-name
         self.storage_service.connect()
         result = self.storage_service.select(
             "text_2_images", ["*"], f"id = {id}")
