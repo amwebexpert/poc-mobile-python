@@ -92,6 +92,12 @@ Update the virtual environment dependencies:
    pip-sync
    ```
 
+### :point_right: Missing packages for Mac OS install :point_left:
+```
+pip install pygame
+pip install kivy==2.2.1
+```
+
 ### Startup & Hot Reload
 
 Normal startup
