@@ -57,6 +57,7 @@ macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_
 
 ## Getting Started
 
+<div style="opacity: .5;">
 You may have some OS core dependencies to install (`dll` on Windows, system lib on Ubuntu, etc.) so follow the official Kivy install instructions depending on your operating system(s):
 
 - [Kivy Framework](https://kivy.org)
@@ -67,6 +68,9 @@ Example: for Ubuntu you have to set the following environnement variable
     export USE_X11=1
    ```
 and install the listed [OS libraries](https://kivy.org/doc/stable/installation/installation-linux.html#id1)
+</div>
+
+### Other users can start here :point_down:
 
 Then you can install the Open Mindset app dependencies as follow. First create and activate your virtual environment:
 
@@ -204,8 +208,27 @@ Ensure both `kivy` and `kivymd` are up to date (see below reference for more det
 
 ## Building for iOS
 
+### Step 1: install kivy-ios
+```
+pip install kivy-ios
+```
+
+### Step 2: Create KivyBuild directory to hold the Xcode project
+This directory should be seperate from where this repo is stored. For example
+
+Directory
+```sh
+    _environments/
+        venv/
+    kivyBuilds/
+    poc-mobile-python/
+        main.py
+```
+
+
+
 Note:
-- Contributors are welcome to do that one, collected below some beginning instructions with some issues and solutions.
+- Contributors are welcome to do this one, collected below some beginning instructions with some issues and solutions.
 
 Good article here:
 - https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825
