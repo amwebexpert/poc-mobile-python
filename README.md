@@ -213,20 +213,41 @@ Ensure both `kivy` and `kivymd` are up to date (see below reference for more det
 pip install kivy-ios
 ```
 
-### Step 2: Create KivyBuild directory to hold the Xcode project
-This directory should be seperate from where this repo is stored. For example
+### Step 2: Create KivyBuilds directory to hold the Xcode project
+KivyBuilds (or whatever you want to call it) directory should be seperate from where this repo is stored. For example:
 
 Directory
 ```sh
     _environments/
         venv/
-    kivyBuilds/
+    KivyBuilds/
     poc-mobile-python/
         main.py
 ```
 
+### Step 3: Set up Toolchain environment (inside KivyBuilds)
+From your terminal navigate into KivyBuilds/ (or whatever you named it). 
+
+```
+toolchain build kivy
+toolchain pip install kaki
+toolchain pip install kivymd
+toolchain pip install event_bus
+```
+
+This will build all the dependencies including `python3`, `libffi`, etc.,
+
+### Step 4: Create the Xcode project from your poc-mobile-python repo/project
+
+Use this format: `toolchain create <name of app (no spaces)> <path to poc-mobil-python>`
+
+Example:
+```
+toolchain create openmindset /Users/nick/Documents/poc-mobile-python
+```
 
 
+### Other stuff
 Note:
 - Contributors are welcome to do this one, collected below some beginning instructions with some issues and solutions.
 
