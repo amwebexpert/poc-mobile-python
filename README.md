@@ -232,16 +232,15 @@ Directory
 ```
 
 ### Step 3: Set up Toolchain environment (inside KivyBuilds)
-From your terminal navigate into KivyBuilds/ (or whatever you named it). 
+From your terminal navigate into KivyBuilds/ (or whatever you named it). This is important becuase toolchain environment is different from your venv.
 
 ```
-toolchain build kivy
-toolchain pip install kaki
-toolchain pip install kivymd
-toolchain pip install event_bus
+toolchain build python3 kivy pillow libffi ffpyplayer 
+toolchain pip install kivymd kaki watchdog event_bus 
 ```
 
-This will build all the dependencies including `python3`, `libffi`, etc.,
+This will build all the dependencies in your <i>toolchain environment</i>.
+veryify by typing `toolchain status` in your KivyBuilds folder. It will look different than if you do `toolchain status` anywhere else.
 
 ### Step 4: Create the Xcode project from your poc-mobile-python repo/project
 
@@ -251,6 +250,13 @@ Example:
 ```
 toolchain create openmindset /Users/nick/Documents/poc-mobile-python
 ```
+
+### Step 5: To build to your iPhone (only for M1 arm64 silicon)
+If your host machine (i.e. your computer to run this project) is running on an arm64 silicone chip, you must change an Xcode setting.
+- Old setting (for x86_64): Project > Architectures > Architectures: $(ARCHS_STANDARD_64_BIT) - ($ARCHS_STANDARD_64_BIT)
+- New setting (for arm64): Project > Architectures > Architectures: Standard Architectures (Apple Silicon, Intel) - $(ARCHS_STANDARD)
+
+<img src="stores_presence/XcodeArchitectureSetting.gif" /> 
 
 
 ### Other stuff
@@ -269,20 +275,6 @@ Directories structure (according to medium article above)
         dist/
         openmindset-ios/
     openmindset/
-```
-
-- toolchain commands:
-```sh
-    toolchain status
-    toolchain build libffi
-    toolchain build ffpyplayer
-    toolchain build pillow
-    toolchain build python3 kivy
-
-    toolchain pip install kivymd
-    toolchain pip install kaki
-    toolchain pip install watchdog
-    toolchain pip install event_bus
 ```
 
 Build notes and frequently used commands:
