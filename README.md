@@ -256,7 +256,7 @@ If your host machine (i.e. your computer to run this project) is running on an a
 - Old setting (for x86_64): Project > Architectures > Architectures: $(ARCHS_STANDARD_64_BIT) - ($ARCHS_STANDARD_64_BIT)
 - New setting (for arm64): Project > Architectures > Architectures: Standard Architectures (Apple Silicon, Intel) - $(ARCHS_STANDARD)
 
-<img src="stores_presence/XcodeArchitectureSetting.gif" /> 
+<img src="stores_presence/ios_build/XcodeArchitectureSetting.gif" /> 
 
 
 ### Other stuff
