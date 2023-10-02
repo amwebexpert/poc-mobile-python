@@ -1,20 +1,17 @@
 # Build iOS
 Key notes for these build instructions:
-
 - toolchain (kivy-ios): is active with the python venv is active AND your are in the direcotry that it is installed in.
 - These instructions are based on building on arm64 architecture. However, I do not think there is a difference if x86_64 arch is used (as of October 2023). In the past there have been differences.
 
 
 ## Step 1: Create and activate venv
-same as [create venv](../README.md#create-venv)
+This step is the same as [create venv](../README.md#create-venv).
 ```
  python -m venv mindset
  source mindset/bin/activate
 ```
+Once mindset (or venv) is activated the environment is set to the terminal regardless of the directory your are in.
 
-The requirements.in in ios_build_01 has been modified to include:
-* kivy==2.2.1
-* pygame
 ```
  python -m pip install pip-tools
  pip-compile requirements.in
@@ -43,6 +40,7 @@ KivyBuilds/
 poc-mobil-python/
 ```
 
+
 From inside KivyBuilds/ create the toolchain environemnt
 ```
 toolchain build python3 kivy pillow libffi ffpyplayer 
@@ -52,6 +50,11 @@ This takes about 20 minutes with a good internet connection.
 ```
 toolchain pip install kivymd kaki watchdog event_bus 
 ```
+
+### Key Note on toolchain environment
+toolchain commands are particlar to the folder where toolchain packages are installed. The gif below demonstrates how your toolchain environment works. Once inside the folder where Step 3 is executed (i.e. KivyBuilds in the file structure example), if you do `toolchain status` you will see all the packages installed. However, if you naviagate outside of that folder toolchain status will return no install pacakges.
+
+<img src="../stores_presence/ios_build/toolchain_env_minus5.gif"/> 
 
 ### Background on toolchain/ kivy-ios
 toolchain is both the (1) command and (2) pacakge/suite/collection of software availible in kivy-ios package. toolchain suite of software will will convert the python project (poc-mobile-python) to an Xcode project.
@@ -66,7 +69,7 @@ Here openmindset could be anything and the last argument is the path to the Pyth
 ## Step 5: Signin to Xcode
 
 Sign in with your [Apple Developer account](https://developer.apple.com/programs/)
-<img src="stores_presence/ios_build/XcodeSignIn.gif" /> 
+<img src="../stores_presence/ios_build/XcodeSignIn.gif" /> 
 
 
 
@@ -78,12 +81,12 @@ Go to Project > Architectures > Architectures
 - Default setting: $(ARCHS_STANDARD_64_BIT) - ($ARCHS_STANDARD_64_BIT)
 - New setting: Standard Architectures (Apple Silicon, Intel) - $(ARCHS_STANDARD)
 
-<img src="stores_presence/ios_build/XcodeArchitectureSetting.gif" /> 
+<img src="../stores_presence/ios_build/XcodeArchitectureSetting.gif" /> 
 
 <hr>
 Once this architecture setting is changed and you go back to Targets > Build Settings, you should see a screen like this:
 
-<img src="stores_presence/ios_build/XcodeArchitectures.png" /> 
+<img src="../stores_presence/ios_build/XcodeArchitectures.png" /> 
 
 The blue arrow is the result of the change just made. 
 
