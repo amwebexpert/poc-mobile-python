@@ -70,7 +70,7 @@ Example: for Ubuntu you have to set the following environnement variable
 and install the listed [OS libraries](https://kivy.org/doc/stable/installation/installation-linux.html#id1)
 </div>
 
-### Other users can start here :point_down:
+### Other users can start here :point_down:<a id="create-venv"></a>
 
 Then you can install the Open Mindset app dependencies as follow. First create and activate your virtual environment:
 

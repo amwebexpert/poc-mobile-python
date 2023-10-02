@@ -1,6 +1,12 @@
-# Build iOS on M1
+# Build iOS
+Key notes for these build instructions:
 
-## Step 1: Create venv
+- toolchain (kivy-ios): is active with the python venv is active AND your are in the direcotry that it is installed in.
+- These instructions are based on building on arm64 architecture. However, I do not think there is a difference if x86_64 arch is used (as of October 2023). In the past there have been differences.
+
+
+## Step 1: Create and activate venv
+same as [create venv](../README.md#create-venv)
 ```
  python -m venv mindset
  source mindset/bin/activate
