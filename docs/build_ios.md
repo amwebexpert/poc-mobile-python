@@ -77,7 +77,17 @@ Here openmindset could be anything and the last argument is the path to the Pyth
 Sign in with your [Apple Developer account](https://developer.apple.com/programs/)
 <img src="../stores_presence/ios_build/XcodeSignIn.gif" /> 
 
+## Step 6: Build to simulator or iPhone
+Select device and press the play button
 
+## Build to TestFlight
+1. From inside Xcode select Product menu > Archive
+    - This creates a file that will be submitted to App Store Connects
+2. After Archive (.xcarchive file) is created select the file from Oragnizer and click "Distribute App".
+    - This can also be accessed by Window menu > Organizer
+3. There will be a automated process of verifying the package meets Apple requirements
+    - one issue we have had is a binary that is not accepted from the toolchain environment. The remedy to this is just delete the file and the package will get accepted.
+        - File to delete: KivyBuilds/dist/root/python3/lib/python3.10/site-packages/_watchdow_fsevents.cpython-310-darwin.so
 ### Other iOS stuff
 Note:
 - Contributors are welcome to do this one, collected below some beginning instructions with some issues and solutions.
