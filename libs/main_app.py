@@ -16,6 +16,7 @@ from libs.utils.platform_utils import is_android
 from libs.utils.screen_utils import init_screen, is_screen_sm
 from libs.theme.theme import PRIMARY_COLORS, ThemeMode
 from libs.features.settings.preferences_service import PreferencesService, Preferences
+from kivy.core.window import Window
 
 
 class AppScreen(MDScreen):  # pylint: disable=too-many-ancestors
@@ -35,7 +36,15 @@ class MainApp(MDApp, App):
         init_screen()
 
     def is_screen_sm(self) -> bool:
+        # image has problems when window width is 373 or smaller
+        # Window.size = (373, 680)
+        # Window.size = (1080, 2338)
+        print('Window size:', Window.size)
         return is_screen_sm()
+
+    # @Window.on_resize
+    # def print_window_size(self):
+    #     print('Window size:', Window.size)
 
     def get_metadata(self) -> dict:
         return get_app_version_info()
@@ -47,7 +56,11 @@ class MainApp(MDApp, App):
 
         app_screen = Factory.AppScreen()
         self.init_app_navigation(app_screen)
+        Window.bind(on_resize=self.on_window_resize)
         return app_screen
+
+    def on_window_resize(self, window, width, height):
+        print(f'Window resized to: ({width}, {height})')
 
     def init_theme(self) -> None:
         self.theme_cls.theme_style_switch_animation = True
