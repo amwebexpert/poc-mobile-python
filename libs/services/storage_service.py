@@ -1,6 +1,8 @@
 import logging
 from typing import List
 
+from kivymd.app import MDApp
+
 import sqlite3
 
 SEP = ", "
@@ -13,7 +15,8 @@ class StorageService:
         self.cursor = None
 
     def connect(self) -> None:
-        self.conn = sqlite3.connect(self.db_name)
+        data_dir = MDApp.get_running_app().user_data_dir
+        self.conn = sqlite3.connect(f"{data_dir}/{self.db_name}")
         self.cursor = self.conn.cursor()
 
     def close(self) -> None:
