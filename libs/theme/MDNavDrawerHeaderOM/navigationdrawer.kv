@@ -4,7 +4,7 @@
 <MDNavigationDrawerHeaderOM>
     adaptive_height: True
 
-    # costa-rica: replaced FitImage with BoxLayout with image
+    # costa-rica: replaced FitImage with BoxLayout with image. FitImage seems to get too big with iOS. Problem can be reproduced when running on python when window width is shrunk
     # FitImage:
     #     id: logo
     #     source: root.source
@@ -17,7 +17,7 @@
         Image:
             size_hint_y:None
             height:self.width
-            source: "libs/assets/logo-nav-drawer.png"
+            source: root.source
             allow_stretch: True
             keep_ratio: False
         Label:

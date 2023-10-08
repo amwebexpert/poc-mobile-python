@@ -34,7 +34,6 @@
             id: nav_drawer
             radius: (0, 16, 16, 0)
             theme_text_color: "Primary"
-            # BoxLayout:
             MDNavigationDrawerMenu:
                 MDNavigationDrawerHeaderOM:
                     source: "libs/assets/logo-nav-drawer.png"
@@ -78,44 +77,3 @@
                         app_navigation_bar.close_menu()
                         app.exit()
 
-
-
-# <CustomNavDrawerMenu>
-#     orientation: "vertical"
-#     BoxLayout:
-#         canvas.before:
-#             Color:
-#                 rgb: [100/255,0.6,0]
-#             Rectangle:
-#                 pos: self.pos
-#                 size: self.size
-#         BoxLayout:
-#             orientation: "vertical"
-#             Label:
-#                 # size_hint_y:.1
-#                 text:""
-#             Image:
-#                 size_hint_y:None
-#                 height:self.width
-#                 source: "libs/assets/logo-nav-drawer.png"
-#                 allow_stretch: True
-#                 keep_ratio: False  # This will stretch the im
-#             Label:
-#                 text:""
-#         BoxLayout:
-#             orientation: "vertical"
-#             # spacing:0
-#             AnchorLayout:
-#                 anchor_y: "bottom"
-#                 MDLabel:
-#                     text: app.get_metadata()["name"]
-#                     font_style: "H4"
-#                     size_hint_y: None  # Allows vertical size to be freely adjusted.
-#                     height: self.texture_size[1]  # Using
-#             AnchorLayout:
-#                 anchor_y: "top"
-#                 MDLabel:
-#                     text: app.get_metadata()["description"]
-#                     # padding:0
-#                     size_hint_y: None  # Allows vertical size to be freely adjusted.
-#                     height: self.texture_size[1]  # Using
