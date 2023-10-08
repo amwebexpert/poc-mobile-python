@@ -206,6 +206,7 @@ Ensure both `kivy` and `kivymd` are up to date (see below reference for more det
 
 Note:
 - Contributors are welcome to do that one, collected below some beginning instructions with some issues and solutions.
+- Rosetta 2 not necessary for arm64 using kivy-ios==2.2.1
 
 Good article here:
 - https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825
