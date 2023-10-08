@@ -65,7 +65,7 @@ toolchain commands are particlar to the folder where toolchain packages are inst
 ### Background on toolchain/ kivy-ios
 toolchain is both the (1) command and (2) pacakge/suite/collection of software availible in kivy-ios package. toolchain suite of software will will convert the python project (poc-mobile-python) to an Xcode project.
 
-## Step 4: Create Xcode proejct
+## Step 4: Create Xcode project
 Again from inside your KivyBuilds/ do the following command:
 ```
 toolchain create openmindset /Users/nick/Documents/poc-mobile-python
