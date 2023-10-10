@@ -68,7 +68,7 @@ toolchain is both the (1) command and (2) pacakge/suite/collection of software a
 ## Step 4: Create Xcode project
 Again from inside your KivyBuilds/ do the following command:
 ```
-toolchain create openmindset /Users/nick/Documents/poc-mobile-python
+toolchain create openmindset ~/Documents/poc-mobile-python
 ```
 Here openmindset could be anything and the last argument is the path to the Python Kivy project.
 
