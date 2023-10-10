@@ -91,7 +91,9 @@ Select device and press the play button
 ### Other iOS stuff
 Note:
 - Contributors are welcome to do this one, collected below some beginning instructions with some issues and solutions.
-- Rosetta 2 terminal not required for arm64 machines when using kivy-ios==2.2.1
+- Rosetta 2 terminal:
+  - not required for arm64 machines when using kivy-ios==2.2.1
+  - maybe required if you want to deploy on an `iOS iPhone Simulator`
 
 Good article here:
 - https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825
