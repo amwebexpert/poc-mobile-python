@@ -49,13 +49,13 @@ macOS        | <img src="stores_presence/macos-about.png" /> | <img src="stores_
       - [References](#references-1)
     - [Building for Android on macOS](#building-for-android-on-macos)
       - [Reference](#reference)
-  - [Building for iOS](#building-for-ios)
-    - [iOS build issues and solution (or workarounds)](#ios-build-issues-and-solution-or-workarounds)
+  - [Building for iOS](docs/build_ios.md) (seperate file in docs)
   - [About Kivy framework](#about-kivy-framework)
   - [About the app name](#about-the-app-name)
 
 
 ## Getting Started
+
 
 You may have some OS core dependencies to install (`dll` on Windows, system lib on Ubuntu, etc.) so follow the official Kivy install instructions depending on your operating system(s):
 
@@ -67,6 +67,9 @@ Example: for Ubuntu you have to set the following environnement variable
     export USE_X11=1
    ```
 and install the listed [OS libraries](https://kivy.org/doc/stable/installation/installation-linux.html#id1)
+
+
+### Other users can start here :point_down:<a id="create-venv"></a>
 
 Then you can install the Open Mindset app dependencies as follow. First create and activate your virtual environment:
 
@@ -87,6 +90,12 @@ Update the virtual environment dependencies:
    ```shell
    pip-sync
    ```
+
+### :point_right: Missing packages for Mac OS install :point_left:
+```
+pip install pygame
+pip install kivy==2.2.1
+```
 
 ### Startup & Hot Reload
 
@@ -204,84 +213,7 @@ Ensure both `kivy` and `kivymd` are up to date (see below reference for more det
 
 ## Building for iOS
 
-Note:
-- Contributors are welcome to do that one, collected below some beginning instructions with some issues and solutions.
-- Rosetta 2 not necessary for arm64 using kivy-ios==2.2.1
-
-Good article here:
-- https://nrodrig1.medium.com/put-kivy-application-on-iphone-update-1cda12e79825
-
-Directories structure (according to medium article above)
-```sh
-    _environments/
-        venv_wshKivy/
-    kivyBuilds/
-        build/
-        dist/
-        openmindset-ios/
-    openmindset/
-```
-
-- toolchain commands:
-```sh
-    toolchain status
-    toolchain build libffi
-    toolchain build ffpyplayer
-    toolchain build pillow
-    toolchain build python3 kivy
-
-    toolchain pip install kivymd
-    toolchain pip install kaki
-    toolchain pip install watchdog
-    toolchain pip install event_bus
-```
-
-Build notes and frequently used commands:
-
-- we must clone the app from github *WITHOUT* `venv` (wipe the `venv` folder entirely in order to build ios stuff)
-- when doing small code changes within the app, here are the steps to re-create the XCode Project:
-
-```sh
-    rm -rf openmindset-ios
-    toolchain create openmindset /Users/andre.masson/git/perso/python-projects/openmindset
-    cp /Users/andre.masson/git/perso/python-projects/openmindset/data/icon.png openmindset-ios/
-    open openmindset-ios/openmindset.xcodeproj
-```
-
-### iOS build issues and solution (or workarounds)
-
-- [creating a custom VSCode Rosetta terminal](https://dev.to/markwitt_me/creating-a-custom-vscode-terminal-profile-for-using-rosetta-on-an-m1-mac-apple-silicon-2gb2) However I discovered that the raw macOS terminal (see link below) was working in all cases while I had some obscur issues with the VSCode Rosetta terminal so be carefull
-- [launch macOS terminal in Rosetta mode](https://apple.stackexchange.com/a/409774/364767)
-- [command to know current rosetta mode](https://stackoverflow.com/a/67690510/704681) (1 === rosetta, 0 !== rossetta)
-    - `sysctl -n sysctl.proc_translated`
-    - `arch`
-      - will display `arm64` for ARM architecture
-      - will display `x86_64` (or `i386`) for rosetta architecture
-- Very slow `iOS Simulator` [discussed here](https://stackoverflow.com/questions/59570740/bad-xcode-iphone-simulator-performance-python-kivy-app)
-- duplicate symbol about `libsdl2_ttf.a` and `libfreetype.a`
-  - https://github.com/kivy/kivy-ios/issues/787#issuecomment-1489027427
-    Since `sdl2_ttf` now builds its own version of `libfreetype`, we will need to update some of our recipes accordingly.
-    as a workaround, you're likely good to just remove `libfreetype.a` from "Frameworks, Libraries and embedded content"
-
-For some reason you may have to downgrade cython for kivy build to succeed. The cython specific version to use:
-
-	pip install cython==0.29.36
-
-Bypass macOS default built in python version:
-
-     sudo ln -fs /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 /usr/local/bin/python
-
-XCode build failure
-
-    rsync warning: some files vanished before they could be transferred (code 24) at /AppleInternal/BuildRoot/Library/Caches/com.apple.xbs/Sources/rsync/rsync-54.120.1/rsync/main.c(996) [sender=2.6.9]
-    Command PhaseScriptExecution failed with a nonzero exit code
-
-Solution from [here](https://github.com/kivy/kivy-ios/issues/513#issuecomment-646689846)
-
-    % cd
-    % toolchain build python3 kivy openssl
-    % toolchain create <my_app_name> <full_path_to_my_app_source_directory>
-    % open <my_app_name>-ios/<my_app_name>.xcodeproj
+See seperate iOS build instructions [here](docs/build_ios.md).
 
 
 ## About Kivy framework
