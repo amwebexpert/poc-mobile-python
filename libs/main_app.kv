@@ -6,6 +6,7 @@
 #: import AIChatScreen libs.features.ai_chat.ai_chat_screen.AIChatScreen
 #: import Text2ImgScreen libs.features.ai_text_to_img.text2img_screen.Text2ImgScreen
 #: import AppNavigationBar libs.theme.app_navigation_bar.AppNavigationBar
+#: import MDNavigationDrawerHeaderOM libs.theme.MDNavDrawerHeaderOM.navigationdrawer.MDNavigationDrawerHeaderOM
 
 <AppScreen>:
     AppNavigationBar:
@@ -34,7 +35,7 @@
             radius: (0, 16, 16, 0)
             theme_text_color: "Primary"
             MDNavigationDrawerMenu:
-                MDNavigationDrawerHeader:
+                MDNavigationDrawerHeaderOM:
                     source: "libs/assets/logo-nav-drawer.png"
                     title: app.get_metadata()["name"]
                     text: app.get_metadata()["description"]
