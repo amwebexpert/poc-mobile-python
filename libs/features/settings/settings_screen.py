@@ -6,9 +6,12 @@ from kivy.clock import Clock
 from libs.theme.base_screen import BaseScreen
 from libs.theme.theme import PRIMARY_COLORS, ThemeMode
 from libs.features.settings.preferences_service import PreferencesService, Preferences
-
+from kivy.properties import StringProperty
+from kivy import platform
 
 class SettingsScreen(BaseScreen):  # pylint: disable=too-many-ancestors
+    text_input_hint_text_open_ai = StringProperty()
+    text_input_hint_text_stabilty_ai = StringProperty()
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -22,6 +25,9 @@ class SettingsScreen(BaseScreen):  # pylint: disable=too-many-ancestors
         self.init_open_ai_key()
         self.init_stability_ai_key()
         self.init_ai_temperature()
+        self.text_input_hint_text_open_ai = "Open AI key value (see https://platform.openai.com)"
+        self.text_input_hint_text_stabilty_ai = "Stability AI key value (see https://stability.ai/)"
+        self.set_text_hints()
 
     def init_ai_system_context(self) -> None:
         value = self.service.get(
@@ -85,3 +91,9 @@ class SettingsScreen(BaseScreen):  # pylint: disable=too-many-ancestors
 
     def set_ai_temperature(self, value: int) -> None:
         self.service.set(Preferences.AI_TEMPERATURE.name, round(value, 2))
+
+    # costa-rica: the text is too long on the iPhone if we add the paste button this method will reduce the text_hint length.
+    def set_text_hints(self):
+        if platform == 'ios':
+            self.text_input_hint_text_open_ai = "[Your Open AI key]"
+            self.text_input_hint_text_stabilty_ai = "[Your Stability AI key]"

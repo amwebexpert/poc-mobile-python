@@ -1,3 +1,4 @@
+#:import Clipboard kivy.core.clipboard.Clipboard
 <SettingsScreen>
     AppScreenLayout:
         spacing: dp(20)
@@ -41,13 +42,18 @@
                         pos_hint: {"center_y": .5}
                         adaptive_width: False if app.is_screen_sm() else True
                         height: self.texture_size[1]
-                    MDTextField:
-                        id: open_ai_key
-                        pos_hint: {"center_y": .5}
-                        hint_text: "Open AI key value (see https://platform.openai.com)"
-                        helper_text: "[https://platform.openai.com/account/api-keys]"
-                        text: ""
-                        on_text: root.set_open_ai_key(self.text)
+                    MDBoxLayout:
+                        adaptive_height: True
+                        MDTextField:
+                            id: open_ai_key
+                            pos_hint: {"center_y": .5}
+                            hint_text: root.text_input_hint_text_open_ai
+                            helper_text: "[https://platform.openai.com/account/api-keys]"
+                            text: ""
+                            on_text: root.set_open_ai_key(self.text)
+                        MDIconButton:
+                            icon: "content-paste"
+                            on_release: open_ai_key.text = Clipboard.paste()
                     # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
                     MDWidget:
                         size_hint: 0, 0
@@ -91,13 +97,18 @@
                         pos_hint: {"center_y": .5}
                         adaptive_width: False if app.is_screen_sm() else True
                         height: self.texture_size[1]
-                    MDTextField:
-                        id: stability_ai_key
-                        pos_hint: {"center_y": .5}
-                        hint_text: "Stability AI key value (see https://stability.ai/)"
-                        helper_text: "[https://stability.ai/]"
-                        text: ""
-                        on_text: root.set_stability_ai_key(self.text)
+                    MDBoxLayout:
+                        adaptive_height: True
+                        MDTextField:
+                            id: stability_ai_key
+                            pos_hint: {"center_y": .5}
+                            hint_text: root.text_input_hint_text_stabilty_ai
+                            helper_text: "[https://stability.ai/]"
+                            text: ""
+                            on_text: root.set_stability_ai_key(self.text)
+                        MDIconButton:
+                            icon: "content-paste"
+                            on_release: stability_ai_key.text = Clipboard.paste()
                     # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
                     MDWidget:
                         size_hint: 0, 0
