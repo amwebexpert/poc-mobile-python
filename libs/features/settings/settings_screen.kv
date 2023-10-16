@@ -108,7 +108,7 @@
                             on_text: root.set_stability_ai_key(self.text)
                         MDIconButton:
                             icon: "content-paste"
-                            on_release: ai_system_initial_context.text = Clipboard.paste()
+                            on_release: stability_ai_key.text = Clipboard.paste()
                     # fake a full row to add spacing on mobile devices (see MDGridLayout container vertical spacing)
                     MDWidget:
                         size_hint: 0, 0
