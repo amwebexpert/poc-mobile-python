@@ -2,7 +2,9 @@
 
 A 💯% `Python` application using the `KivyMD` framework, integrating Artificial Intelligence features. The goal is to have a single `Python` codebase that can be built and deployed on all major native platforms: `Android`, `iOS`, `macOS`, `Linux` and `Windows`.
 
-Some of the goals of the app:
+- Deployed on Apple Store [here](https://apps.apple.com/ca/app/open-mindset/id6467103164)!
+
+Some of the goals:
 
 - `KivyMD` app skeleton pattern including classique UI elements (navbar menu, top navbar, responsive, material design...)
 - learn and demonstrate best programming practices in a 💯% `Python` development environment
